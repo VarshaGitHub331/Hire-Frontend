@@ -1,0 +1,83 @@
+.budgetBox {
+  width: 30%;
+  height: 60vh;
+  margin: 2rem auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+.budgetBox h3 {
+  color: #013914;
+}
+.price span {
+  font-size: 1.5rem;
+}
+.price .priceAmount {
+  border: none;
+  min-width: 80px; /* Set a minimum width */
+  width: 100%; /* Default to take up available space */
+  max-width: 2.5vw; /* Cap the width for larger screens */
+  margin: 0.5rem;
+  font-size: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+.features {
+  min-width: 80%;
+
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.features ul {
+  list-style-type: disc;
+  display: flex;
+  flex-direction: column;
+  color: #055a21;
+  font-style: italic;
+  font-weight: 500;
+  width: 60%;
+  font-size: 0.8rem;
+  gap: 0.5rem;
+}
+
+.features .featureInput {
+  width: 80%;
+  padding: 8px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.next {
+  display: inline;
+  outline: none;
+  border: none;
+  color: white;
+  font-weight: 400;
+  position: absolute;
+  right: 10px;
+  width: 20%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: hsl(120, 74%, 15%);
+  margin-top: 5rem;
+  bottom: 2%;
+}
+.next:disabled {
+  background-color: rgb(
+    186,
+    185,
+    185
+  ); /* Light gray background for disabled state */
+  color: rgb(115, 114, 114); /* Slightly darker gray for the text */
+  cursor: not-allowed; /* Change cursor to indicate disabled state */
+}

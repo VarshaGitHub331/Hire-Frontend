@@ -1,0 +1,168 @@
+/* Navbar.module.css */
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #013914;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  transition: 0.5s all ease;
+}
+.activeNavbar {
+  background-color: white;
+  position: sticky;
+  color: black;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-weight: 500;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dot {
+  color: green;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.button:hover {
+  background-color: green;
+}
+
+.menu {
+  padding: 10px 2px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 300;
+  color: gray;
+}
+hr {
+  display: block; /* Ensure it behaves like a block element */
+  border: none;
+  border-top: 1px solid gray;
+  margin: 0;
+  width: 100vw;
+}
+.user {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.Img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.options {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  padding: 20px;
+  background-color: white;
+  border: 10px;
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: grey;
+  width: 100px;
+  font-weight: 200;
+}
+.options div {
+  width: 100%;
+  font-weight: 400;
+  text-align: left;
+}
+
+.join {
+  position: absolute;
+  top: 12vh;
+  right: 0;
+  padding: 20px;
+  background-color: white;
+  border: 10px;
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  color: grey;
+  width: 100px;
+  font-weight: 400;
+  font-size: 0.8rem;
+  border-radius: 2.5px;
+  cursor: pointer;
+}
+span {
+  cursor: pointer;
+}
+.menuContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align buttons on either side */
+  padding: 10px;
+  background-color: #f9f9f9; /* Light background for the menu */ /* Rounded corners for the container */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+}
+
+.menu {
+  display: flex;
+  gap: 16px; /* Spacing between category links */
+  flex: 1; /* Allow menu to take up space between buttons */
+  justify-content: space-around; /* Center-align categories */
+}
+
+.navButton {
+  background-color: white; /* Primary blue color */
+  color: rgb(146, 144, 144);
+  border: none;
+  border-radius: 50%; /* Circular button */
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-right: 1rem;
+}
+
+.navButton:disabled {
+  /* Gray for disabled */
+  cursor: not-allowed;
+}
+
+.navButton:not(:disabled):hover {
+  background-color: #013914; /* Darker blue for hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.navButton:not(:disabled):active {
+  transform: scale(0.95); /* Pressed effect */
+}
+
+.navButton i {
+  font-size: 20px; /* Adjust arrow icon size */
+}

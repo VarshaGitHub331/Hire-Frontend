@@ -1,0 +1,92 @@
+.descBox {
+  width: 35%;
+  min-height: 50vh;
+  height: auto;
+  margin: 2rem auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 1.5rem;
+}
+.descBox .inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  gap: 1.5rem;
+  color: rgb(76, 74, 74);
+}
+.descBox .thirdLabel {
+  color: gray;
+}
+.descBox .inputContainer .normalText {
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(100, 98, 98);
+  outline: none;
+  border: none;
+  min-width: 90%;
+  width: auto;
+  color: grey;
+  font-style: italic;
+  font-weight: 500;
+  resize: none; /* Prevent manual resizing by the user */
+  overflow: hidden; /* Hide any overflow (no scrollbar) */
+  padding: 10px;
+  min-height: 20vh;
+  height: auto;
+  padding: 0.5rem;
+  overflow: scroll; /* Optional for better spacing */
+}
+
+.descBox .inputContainer .normalText:focus {
+  border: 1px solid blue;
+}
+.thirdButton {
+  display: inline;
+  outline: none;
+  border: none;
+  color: white;
+  font-weight: 400;
+  width: 20%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: hsl(120, 75%, 26%);
+  cursor: pointer;
+}
+.descBox .imageInput {
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(100, 98, 98);
+  outline: none;
+  border: none;
+  min-width: 90%;
+  width: auto;
+  color: grey;
+  font-style: italic;
+  font-weight: 500; /* Hide any overflow (no scrollbar) */
+  padding: 10px;
+  height: auto;
+  padding: 0.5rem;
+}
+.thirdSubmit {
+  display: inline;
+  outline: none;
+  border: none;
+  color: white;
+  font-weight: 400;
+  width: 20%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: hsl(120, 75%, 26%);
+  position: absolute;
+  cursor: pointer;
+  right: 5%;
+  bottom: 5%;
+}

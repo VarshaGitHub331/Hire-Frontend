@@ -9,9 +9,9 @@ function AddGig() {
   const gigState = useSelector((store) => store.gig);
   return (
     <>
-      {/*gigState.step == 1 && <CreateGig />*/}
-      {/*gigState.step == 2 && <Budget />*/}
-      <Gigdesc />
+      {gigState.step == 1 && <CreateGig />}
+      {gigState.step == 2 && <Budget />}
+      {gigState.step == 3 && <Gigdesc />}
     </>
   );
 }

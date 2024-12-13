@@ -5,18 +5,14 @@ import * as yup from "yup";
 import styles from "./AddSecond.module.css";
 import { useState, useEffect } from "react";
 import ProgressBar from "../../components/progress/Progress";
-import { getRecommendedCategories, getSkills } from "../../apis/Skills";
-import { useQuery } from "@tanstack/react-query";
-import Modal from "react-modal";
-import axios from "axios";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   changeGigBudget,
   changeGigFeatures,
   increaseGigStep,
+  decreaseGigStep,
 } from "../../redux/gigSlice";
-import { increaseStep } from "../../redux/modalSlice";
-const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
 export default function Budget() {
   const [features, setFeatures] = useState([]);
@@ -25,7 +21,6 @@ export default function Budget() {
   const gigStoreBudget = useSelector((store) => store.gig.budget);
   const gigStoreFeatures = useSelector((store) => store.gig.features);
   const dispatch = useDispatch();
-  console.log(gigState);
 
   const handleKeyPress = (event, values, setFieldValue) => {
     if (event.key === "Enter" && featureInput.trim()) {
@@ -141,14 +136,20 @@ export default function Budget() {
                   />
                 )}
               </div>
-              <div>
+              <div className={styles.buttonContainer}>
+                <button
+                  type="button"
+                  className={styles.prevButton}
+                  onClick={(e) => {
+                    dispatch(decreaseGigStep());
+                  }}
+                >
+                  Prev
+                </button>
                 <button
                   type="submit"
                   className={styles.next}
                   disabled={values.price === 0 || values.features.length <= 0}
-                  onClick={(e) => {
-                    console.log(values);
-                  }}
                 >
                   Next
                 </button>

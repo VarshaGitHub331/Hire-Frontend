@@ -1,5 +1,6 @@
 import { useContext, createContext, useReducer } from "react";
 import { createRoutesFromChildren } from "react-router-dom";
+import { persistor } from "../redux/store";
 
 const UserContext = createContext(null);
 
@@ -43,6 +44,10 @@ function AuthProvider({ children }) {
   }
   function UserLogout() {
     dispatch({ type: "LOGOUT" });
+
+    persistor.purge().then(() => {
+      console.log("purged");
+    });
   }
   return (
     <UserContext.Provider value={{ UserLogin, UserLogout, userState }}>

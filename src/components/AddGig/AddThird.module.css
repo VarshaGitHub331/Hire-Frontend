@@ -1,6 +1,8 @@
 .descBox {
-  width: 35%;
-  min-height: 50vh;
+  min-width: 30%;
+  width: auto;
+  max-width: 50%;
+  min-height: 60vh;
   height: auto;
   margin: 2rem auto;
   padding: 20px;
@@ -48,18 +50,6 @@
 .descBox .inputContainer .normalText:focus {
   border: 1px solid blue;
 }
-.thirdButton {
-  display: inline;
-  outline: none;
-  border: none;
-  color: white;
-  font-weight: 400;
-  width: 20%;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: hsl(120, 75%, 26%);
-  cursor: pointer;
-}
 .descBox .imageInput {
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -75,6 +65,12 @@
   height: auto;
   padding: 0.5rem;
 }
+.buttonHolder {
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+  width: 100%;
+}
 .thirdSubmit {
   display: inline;
   outline: none;
@@ -85,8 +81,17 @@
   padding: 10px;
   border-radius: 5px;
   background-color: hsl(120, 75%, 26%);
-  position: absolute;
   cursor: pointer;
-  right: 5%;
-  bottom: 5%;
+}
+.thirdButton {
+  display: inline;
+  outline: none;
+  border: none;
+  color: white;
+  font-weight: 400;
+  width: 20%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: hsl(120, 75%, 26%);
+  cursor: pointer;
 }

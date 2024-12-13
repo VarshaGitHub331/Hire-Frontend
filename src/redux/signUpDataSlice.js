@@ -35,6 +35,9 @@ const signUpDetails = createSlice({
     setLinkUrl: (state, action) => {
       state.linkUrl = action.payload;
     },
+    resetSignUp: (state, action) => {
+      return initialState;
+    },
   },
 });
 
@@ -47,6 +50,7 @@ export const {
   setSelectedFile,
   setBudget,
   setLinkUrl,
+  resetSignUp,
 } = signUpDetails.actions;
 
 export default signUpDetails.reducer;

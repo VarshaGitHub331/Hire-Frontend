@@ -266,16 +266,19 @@ function CreateGig() {
                 >
                   Use AI
                 </button>
-                <button
-                  type="button"
-                  disabled={isSubmitting}
-                  onClick={(e) => {
-                    handleNext(e, values);
-                  }}
-                  className={styles.firstButton}
-                >
-                  Next
-                </button>
+              
+                  
+                  <button
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(e) => {
+                      handleNext(e, values);
+                    }}
+                    className={styles.firstButton}
+                  >
+                    Next
+                  </button>
+              
               </div>
             </Form>
             <Modal

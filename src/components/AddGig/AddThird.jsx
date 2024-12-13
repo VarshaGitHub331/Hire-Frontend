@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { changeGigDesc } from "../../redux/gigSlice";
+import { changeGigDesc, decreaseGigStep, resetGig } from "../../redux/gigSlice";
 import styles from "./AddThird.module.css";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
+import ProgressBar from "../progress/Progress";
 import axios from "axios";
 
 // Validation schema
@@ -19,6 +20,7 @@ const validationSchema = yup.object({
 
 export default function Gigdesc() {
   const dispatch = useDispatch();
+  const gig = useSelector((store) => store.gig);
   const gigTitle = useSelector((store) => store.gig.gigTitle);
   const gigCategories = useSelector((store) => store.gig.gigCategories);
   const gigSkills = useSelector((store) => store.gig.gigSkills);
@@ -37,17 +39,15 @@ export default function Gigdesc() {
   async function onSubmit(values, actions) {
     // Dispatch the gig description to Redux
     dispatch(changeGigDesc(values.gigDesc));
-
-    console.log(values);
-
+    console.log(gig);
     // Construct FormData to send to the backend
     const formData = new FormData();
-    formData.append("title", gigTitle);
-    formData.append("gigCategories", gigCategories);
-    formData.append("gigSkills", gigSkills);
-    formData.append("budget", budget);
-    formData.append("features", features);
-    formData.append("gigDesc", gigDescFromStore);
+    formData.append("title", gigTitle); // String
+    formData.append("gigCategories", gigCategories); // String
+    formData.append("gigSkills", JSON.stringify(gigSkills)); // JSON array
+    formData.append("budget", budget); // Number
+    formData.append("features", JSON.stringify(features)); // JSON array
+    formData.append("gigDesc", values.gigDesc); // String
     formData.append("user_id", userState.user_id);
 
     // Loop through and append all selected files to formData
@@ -72,6 +72,7 @@ export default function Gigdesc() {
 
       // Reset form fields after successful submission
       actions.resetForm();
+      dispatch(resetGig());
     } catch (error) {
       // Handle errors (e.g., display error message)
       console.log(error);
@@ -94,6 +95,9 @@ export default function Gigdesc() {
       {({ values, isSubmitting, setFieldValue }) => (
         <Form>
           <div className={styles.descBox}>
+            <div styles={{ width: "50%" }}>
+              <ProgressBar step={3} totalSteps={3} />
+            </div>
             <div className={styles.inputContainer}>
               <label htmlFor="gigDesc" className={styles.thirdLabel}>
                 Gig Description
@@ -135,20 +139,33 @@ export default function Gigdesc() {
                 className={styles.imageInput}
               />
             </div>
-            <button
-              className={styles.thirdButton}
-              type="button"
-              disabled={isSubmitting}
-            >
-              Use AI
-            </button>
-            <button
-              className={styles.thirdSubmit}
-              type="submit"
-              disabled={isSubmitting}
-            >
-              Submit
-            </button>
+
+            <div className={styles.buttonHolder}>
+              <button
+                className={styles.thirdButton}
+                type="button"
+                disabled={isSubmitting}
+              >
+                Use AI
+              </button>
+
+              <button
+                type="button"
+                className={styles.thirdSubmit}
+                onClick={(e) => {
+                  dispatch(decreaseGigStep());
+                }}
+              >
+                Prev
+              </button>
+              <button
+                className={styles.thirdSubmit}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </Form>
       )}

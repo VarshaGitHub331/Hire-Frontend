@@ -1,6 +1,7 @@
 .budgetBox {
   width: 30%;
-  height: 60vh;
+  min-height: 60vh;
+  height: auto;
   margin: 2rem auto;
   padding: 20px;
   background-color: #fff;
@@ -57,20 +58,22 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+.buttonContainer {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+}
 .next {
   display: inline;
   outline: none;
   border: none;
   color: white;
   font-weight: 400;
-  position: absolute;
-  right: 10px;
   width: 20%;
   padding: 10px;
   border-radius: 5px;
-  background-color: hsl(120, 74%, 15%);
-  margin-top: 5rem;
-  bottom: 2%;
+  background-color: hsl(120, 74%, 24%);
 }
 .next:disabled {
   background-color: rgb(
@@ -80,4 +83,14 @@
   ); /* Light gray background for disabled state */
   color: rgb(115, 114, 114); /* Slightly darker gray for the text */
   cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+.prevButton {
+  color: white;
+  font-weight: 400;
+  width: 20%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: hsl(120, 74%, 24%);
 }

@@ -5,6 +5,9 @@ import { getCategories } from "../../apis/Categories";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { decreaseStep } from "../../redux/modalSlice";
+import { resetGig } from "../../redux/gigSlice";
+import { resetSignUp } from "../../redux/signUpDataSlice";
+
 import styles from "./Navbar.module.css";
 
 function Navbar() {
@@ -33,6 +36,8 @@ function Navbar() {
   function handleLogout() {
     UserLogout();
     dispatch(decreaseStep());
+    dispatch(resetGig());
+    dispatch(resetSignUp());
     navigate("/");
   }
 

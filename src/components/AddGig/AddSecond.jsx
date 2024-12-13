@@ -70,8 +70,10 @@ export default function Budget() {
       >
         {({ values, isSubmitting, setFieldValue }) => (
           <Form>
-            <div className={styles.budgetBox}>
+            <div style={{ width: "45vw", margin: "auto", marginTop: "1rem" }}>
               <ProgressBar step={2} totalSteps={3} />
+            </div>
+            <div className={styles.budgetBox}>
               <h3>Basic Package</h3>
               <div className={styles.price}>
                 <span>&#8377;</span>

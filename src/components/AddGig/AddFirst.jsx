@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import Modal from "react-modal";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import ReactLoading from "react-loading";
 import {
   increaseGigStep,
   changeGigTitle,
@@ -49,6 +50,7 @@ function CreateGig() {
   const [gigDesc, setGigDesc] = useState("");
   const [showRecommendCategories, setShowRecommendCategories] = useState([]);
   const [showRecommendSkills, setShowRecommendSkills] = useState([]);
+  const [gigloading, setGigLoading] = useState(false);
   const dispatch = useDispatch();
   function handleNext(e, values) {
     dispatch(changeGigTitle(values.gigTitle));
@@ -107,6 +109,7 @@ function CreateGig() {
     setOpenRecs(true);
   }
   async function handleProceed({ values, setFieldValue }) {
+    setGigLoading(true);
     try {
       const res = await axios.post(
         `${BASE_URL}/freelancer/getGigInfo`,
@@ -124,6 +127,7 @@ function CreateGig() {
       setShowRecommendSkills(data.skills);
       setFieldValue("gigTitle", data.title);
       setFieldValue("gigCategory", data.most_similar_category);
+      setGigLoading(false);
     } catch (e) {
       alert(e);
     }
@@ -145,6 +149,28 @@ function CreateGig() {
         {({ isSubmitting, setFieldValue, values }) => (
           <>
             <Form className={styles.box}>
+              {gigloading && (
+                <>
+                  {/* Background with blur */}
+
+                  {/* Spinner centered */}
+                  <div
+                    style={{
+                      marginLeft: "25%",
+                      position: "fixed",
+                      top: "50%",
+                      backgroundColor: "rgba(255, 255, 255, 0.7)",
+                    }}
+                  >
+                    <ReactLoading
+                      type="spin"
+                      color="green"
+                      height={25}
+                      width={25}
+                    />
+                  </div>
+                </>
+              )}
               <div className={styles.inputContainer}>
                 <label htmlFor="gigTitle" className={styles.firstLabel}>
                   Choose an optimized and crisp title for your gig
@@ -266,19 +292,17 @@ function CreateGig() {
                 >
                   Use AI
                 </button>
-              
-                  
-                  <button
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={(e) => {
-                      handleNext(e, values);
-                    }}
-                    className={styles.firstButton}
-                  >
-                    Next
-                  </button>
-              
+
+                <button
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={(e) => {
+                    handleNext(e, values);
+                  }}
+                  className={styles.firstButton}
+                >
+                  Next
+                </button>
               </div>
             </Form>
             <Modal

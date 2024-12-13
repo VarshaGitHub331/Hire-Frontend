@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import ProgressBar from "../progress/Progress";
 import axios from "axios";
+import ReactLoading from "react-loading";
 
 // Validation schema
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
@@ -27,6 +28,7 @@ export default function Gigdesc() {
   const budget = useSelector((store) => store.gig.budget);
   const features = useSelector((store) => store.gig.features);
   const gigDescFromStore = useSelector((state) => state.gig.gigDesc);
+  const [submitting, setSubmitting] = useState(false);
   const { userState } = useAuthContext(); // Get persisted gig description value from the store
 
   // Handle image selection
@@ -57,6 +59,7 @@ export default function Gigdesc() {
 
     try {
       // Send data to backend using axios
+      setSubmitting(true);
       const response = await axios.post(
         `${BASE_URL}/freelancer/makeGig`,
         formData,
@@ -72,6 +75,7 @@ export default function Gigdesc() {
 
       // Reset form fields after successful submission
       actions.resetForm();
+      setSubmitting(false);
       dispatch(resetGig());
     } catch (error) {
       // Handle errors (e.g., display error message)
@@ -94,10 +98,33 @@ export default function Gigdesc() {
     >
       {({ values, isSubmitting, setFieldValue }) => (
         <Form>
+          <div style={{ width: "45vw", margin: "auto", marginTop: "1.5rem" }}>
+            <ProgressBar step={3} totalSteps={3} />
+          </div>
           <div className={styles.descBox}>
-            <div styles={{ width: "50%" }}>
-              <ProgressBar step={3} totalSteps={3} />
-            </div>
+            {submitting && (
+              <>
+                {/* Background with blur */}
+
+                {/* Spinner centered */}
+                <div
+                  style={{
+                    marginLeft: "25%",
+                    position: "fixed",
+                    top: "50%",
+                    backgroundColor: "rgba(255, 255, 255, 0.7)",
+                  }}
+                >
+                  <ReactLoading
+                    type="spin"
+                    color="green"
+                    height={25}
+                    width={25}
+                  />
+                </div>
+              </>
+            )}
+            <div styles={{ width: "50%" }}></div>
             <div className={styles.inputContainer}>
               <label htmlFor="gigDesc" className={styles.thirdLabel}>
                 Gig Description

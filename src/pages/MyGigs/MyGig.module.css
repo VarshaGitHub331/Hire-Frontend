@@ -1,0 +1,102 @@
+.myGig {
+  width: 100%;
+  height: auto;
+}
+.titlePart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2vh;
+  padding: 2rem;
+}
+.direction {
+  color: gray;
+  font-weight: 500;
+}
+.about {
+  color: gray;
+  font-weight: 400;
+}
+.gigsHolder {
+  width: 95%;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+}
+.gigRow {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1.5rem;
+}
+.gigCard {
+  width: 20vw;
+  height: 55vh;
+  display: flex;
+  gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+}
+.gigImage {
+  height: 60%;
+}
+.gigImage img {
+  height: 100%;
+  width: 100%;
+}
+.gigTitle {
+  color: gray;
+  font-weight: 500;
+  text-align: left;
+  margin-left: 2.5%;
+}
+.gigCategories {
+  width: 100%;
+  display: flex;
+  color: rgb(117, 116, 116);
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  justify-content: flex-start;
+  margin-left: 1vw;
+}
+.catTag {
+  display: inline-flex; /* Places button and close symbol inline */
+  align-items: center; /* Vertically centers items */
+  gap: 5px; /* Adds a small gap between button and close icon */
+  padding: 4px; /* Optional: Adds a bit of padding around the content */
+  border: 1px solid #f1f1f1;
+  color: white; /* Optional: Add a border for visibility */
+  border-radius: 4px; /* Optional: Rounded corners */
+  background-color: #0f6c41; /* Optional: Background color */
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 0.8em;
+  /* Prevents wrapping of text */
+}
+.budget {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+
+  color: #0f6c41;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.loadMore {
+  width: 95%;
+  padding-right: 5%;
+  margin-top: 2%;
+  display: flex;
+
+  justify-content: flex-end;
+}
+.loadMore button {
+  border: none;
+  margin: none;
+  background-color: white;
+  font-weight: 500;
+  color: #0f6c41;
+}

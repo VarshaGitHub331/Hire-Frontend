@@ -18,6 +18,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider, useAuthContext } from "./contexts/AuthContext.jsx";
 import { toast, Toaster } from "react-hot-toast";
+import MyGigs from "./pages/MyGigs/MyGig.jsx";
 
 function App() {
   const Layout = () => {
@@ -114,6 +115,10 @@ function App() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/myGigs",
+          element: <MyGigs />,
         },
       ],
     },

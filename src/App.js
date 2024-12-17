@@ -13,17 +13,19 @@ import Login from "./pages/login/Login.jsx";
 import CategoryModal from "./pages/SignUp/SelectCategories";
 import SkillModal from "./pages/SignUp/SelectSkills";
 import BudgetLinkedinModal from "./pages/SignUp/BudgetLinkedin";
-import "./App.css";
+import MyGigs from "./pages/MyGigs/MyGig.jsx";
+import MyGig from "./pages/MyGig/MyGig.jsx";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider, useAuthContext } from "./contexts/AuthContext.jsx";
 import { toast, Toaster } from "react-hot-toast";
-import MyGigs from "./pages/MyGigs/MyGig.jsx";
+
+import styles from "./App.module.css";
 
 function App() {
   const Layout = () => {
     return (
-      <div className="App">
+      <div className={styles.App}>
         {/* Your app content */}
 
         <Toaster
@@ -55,9 +57,15 @@ function App() {
           }}
         />
 
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <div className={styles.pageContainer}>
+          <Navbar />
+
+          <main>
+            <Outlet />
+          </main>
+
+          <Footer />
+        </div>
       </div>
     );
   };
@@ -76,7 +84,7 @@ function App() {
         },
         {
           path: "/gig/:id",
-          element: <Gigs />,
+          element: <MyGig />,
         },
         {
           path: "/orders",

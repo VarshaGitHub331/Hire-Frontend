@@ -1,7 +1,12 @@
 .myGig {
   width: 100%;
-  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  overflow: visible;
 }
+
 .titlePart {
   width: 100%;
   display: flex;
@@ -21,23 +26,26 @@
 }
 .gigsHolder {
   width: 95%;
-  padding: 2vw;
-  display: flex;
-  flex-direction: column;
-}
-.gigRow {
-  width: 100%;
+  padding: 2%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 1.5rem;
-}
+  justify-content: start;
+  overflow: visible;
+  grid-gap: auto;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-auto-rows: auto;
+  min-height: 0;
+} /* Ensure rows grow based on content */
+
 .gigCard {
+  cursor: pointer;
   width: 20vw;
-  height: 55vh;
+  margin-top: 3%;
+  height: auto;
   display: flex;
   gap: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex-direction: column;
+  min-height: 55vh;
 }
 .gigImage {
   height: 60%;
@@ -90,7 +98,6 @@
   padding-right: 5%;
   margin-top: 2%;
   display: flex;
-
   justify-content: flex-end;
 }
 .loadMore button {
@@ -99,4 +106,27 @@
   background-color: white;
   font-weight: 500;
   color: #0f6c41;
+}
+
+.filter {
+  width: 35vw;
+  height: 7vh;
+  display: flex;
+  justify-content: flex-start;
+  gap: 2.5vw;
+  margin-left: 2vw;
+}
+.filter .catFilter {
+  border-color: #0a8049;
+  border-width: 0.8px;
+  border-radius: 8px;
+  outline: none;
+}
+.catFilter :focus {
+  border-width: 2px;
+}
+.filter select {
+  background-color: none;
+  width: 25%;
+  text-align: center;
 }

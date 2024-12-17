@@ -1,6 +1,11 @@
 .App {
   text-align: center;
   width: 100vw;
+
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -44,4 +49,20 @@
 a {
   text-decoration: none;
   color: inherit;
+}
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 200vh;
+  height: auto; /* Full viewport height */
+}
+
+/* Content section grows with the page */
+main {
+  flex-grow: 1; /* This allows the content to grow */
+  display: flex;
+  flex-direction: column;
+}
+footer {
+  margin-top: auto;
 }

@@ -1,8 +1,12 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./MyGig.module.css";
 import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
+import { getCategories } from "../../apis/Categories";
+import { getSkills } from "../../apis/Skills";
+import { useQuery } from "@tanstack/react-query";
 
 export default function MyGig() {
   const location = useLocation();
@@ -12,11 +16,26 @@ export default function MyGig() {
   const [gigTitle, setGigTitle] = useState(gig.title);
   const [budget, setBudget] = useState(gig.budget);
   const [category, setCategory] = useState(gig.category_name);
+  const [selectedCategory, setSelectedCategory] = useState(gig.category_name);
   const [skillNames, setSkillNames] = useState(gig.skills_names?.split(","));
   const [features, setFeatures] = useState(gig.features);
   const [skillDetails, setSkillDetails] = useState([]); // Add this to use React state
   const { userState } = useAuthContext();
+  const [showSuggestedCategories, setShowSuggestedCategories] = useState(false);
+  const [showSuggestedSkills, setShowSuggestedSkills] = useState(false);
+  const [fromIndex, setFromIndex] = useState(0);
+  const [suggestedSkills, setSuggestedSkills] = useState([]);
   const user_id = userState.user_id;
+  const navigate = useNavigate();
+  const { data: fetchedCategories, isLoadingCat } = useQuery({
+    queryKey: ["fetchedCategories"],
+    queryFn: () => getCategories(),
+  });
+  const { data: fetchedSkills, isLoading } = useQuery({
+    queryKey: ["fetchedSkills", selectedCategory],
+    queryFn: () => getSkills([selectedCategory]),
+    enabled: !!selectedCategory && selectedCategory.length > 0,
+  });
   const handleSave = async () => {
     alert("calledddddd");
     console.log(skillDetails);
@@ -46,38 +65,20 @@ export default function MyGig() {
     }
   };
   const handleSkillChange = (index, newValue) => {
-    let updatedSkillDetails = [...skillDetails]; // Create a copy of the current skillDetails array
-
-    let flag = 1;
-
-    // Check if the skill is already in skillDetails
-    for (let i = 0; i < updatedSkillDetails.length; i++) {
-      if (
-        updatedSkillDetails[i].updatedFrom ===
-        gig.skills_names.split(",")[index]
-      ) {
-        flag = 0; // If skill already exists, update the value
-        updatedSkillDetails[i].updatedTo = newValue;
-        break;
-      }
-    }
-
-    // If the skill does not exist, add a new entry
-    if (flag === 1) {
-      updatedSkillDetails.push({
-        status: "updated",
-        updatedFrom: gig.skills_names.split(",")[index],
-        updatedTo: newValue,
-      });
-    }
-
-    // Update the skillDetails state
-    setSkillDetails(updatedSkillDetails);
-
-    // Also update the skillNames state to reflect the change in UI
+    console.log(fetchedSkills);
+    console.log(newValue);
+    setFromIndex((fromIndex) => index); // Also update the skillNames state to reflect the change in UI
     setSkillNames((prevSkills) =>
       prevSkills.map((skill, i) => (i === index ? newValue : skill))
     );
+    setSuggestedSkills(
+      fetchedSkills?.filter(
+        (fetchedSkill) =>
+          newValue.length > 3 &&
+          fetchedSkill.skill_name.toLowerCase().includes(newValue.toLowerCase())
+      )
+    );
+    setShowSuggestedSkills(true);
   };
 
   const handleFeatureChange = (index, newValue) => {
@@ -85,11 +86,54 @@ export default function MyGig() {
       features.map((feature, i) => (i == index ? newValue : feature))
     );
   };
+
+  const handleSkillSelect = (skillName) => {
+    let flag = 1;
+    for (let i = 0; i < skillDetails.length; i++) {
+      if (i == fromIndex) {
+        flag = 0;
+        skillDetails[i].updatedTo = skillName;
+        break;
+      }
+    }
+    if (flag == 1) {
+      skillDetails.push({
+        status: "updated",
+        updatedFrom: gig.skills_names.split(",")[fromIndex],
+        updatedTo: skillName,
+      });
+    }
+    setSkillNames((skillNames) =>
+      skillNames.map((skn, index) => {
+        if (index == fromIndex) return skillName;
+        else return skn;
+      })
+    );
+  };
+  const handleDelete = async () => {
+    try {
+      const deleted = await axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/gigs/deleteGig`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: { gig_id: gig.gig_id }, // Include `data` in the same object as `headers`
+        }
+      );
+      console.log(deleted);
+      navigate("/myGigs");
+    } catch (e) {
+      alert(e.response?.data?.error || "An error occurred");
+    }
+  };
+
   return (
     <div className={styles.MyGig}>
       <div className={styles.titlePart}>
         <div className={styles.direction}>
-          HIRE &gt; MY GIGS &gt;&gt; {gig.category_name}
+          <Link to="/">HIRE</Link> &gt; <Link to="/myGigs">MY GIGS</Link>{" "}
+          &gt;&gt; {gig.category_name}
         </div>
       </div>
       <div className={styles.gigCard}>
@@ -115,13 +159,47 @@ export default function MyGig() {
               style={{ width: category ? `${category.length + 1}ch` : `2ch` }}
               value={category}
               className={styles.catTag}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setShowSuggestedCategories(true);
+                setCategory(e.target.value);
+              }}
             />
           ) : (
             <div className={styles.catTag}>{category}</div>
           )}
         </div>
-
+        {showSuggestedCategories && (
+          <div className={styles.suggestedCategories}>
+            {fetchedCategories.map((cat) => {
+              if (
+                category &&
+                category.length > 3 &&
+                cat.category_name.toLowerCase().includes(category.toLowerCase())
+              )
+                return (
+                  <div
+                    className={styles.catTag}
+                    style={{
+                      backgroundColor: "#2dd889",
+                      height: "0.5rem",
+                      margin: "0.2rem",
+                      fontSize: "0.6rem",
+                      width: "auto",
+                    }}
+                    onClick={(e) => {
+                      setCategory((category) => cat.category_name);
+                      setShowSuggestedCategories((show) => !show);
+                      setSelectedCategory(
+                        (selectedCategory) => cat.category_name
+                      );
+                    }}
+                  >
+                    {cat.category_name}
+                  </div>
+                );
+            })}
+          </div>
+        )}
         <div className={styles.gigCategories}>
           Skills:
           {editing
@@ -141,6 +219,28 @@ export default function MyGig() {
                 </div>
               ))}
         </div>
+        {showSuggestedSkills && (
+          <div className={styles.suggestedCategories}>
+            {suggestedSkills?.map((sk) => (
+              <div
+                className={styles.catTag}
+                style={{
+                  backgroundColor: "#2dd889",
+                  height: "0.5rem",
+                  margin: "0.2rem",
+                  fontSize: "0.6rem",
+                  width: "auto",
+                }}
+                onClick={(e) => {
+                  handleSkillSelect(sk.skill_name);
+                  setShowSuggestedSkills((suggestedSkills) => !suggestedSkills);
+                }}
+              >
+                {sk.skill_name}
+              </div>
+            ))}
+          </div>
+        )}
         <div className={styles.features}>
           {editing == false
             ? gig.features.map((feature) => (
@@ -194,7 +294,14 @@ export default function MyGig() {
             >
               {editing ? "Save" : "Edit"}
             </div>
-            <div className={styles.deleteTag}>Delete</div>
+            <div
+              className={styles.deleteTag}
+              onClick={(e) => {
+                handleDelete();
+              }}
+            >
+              Delete
+            </div>
           </div>
 
           {editing ? (

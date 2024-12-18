@@ -16,7 +16,7 @@ async function getSkills(categories) {
         },
       }
     );
-
+    console.log(result);
     return result.data;
   } catch (e) {}
 }

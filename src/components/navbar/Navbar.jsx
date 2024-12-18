@@ -124,14 +124,10 @@ function Navbar() {
               {openJoin && (
                 <div className={styles.join}>
                   <Link to="/signUp?role=freelancer">
-                    <span onClick={() => setOpenJoin(false)}>
-                      Join As A Client
-                    </span>
+                    <span onClick={() => setOpenJoin(false)}>Freelancer</span>
                   </Link>
                   <Link to="/signUp?role=client">
-                    <span onClick={() => setOpenJoin(false)}>
-                      Become A Buyer
-                    </span>
+                    <span onClick={() => setOpenJoin(false)}>Client</span>
                   </Link>
                 </div>
               )}

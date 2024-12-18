@@ -1,0 +1,130 @@
+.about {
+  width: 60vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  position: relative;
+  gap: 3.5vh;
+  margin: 2.5vw;
+}
+.intro {
+  font-size: 2rem;
+  font-weight: 600;
+  color: rgb(23, 23, 23);
+}
+.desc {
+  text-align: left;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  width: 40%;
+  height: auto;
+}
+.createPosting {
+  width: 100%;
+  height: 8vh;
+  border: 2px solid hsl(120, 100%, 25%);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(120, 100%, 25%);
+  cursor: pointer;
+}
+.viewGigs {
+  width: 100%;
+  height: 8vh;
+  border: 2px solid hsl(120, 100%, 25%);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(120, 100%, 25%);
+  cursor: pointer;
+}
+.box {
+  background-color: white;
+  width: 45vw;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  margin: auto;
+  margin-top: 25vh;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+}
+.closeButton {
+  width: 10%;
+  height: 5%;
+  position: absolute;
+  font-size: 32px;
+  color: grey;
+  top: 7%;
+  right: 2%;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
+.box .title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 5%;
+  margin-left: 1%;
+  padding: 0.5%;
+  padding-left: 1.5%;
+  color: rgb(23, 23, 23);
+}
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 1%;
+  margin: 1.5%;
+}
+.companyInput {
+  all: unset;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 2.5%;
+  padding: 5px;
+  border: 1px solid hsl(120, 100%, 25%);
+  font-size: 0.8rem;
+}
+.continue {
+  border: none;
+  outline: none;
+  width: 20%;
+  height: 6vh;
+  background-color: hsl(120, 100%, 25%);
+  color: white;
+  border: 2px solid rgb(245, 241, 241);
+  border-radius: 25px;
+  cursor: pointer;
+}
+.skip {
+  border: none;
+  outline: none;
+  width: 20%;
+  height: 5vh;
+  background-color: whitesmoke;
+  color: hsl(120, 100%, 25%);
+  border: 2px solid rgb(180, 174, 174);
+  border-radius: 25px;
+  cursor: pointer;
+}
+.submitButtons {
+  width: 100%;
+  display: flex;
+  padding: 2%;
+  gap: 5%;
+}

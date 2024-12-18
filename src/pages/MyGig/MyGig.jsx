@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { getCategories } from "../../apis/Categories";
 import { getSkills } from "../../apis/Skills";
 import { useQuery } from "@tanstack/react-query";
-
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 export default function MyGig() {
   const location = useLocation();
   const [gig, setGig] = useState(location.state?.gig);
@@ -122,6 +123,7 @@ export default function MyGig() {
         }
       );
       console.log(deleted);
+      toast.success("Your Gig Has Been Deleted!");
       navigate("/myGigs");
     } catch (e) {
       alert(e.response?.data?.error || "An error occurred");

@@ -74,6 +74,7 @@ export default function SignUp() {
       localStorage.setItem("role", currentUser.role);
       localStorage.setItem("user_id", currentUser.user_id);
       localStorage.setItem("token", currentUser.token);
+      if (role == "client") navigate("/clientIntro");
       dispatch(increaseStep());
     } catch (e) {
       alert(e);

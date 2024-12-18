@@ -15,6 +15,7 @@ import SkillModal from "./pages/SignUp/SelectSkills";
 import BudgetLinkedinModal from "./pages/SignUp/BudgetLinkedin";
 import MyGigs from "./pages/MyGigs/MyGig.jsx";
 import MyGig from "./pages/MyGig/MyGig.jsx";
+import ClientIntro from "./pages/ClientIntro/Intro.jsx";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider, useAuthContext } from "./contexts/AuthContext.jsx";
@@ -127,6 +128,10 @@ function App() {
         {
           path: "/myGigs",
           element: <MyGigs />,
+        },
+        {
+          path: "/clientIntro",
+          element: <ClientIntro />,
         },
       ],
     },

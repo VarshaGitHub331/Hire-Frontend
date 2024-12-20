@@ -3,7 +3,7 @@ import Navbar from "./components/navbar/Navbar.jsx";
 import Footer from "./components/footer/footer.jsx";
 import Home from "./pages/home/Home.jsx";
 import Gigs from "./pages/MyGigs/MyGig.jsx";
-import Gig from "./pages/gig/Gig.jsx";
+import Gig from "./pages/ViewAllGigs/Gig.jsx";
 import Order from "./pages/MyOrder/MyOrder.jsx";
 import Add from "./pages/Add/AddGig.jsx";
 import Messages from "./pages/MyMessages/MyMessage.jsx";
@@ -20,6 +20,8 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider, useAuthContext } from "./contexts/AuthContext.jsx";
 import { toast, Toaster } from "react-hot-toast";
+import ViewGigs from "./pages/ViewGigs/ViewGigs.jsx";
+import ViewAllGigs from "./pages/ViewAllGigs/Gig.jsx";
 
 import styles from "./App.module.css";
 
@@ -80,10 +82,6 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/gigs",
-          element: <Gig />,
-        },
-        {
           path: "/gig/:id",
           element: <MyGig />,
         },
@@ -132,6 +130,14 @@ function App() {
         {
           path: "/clientIntro",
           element: <ClientIntro />,
+        },
+        {
+          path: "/viewGigs",
+          element: <ViewGigs />,
+        },
+        {
+          path: "/viewAllGigs",
+          element: <ViewAllGigs />,
         },
       ],
     },

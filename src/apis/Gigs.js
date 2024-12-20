@@ -24,5 +24,26 @@ async function fetchGigs(user_id, pageParam) {
     alert(e); // Handle error
   }
 }
-
-export { fetchGigs };
+async function fetchAllGigs(pageParam) {
+  try {
+    const result = await axios.get(
+      `${SERVER}/gigs/allGigs`, // Use the correct URL path
+      {
+        params: {
+          page: pageParam, // Add page as a query parameter
+          limit: 3, // Set limit directly
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(result);
+    return {
+      gigs: result.data, // Array of gigs
+    };
+  } catch (e) {
+    alert(e); // Handle error
+  }
+}
+export { fetchGigs, fetchAllGigs };

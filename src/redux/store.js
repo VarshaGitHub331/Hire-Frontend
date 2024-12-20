@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["modal", "gig"],
+  whitelist: ["modal", "gig", "company"],
 };
 const persistreducer = persistReducer(persistConfig, rootReducer);
 const store = configureStore({

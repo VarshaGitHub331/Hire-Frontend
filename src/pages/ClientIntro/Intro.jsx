@@ -6,10 +6,13 @@ import { Formik, Form, Field, ErrorMessage, label } from "formik";
 import axios from "axios";
 import { useFormikContext } from "formik";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useSelector, useDispatch } from "react-redux";
+import { changeName, changeNo, setCompleted } from "../../redux/companySlice";
 import * as yup from "yup";
 export default function ClientIntro() {
   const navigate = useNavigate();
   const [detailModal, setDetailModal] = useState(true);
+  const { completed } = useSelector((store) => store.company);
   return (
     <>
       <div className={styles.about}>
@@ -24,31 +27,31 @@ export default function ClientIntro() {
           <div
             className={styles.viewGigs}
             onClick={(e) => {
-              dispatch(openFileModal());
+              navigate("/viewGigs");
             }}
           >
             View Existing Gigs
           </div>
-          <div
-            className={styles.createPosting}
-            onClick={(e) => {
-              dispatch(openProfileModal());
-            }}
-          >
-            Create A Job Posting
-          </div>
+          <div className={styles.createPosting}>Create A Job Posting</div>
         </div>
       </div>
-      <DetailModal detailModal={detailModal} setDetailModal={setDetailModal} />
+
+      {!completed && (
+        <DetailModal
+          detailModal={detailModal}
+          setDetailModal={setDetailModal}
+        />
+      )}
     </>
   );
 }
 function DetailModal({ detailModal, setDetailModal }) {
+  const dispatch = useDispatch();
   const { user_id, token } = useAuthContext().userState;
-
+  const { company_name, company_no } = useSelector((store) => store.company);
   const initialValues = {
-    companyName: "",
-    companyPhone: "",
+    companyName: company_name || "",
+    companyPhone: company_no || "",
   };
 
   const validationSchema = yup.object({
@@ -65,8 +68,8 @@ function DetailModal({ detailModal, setDetailModal }) {
         `${process.env.REACT_APP_SERVER_URL}/client/updateProfile`,
         {
           user_id,
-          contact_number: values.companyPhone,
-          company_name: values.companyName,
+          contact_number: company_no,
+          company_name: company_name,
         },
         {
           headers: {
@@ -75,6 +78,7 @@ function DetailModal({ detailModal, setDetailModal }) {
         }
       );
       console.log("Profile updated successfully:", updatedProfile.data);
+      dispatch(setCompleted());
       setDetailModal(false); // Close modal on successful submission
       actions.resetForm(); // Reset form fields
     } catch (error) {
@@ -102,7 +106,7 @@ function DetailModal({ detailModal, setDetailModal }) {
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form>
             <div className={styles.detailContainer}>
               <label
@@ -117,6 +121,10 @@ function DetailModal({ detailModal, setDetailModal }) {
                 name="companyName"
                 placeholder="Enter company name"
                 className={styles.companyInput}
+                onChange={(e) => {
+                  setFieldValue("companyName", e.target.value);
+                  dispatch(changeName(e.target.value));
+                }}
               />
               <ErrorMessage
                 name="companyName"
@@ -141,6 +149,10 @@ function DetailModal({ detailModal, setDetailModal }) {
                 name="companyPhone"
                 placeholder="Enter phone number"
                 className={styles.companyInput}
+                onChange={(e) => {
+                  setFieldValue("companyPhone", e.target.value);
+                  dispatch(changeNo(e.target.value));
+                }}
               />
               <ErrorMessage
                 name="companyPhone"

@@ -140,3 +140,73 @@
   padding-left: 2.5%;
   padding-right: 2.5%;
 }
+.break {
+  width: 95%;
+  margin: auto;
+  color: rgb(164, 160, 160);
+}
+
+.gigFilter {
+  display: flex;
+  padding-left: 2vw;
+  width: 95%;
+}
+.filtering {
+  width: 20vw;
+  min-height: 30vh; /* Sets the initial height */
+  display: flex; /* Ensures proper handling of children elements */
+  flex-direction: column; /* Stack children vertically */
+  align-items: stretch; /* Ensure the div expands to accommodate content */
+  overflow: hidden; /* Optionally hide content if needed for aesthetic reasons */
+  height: auto;
+}
+
+.filtering .filterCat {
+  border: 1px solid rgb(198, 193, 193);
+  height: 10vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 500;
+}
+.navButton {
+  background-color: rgb(216, 209, 209); /* Primary blue color */
+  color: rgb(146, 144, 144);
+  border: none;
+  border-radius: 50%; /* Circular button */
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-right: 1rem;
+}
+.scrollableContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  overflow-y: scroll;
+  height: auto;
+  max-height: 15%;
+  border: 1px solid rgb(198, 193, 193);
+  gap: 2%;
+}
+.checkboxItem {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  color: rgb(168, 167, 167);
+}
+.BudgetContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 10vh;
+  border: 1px solid rgb(198, 193, 193);
+  gap: 2%;
+}

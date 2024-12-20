@@ -31,7 +31,7 @@ async function fetchAllGigs(pageParam) {
       {
         params: {
           page: pageParam, // Add page as a query parameter
-          limit: 3, // Set limit directly
+          limit: 6, // Set limit directly
         },
         headers: {
           "Content-Type": "application/json",

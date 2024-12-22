@@ -46,6 +46,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   min-height: 55vh;
+  max-height: 65vh;
 }
 .gigImage {
   height: 60%;

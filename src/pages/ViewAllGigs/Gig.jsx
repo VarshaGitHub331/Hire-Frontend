@@ -19,7 +19,9 @@ export default function MyGigs() {
   const [filteredCategory, setFilteredCategory] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
+  const [ratingOrder, setRatingOrder] = useState("");
   const [showBudget, setShowBudget] = useState(false);
+  const [showRating, setShowRating] = useState(false);
 
   const {
     data,
@@ -37,7 +39,7 @@ export default function MyGigs() {
   });
 
   const handleCardClick = (gig) => {
-    navigate(`/gig/${gig.gig_id}`, {
+    navigate(`/viewGig/${gig.gig_id}`, {
       state: { gig },
     });
   };
@@ -70,6 +72,22 @@ export default function MyGigs() {
     }
     return filteredData;
   }, [filteredData, sortOrder]);
+
+  const ratedData = useMemo(() => {
+    if (sortedData) {
+      if (ratingOrder === "highRating")
+        return [...sortedData].sort(
+          (a, b) => a.freelancer_rating - b.freelancer_rating
+        );
+      else return sortedData;
+    } else if (filteredData) {
+      if (ratingData === "highRating")
+        return [...filteredData].sort(
+          (a, b) => a.freelancer_rating - b.freelancer_rating
+        );
+      else return filteredData;
+    } else return [];
+  }, [filteredData, sortedData, ratingOrder]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading gigs!</div>;
@@ -159,10 +177,33 @@ export default function MyGigs() {
                 </div>
               </div>
             )}
+
+            <div className={styles.filterCat}>
+              Ratings
+              <button
+                className={styles.navButton}
+                onClick={() => setShowRating((prev) => !prev)}
+              >
+                <i className="fas fa-chevron-down"></i>
+              </button>
+            </div>
+            {showRating && (
+              <div className={styles.BudgetContainer}>
+                <div className={styles.checkboxItem}>
+                  <input
+                    type="radio"
+                    name="highRating"
+                    value="highRating"
+                    onChange={(e) => setRatingOrder(e.target.value)}
+                  />
+                  <label>Show High Rating</label>
+                </div>
+              </div>
+            )}
           </div>
         )}
         <div className={styles.gigsHolder}>
-          {sortedData?.map((gig, gigIndex) => (
+          {ratedData?.map((gig, gigIndex) => (
             <div
               key={gigIndex}
               className={styles.gigCard}

@@ -22,6 +22,7 @@ import { AuthProvider, useAuthContext } from "./contexts/AuthContext.jsx";
 import { toast, Toaster } from "react-hot-toast";
 import ViewGigs from "./pages/ViewGigs/ViewGigs.jsx";
 import ViewAllGigs from "./pages/ViewAllGigs/Gig.jsx";
+import ViewGig from "./pages/ViewGig/ViewGig.jsx";
 
 import styles from "./App.module.css";
 
@@ -138,6 +139,10 @@ function App() {
         {
           path: "/viewAllGigs",
           element: <ViewAllGigs />,
+        },
+        {
+          path: "/viewGig/:id",
+          element: <ViewGig />,
         },
       ],
     },

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { decreaseStep } from "../../redux/modalSlice";
 import { resetGig } from "../../redux/gigSlice";
 import { resetSignUp } from "../../redux/signUpDataSlice";
+import { resetCompany } from "../../redux/companySlice";
 
 import styles from "./Navbar.module.css";
 
@@ -38,6 +39,7 @@ function Navbar() {
     dispatch(decreaseStep());
     dispatch(resetGig());
     dispatch(resetSignUp());
+    dispatch(resetCompany());
     navigate("/");
   }
 

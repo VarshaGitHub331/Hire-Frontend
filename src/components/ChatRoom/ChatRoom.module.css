@@ -1,0 +1,91 @@
+.chatRoom {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  height: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.messagesContainer {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.message {
+  min-width: 10%;
+  max-width: 40%; /* Optional: Prevent overly long messages from stretching too far */
+  padding: 0.5%;
+  border-radius: 8px; /* Rounded corners for a bubble-like appearance */
+  margin: 4px 0; /* Space between messages */
+  word-wrap: break-word; /* Ensures long words break correctly */
+  margin-right: 1%;
+}
+.message span {
+  margin-left: 2.5%;
+}
+.sent {
+  background-color: #00796b;
+  color: white;
+  align-self: flex-end;
+}
+
+.received {
+  background-color: #fff;
+  align-self: flex-start;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.inputContainer input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.inputContainer button {
+  padding: 0.5rem 1rem;
+  background-color: #00796b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.inputContainer button:hover {
+  background-color: #004d40;
+}
+
+.typingIndicator {
+  color: #888;
+  font-style: italic;
+  padding-left: 1rem;
+}
+
+.messageStatus {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  border: 2px solid white;
+}
+
+.tick {
+  font-size: 0.5rem;
+  color: white; /* Default color for unseen */
+}
+
+.sentAt {
+  font-size: 0.5rem;
+}

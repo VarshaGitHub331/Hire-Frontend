@@ -1,0 +1,69 @@
+.conversationList {
+  list-style: none;
+  width: 100%;
+
+  padding: 0;
+  margin: 0;
+}
+
+.conversationItem {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.conversationItem:hover {
+  background-color: #f0f0f0;
+}
+.convSearch {
+  width: 95%;
+  background-color: white;
+  margin: 4%;
+  border-radius: 5px;
+  height: 10%;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  display: flex;
+}
+.convSearchInput {
+  width: 100%;
+  height: 70%;
+  display: flex;
+
+  justify-content: space-between;
+}
+.convSearchText {
+  width: 80%;
+  height: 100%;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  padding: 1.5%;
+  align-items: center;
+}
+.notificationBadge {
+  background-color: #28a745; /* Green background */
+  color: #fff; /* White text */
+  font-size: 12px; /* Adjust font size */
+  font-weight: bold;
+  border-radius: 50%; /* Circle shape */
+  width: 20px; /* Circle diameter */
+  height: 20px; /* Circle diameter */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+}
+.personName {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  font-weight: 600;
+}
+.convDetails {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

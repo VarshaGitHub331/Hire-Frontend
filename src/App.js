@@ -23,6 +23,7 @@ import { toast, Toaster } from "react-hot-toast";
 import ViewGigs from "./pages/ViewGigs/ViewGigs.jsx";
 import ViewAllGigs from "./pages/ViewAllGigs/Gig.jsx";
 import ViewGig from "./pages/ViewGig/ViewGig.jsx";
+import Chat from "./pages/Chat/Chat.jsx";
 
 import styles from "./App.module.css";
 
@@ -143,6 +144,10 @@ function App() {
         {
           path: "/viewGig/:id",
           element: <ViewGig />,
+        },
+        {
+          path: "/chat",
+          element: <Chat />,
         },
       ],
     },

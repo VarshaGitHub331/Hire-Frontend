@@ -15,6 +15,12 @@ export default function ViewGig() {
   const url = process.env.REACT_APP_SERVER_URL;
   const { userState } = useAuthContext();
   const user_id = userState.user_id;
+  const navigate = useNavigate();
+  const handleChat = () => {
+    navigate("/chat", {
+      state: { buyerId: user_id, sellerId: gig.freelancer_id },
+    });
+  };
   return (
     <>
       <div className={styles.titlePart}>
@@ -55,7 +61,12 @@ export default function ViewGig() {
               <div className={styles.editTag} onClick={(e) => {}}>
                 Order
               </div>
-              <div className={styles.deleteTag} onClick={(e) => {}}>
+              <div
+                className={styles.deleteTag}
+                onClick={(e) => {
+                  handleChat();
+                }}
+              >
                 Chat
               </div>
             </div>

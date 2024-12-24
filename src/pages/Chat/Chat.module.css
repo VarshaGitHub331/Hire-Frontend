@@ -1,0 +1,24 @@
+.chatPage {
+  display: flex;
+  height: 100vh;
+}
+
+.chatList {
+  width: 30%;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+.chatRoom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #888;
+}

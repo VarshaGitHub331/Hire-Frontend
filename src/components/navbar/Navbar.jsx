@@ -150,7 +150,7 @@ function Navbar() {
                 <div className={styles.options}>
                   {userState.role === "freelancer" && (
                     <>
-                      <Link to="/gigs">
+                      <Link to="/myGigs">
                         <div>Your Gigs</div>
                       </Link>
                       <Link to="/add">

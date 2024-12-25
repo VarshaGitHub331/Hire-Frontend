@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./ChatList.module.css";
 import { useAuthContext } from "../../contexts/AuthContext";
 
-const ChatList = ({ onSelectConversation }) => {
+const ChatList = ({ onSelectConversation, messages, setMessage }) => {
   const [conversations, setConversations] = useState([]);
   const { user_id } = useAuthContext().userState;
   const [search, setSearch] = useState("");
   const [filteredConv, setFilteredConv] = useState([]);
-
-  useEffect(() => {
-    // Fetch conversations for the user
+  function fetchConversations() {
     fetch(`http://localhost:3001/conversation/chats?user_id=${user_id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -18,7 +16,11 @@ const ChatList = ({ onSelectConversation }) => {
         setFilteredConv(data.conversations); // Initialize filtered list
       })
       .catch((err) => console.error(err));
-  }, [user_id]);
+  }
+  useEffect(() => {
+    // Fetch conversations for the user
+    fetchConversations();
+  }, [user_id, messages]);
 
   useEffect(() => {
     // Update filtered conversations based on the search input

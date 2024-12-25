@@ -12,6 +12,7 @@ const Chat = () => {
   const [buyerId, setBuyerId] = useState(location.state?.buyerId);
   const [sellerId, setSellerId] = useState(location.state?.sellerId);
   const { user_id } = useAuthContext().userState;
+  const [messages, setMessages] = useState([]);
 
   const handleSelectConversation = (conversation) => {
     console.log(conversation);
@@ -38,11 +39,20 @@ const Chat = () => {
   return (
     <div className={styles.chatPage}>
       <div className={styles.chatList}>
-        <ChatList onSelectConversation={handleSelectConversation} />
+        <ChatList
+          onSelectConversation={handleSelectConversation}
+          messages={messages}
+          setMessages={setMessages}
+        />
       </div>
       <div className={styles.chatRoom}>
         {buyerId && sellerId ? (
-          <ChatRoom sellerId={sellerId} buyerId={buyerId} />
+          <ChatRoom
+            sellerId={sellerId}
+            buyerId={buyerId}
+            messages={messages}
+            setMessages={setMessages}
+          />
         ) : (
           <h1>Click any chat to start</h1>
         )}

@@ -6,8 +6,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 // Initialize the socket instance outside the component
 const socket = io("http://localhost:3001");
 
-const ChatRoom = ({ buyerId, sellerId }) => {
-  const [messages, setMessages] = useState([]);
+const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
   const { user_id } = useAuthContext().userState;
   const [conversationId, setConversationId] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -27,7 +26,6 @@ const ChatRoom = ({ buyerId, sellerId }) => {
     socket.emit("joinConversation", { buyerId, sellerId });
 
     const handleLoadingMessages = ({ loadedMessages, conversation_id }) => {
-      alert("loading conversation");
       console.log("Loading messages:", loadedMessages);
       setMessages((messages) => loadedMessages);
       setConversationId((conversationId) => conversation_id);
@@ -51,6 +49,36 @@ const ChatRoom = ({ buyerId, sellerId }) => {
       socket.off("receiveMessage", handleReceiveMessage);
     };
   }, [buyerId, sellerId]);
+  useEffect(() => {
+    console.log("Called for filtering");
+    // Filter messages that are received and not yet read
+    const unseenMessages = messages.filter(
+      (msg) => msg.receiver_id == user_id && msg.status !== "read"
+    );
+    console.log("Unsen mesage", unseenMessages);
+    // If there are unseen messages, emit an event to mark them as read
+    if (unseenMessages.length > 0) {
+      socket.emit("markMessagesAsRead", {
+        conversationId,
+        messageIds: unseenMessages.map((msg) => msg.message_id),
+      });
+    }
+  }, [conversationId, messages]);
+  useEffect(() => {
+    const handleMessagesMarkedAsRead = (messageIds) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          messageIds.includes(msg.message_id) ? { ...msg, status: "read" } : msg
+        )
+      );
+    };
+
+    socket.on("messagesMarkedAsRead", handleMessagesMarkedAsRead);
+
+    return () => {
+      socket.off("messagesMarkedAsRead", handleMessagesMarkedAsRead);
+    };
+  }, []);
 
   const handlePostMessage = () => {
     if (newMessage.trim()) {

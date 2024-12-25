@@ -32,7 +32,7 @@ export default function Login() {
       );
       console.log("The result is");
       console.log(res);
-      const token = res.data;
+      const token = res.data.token;
       localStorage.setItem("authToken", token);
       const decoded_data = jwtDecode(token);
       const currentUser = {

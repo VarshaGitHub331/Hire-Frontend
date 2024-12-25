@@ -5,61 +5,88 @@ const initialState = {
   gigTitle: "",
   gigCategories: [],
   gigSkills: [],
-  budget: 0,
+  budget: 0, // General budget
+  standardBudget: 0, // Standard budget
+  advancedBudget: 0, // Advanced budget
+  duration: "",
+  revisions: "",
   features: [],
+  standardFeatures: [], // Features for standard
+  advancedFeatures: [], // Features for advanced
   gigDesc: "",
   gigMedia: [],
 };
+
 const gigSlice = createSlice({
   name: "Gigs",
   initialState,
   reducers: {
-    increaseGigStep: (state, action) => {
+    increaseGigStep: (state) => {
       state.step += 1;
     },
-    decreaseGigStep: (state, action) => {
+    decreaseGigStep: (state) => {
       if (state.step > 0) {
         state.step -= 1;
       }
     },
     changeGigTitle: (state, action) => {
-      const { payload, type } = action;
-      state.gigTitle = payload;
+      state.gigTitle = action.payload;
     },
     changeGigCategories: (state, action) => {
-      const { payload } = action;
-      state.gigCategories = payload;
+      state.gigCategories = action.payload;
     },
     changeGigSkills: (state, action) => {
-      const { payload } = action;
-      state.gigSkills = payload;
+      state.gigSkills = action.payload;
     },
     changeGigBudget: (state, action) => {
-      const { payload } = action;
-      state.budget = payload;
+      state.budget = action.payload;
+    },
+    changeStandardBudget: (state, action) => {
+      state.standardBudget = action.payload;
+    },
+    changeAdvancedBudget: (state, action) => {
+      state.advancedBudget = action.payload;
     },
     changeGigFeatures: (state, action) => {
-      const { payload } = action;
-      state.features = payload;
+      state.features = action.payload;
+    },
+    changeStandardFeatures: (state, action) => {
+      state.standardFeatures = action.payload;
+    },
+    changeAdvancedFeatures: (state, action) => {
+      state.advancedFeatures = action.payload;
     },
     changeGigDesc: (state, action) => {
-      const { payload } = action;
-      state.gigDesc = payload;
+      state.gigDesc = action.payload;
     },
-    resetGig: (state, action) => {
+    changeGigDuration: (state, action) => {
+      state.duration = action.payload;
+    },
+    changeGigRevisions: (state, action) => {
+      state.revisions = action.payload;
+    },
+    resetGig: () => {
       return initialState;
     },
   },
 });
+
 export const {
   increaseGigStep,
+  decreaseGigStep,
   changeGigBudget,
+  changeStandardBudget,
+  changeAdvancedBudget,
   changeGigCategories,
   changeGigSkills,
   changeGigFeatures,
+  changeStandardFeatures,
+  changeAdvancedFeatures,
   changeGigTitle,
   changeGigDesc,
+  changeGigDuration,
+  changeGigRevisions,
   resetGig,
-  decreaseGigStep,
 } = gigSlice.actions;
+
 export default gigSlice.reducer;

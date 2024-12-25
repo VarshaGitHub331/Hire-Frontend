@@ -28,6 +28,22 @@ export default function Gigdesc() {
   const budget = useSelector((store) => store.gig.budget);
   const features = useSelector((store) => store.gig.features);
   const gigDescFromStore = useSelector((state) => state.gig.gigDesc);
+  const gigStoreStandardBudget = useSelector(
+    (store) => store.gig.standardBudget
+  );
+  const gigStoreAdvancedudget = useSelector(
+    (store) => store.gig.advancedBudget
+  );
+  const gigStoreStandardFeatures = useSelector(
+    (store) => store.gig.standardFeatures
+  );
+
+  const gigStoreAdvancedFeatures = useSelector(
+    (store) => store.gig.advancedFeatures
+  );
+
+  const gigDuration = useSelector((store) => store.gig.duration);
+  const gigRevision = useSelector((store) => store.gig.revisions);
   const [submitting, setSubmitting] = useState(false);
   const { userState } = useAuthContext(); // Get persisted gig description value from the store
 
@@ -49,6 +65,18 @@ export default function Gigdesc() {
     formData.append("gigSkills", JSON.stringify(gigSkills)); // JSON array
     formData.append("budget", budget); // Number
     formData.append("features", JSON.stringify(features)); // JSON array
+    formData.append(
+      "standard_features",
+      JSON.stringify(gigStoreStandardFeatures)
+    );
+    formData.append(
+      "advanced_features",
+      JSON.stringify(gigStoreAdvancedFeatures)
+    );
+    formData.append("standard_budget", gigStoreStandardBudget);
+    formData.append("advanced_budget", gigStoreAdvancedudget);
+    formData.append("duration", gigDuration);
+    formData.append("revisions", gigRevision);
     formData.append("gigDesc", values.gigDesc); // String
     formData.append("user_id", userState.user_id);
 

@@ -7,10 +7,17 @@ const persistConfig = {
   storage,
   whitelist: ["modal", "gig", "company"],
 };
-const persistreducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-  reducer: persistreducer,
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+      },
+    }),
 });
 const persistor = persistStore(store);
-
+console.log(store);
 export { store, persistor };

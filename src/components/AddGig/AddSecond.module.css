@@ -122,3 +122,22 @@
   text-align: center;
   margin-bottom: 2.5%;
 }
+.featureHeader {
+  width: 100%;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-around;
+}
+.useAI {
+  color: white;
+  font-weight: 400;
+  width: 20%;
+  height: 50%;
+  padding: 2%;
+  border-radius: 5px;
+  margin-left: 2%;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  background-color: hsl(120, 74%, 24%);
+}

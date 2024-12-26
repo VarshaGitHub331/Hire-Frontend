@@ -22,7 +22,11 @@ export default function Basic({ values, setFieldValue }) {
     }
   };
   const removeFeature = (index) => {
-    setFeatures(features.filter((_, i) => i !== index));
+    setFeatures((features) => features.filter((_, i) => i !== index));
+    setFieldValue(
+      "features",
+      values.features?.filter((_, i) => i != index)
+    );
   };
   return (
     <div className={styles.features}>
@@ -62,7 +66,7 @@ export default function Basic({ values, setFieldValue }) {
           </div>
         ))}
       </ul>
-      {features.length < 3 && (
+      {features?.length < 3 && (
         <input
           type="text"
           value={featureInput}

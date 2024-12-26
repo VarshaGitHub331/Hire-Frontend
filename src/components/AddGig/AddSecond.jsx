@@ -24,6 +24,8 @@ import {
 
 export default function Budget() {
   const [gigPackage, setGigPackage] = useState("basic");
+  const store = useSelector((store) => store.gig);
+  console.log(store);
   const gigStoreBudget = useSelector((store) => store.gig.budget);
   const gigStoreStandardBudget = useSelector(
     (store) => store.gig.standardBudget
@@ -49,8 +51,16 @@ export default function Budget() {
     dispatch(changeGigFeatures(values.features));
     dispatch(changeGigRevisions(values.revisions));
     dispatch(changeGigDuration(values.duration));
-    dispatch(changeStandardFeatures(values.standardFeautures));
-    dispatch(changeAdvancedFeatures(values.advancedFeatures));
+    dispatch(
+      changeStandardFeatures(
+        values.standardFeatures ? values.standardFeatures : []
+      )
+    );
+    dispatch(
+      changeAdvancedFeatures(
+        values.advancedFeatures ? values.advancedFeatures : []
+      )
+    );
     dispatch(changeStandardBudget(values.standardPrice));
     dispatch(changeAdvancedBudget(values.advancedPrice));
     dispatch(increaseGigStep());

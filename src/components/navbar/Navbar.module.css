@@ -1,4 +1,3 @@
-/* Navbar.module.css */
 .navbar {
   display: flex;
   flex-direction: column;
@@ -10,15 +9,16 @@
   z-index: 10000;
   transition: 0.5s all ease;
 }
+
 .activeNavbar {
   background-color: white;
-  position: sticky;
   color: black;
 }
+
 .container {
   display: flex;
   justify-content: space-between;
-
+  align-items: center; /* Center content vertically */
   padding: 20px;
 }
 
@@ -43,7 +43,6 @@
   padding: 10px 20px;
   border-radius: 5px;
   border: 1px solid black;
-
   cursor: pointer;
   background-color: transparent;
 }
@@ -59,30 +58,33 @@
   font-weight: 300;
   color: gray;
 }
+
 hr {
-  display: block; /* Ensure it behaves like a block element */
+  display: block;
   border: none;
   border-top: 1px solid gray;
   margin: 0;
   width: 100vw;
 }
+
 .user {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
+
 .Img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
+
 .options {
   position: absolute;
   top: 60px;
   right: 0;
   padding: 20px;
   background-color: white;
-  border: 10px;
   border: 1px solid lightgray;
   display: flex;
   flex-direction: column;
@@ -91,6 +93,7 @@ hr {
   width: 100px;
   font-weight: 200;
 }
+
 .options div {
   width: 100%;
   font-weight: 400;
@@ -103,7 +106,6 @@ hr {
   right: 0;
   padding: 20px;
   background-color: white;
-  border: 10px;
   border: 1px solid lightgray;
   display: flex;
   flex-direction: column;
@@ -114,30 +116,32 @@ hr {
   border-radius: 2.5px;
   cursor: pointer;
 }
+
 span {
   cursor: pointer;
 }
+
 .menuContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Align buttons on either side */
+  justify-content: space-between;
   padding: 10px;
-  background-color: #f9f9f9; /* Light background for the menu */ /* Rounded corners for the container */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .menu {
   display: flex;
-  gap: 16px; /* Spacing between category links */
-  flex: 1; /* Allow menu to take up space between buttons */
-  justify-content: space-around; /* Center-align categories */
+  gap: 16px;
+  flex: 1;
+  justify-content: space-around;
 }
 
 .navButton {
-  background-color: white; /* Primary blue color */
+  background-color: white;
   color: rgb(146, 144, 144);
   border: none;
-  border-radius: 50%; /* Circular button */
+  border-radius: 50%;
   width: 30px;
   height: 30px;
   display: flex;
@@ -150,19 +154,20 @@ span {
 }
 
 .navButton:disabled {
-  /* Gray for disabled */
   cursor: not-allowed;
 }
 
 .navButton:not(:disabled):hover {
-  background-color: #013914; /* Darker blue for hover */
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  background-color: #013914;
+  transform: scale(1.1);
 }
 
 .navButton:not(:disabled):active {
-  transform: scale(0.95); /* Pressed effect */
+  transform: scale(0.95);
 }
 
 .navButton i {
-  font-size: 20px; /* Adjust arrow icon size */
+  font-size: 20px;
 }
+
+/* Responsive Adjustments */

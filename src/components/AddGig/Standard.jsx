@@ -1,10 +1,30 @@
 import styles from "./AddSecond.module.css";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 export default function Standard({ values, setFieldValue }) {
+  const gigTitle = useSelector((store) => store.gig.gigTitle);
   console.log(values);
   const [features, setFeatures] = useState(values.standardFeatures);
   const [featureInput, setFeatureInput] = useState("");
+  const useAI = async () => {
+    try {
+      const result = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/gigs/aiFeatures`,
+        {
+          level: "standard",
+          basic_features: values.features,
+          title: values.title,
+        }
+      );
+      console.log(result.data.features);
 
+      setFeatures((features) => result.data.features);
+      setFieldValue("standardFeatures", result.data.features);
+    } catch (e) {
+      alert(e);
+    }
+  };
   const handleKeyPress = (event, values, setFieldValue) => {
     if (event.key === "Enter" && featureInput.trim()) {
       event.preventDefault();
@@ -26,15 +46,29 @@ export default function Standard({ values, setFieldValue }) {
     }
   };
   const removeFeature = (index) => {
-    setFeatures(features.filter((_, i) => i !== index));
+    setFeatures((features) => features.filter((_, i) => i !== index));
+    setFieldValue(
+      "standardFeatures",
+      values.standardFeatures?.filter((_, i) => i != index)
+    );
   };
+
   return (
     <div className={styles.features}>
-      <div style={{ marginLeft: "1rem", fontWeight: "500" }}>
+      <div className={styles.featureHeader}>
         Add Features For Your Package :
+        <button
+          type="button"
+          className={styles.useAI}
+          onClick={(e) => {
+            useAI();
+          }}
+        >
+          Use AI
+        </button>
       </div>
       <ul>
-        {features.map((feature, index) => (
+        {features?.map((feature, index) => (
           <div
             style={{
               minWidth: "100%",

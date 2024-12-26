@@ -38,6 +38,8 @@ const onSubmit = (values) => {
 };
 
 function CreateGig() {
+  const store = useSelector((store) => store.gig);
+  console.log(store);
   const gigStoreTitle = useSelector((store) => store.gig.gigTitle);
   const gigStoreCategory = useSelector((store) => store.gig.gigCategory);
   const gigStoreSkills = useSelector((store) => store.gig.gigSkills);

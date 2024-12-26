@@ -8,15 +8,15 @@ const initialState = {
   budget: 0, // General budget
   standardBudget: 0, // Standard budget
   advancedBudget: 0, // Advanced budget
+  standardFeatures: [], // Features for standard
+  advancedFeatures: [], // Features for advanced
   duration: "",
   revisions: "",
   features: [],
-  standardFeatures: [], // Features for standard
-  advancedFeatures: [], // Features for advanced
   gigDesc: "",
   gigMedia: [],
 };
-
+console.log(initialState);
 const gigSlice = createSlice({
   name: "Gigs",
   initialState,

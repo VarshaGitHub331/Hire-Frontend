@@ -9,6 +9,8 @@ import { getSkills } from "../../apis/Skills";
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
+import Standard from "./Standard";
+import Advanced from "./Advanced";
 export default function ViewGig() {
   const location = useLocation();
   const [gig, setGig] = useState(location.state?.gig);
@@ -73,29 +75,33 @@ export default function ViewGig() {
           </div>
         </div>
         <div>
-          <div className={styles.features}>
-            <div className={styles.featureTitle}>Description</div>
-            <div className={styles.description}>{gig.description}</div>
-            <div className={styles.featureTitle}>Features</div>
-            <div className={styles.featureList}>
-              {gig.features.map((feature) => (
-                <div>
-                  <span
-                    style={{
-                      color: "green",
-                      fontSize: "1rem",
-                      marginRight: "1rem",
-                    }}
-                  >
-                    ✔
-                  </span>
-                  {feature}
-                </div>
-              ))}
+          <div>
+            <div className={styles.features}>
+              <div className={styles.featureTitle}>Description</div>
+              <div className={styles.description}>{gig.description}</div>
+              <div className={styles.featureTitle}>Features</div>
+              <div className={styles.featureList}>
+                {gig.features.map((feature) => (
+                  <div>
+                    <span
+                      style={{
+                        color: "green",
+                        fontSize: "1rem",
+                        marginRight: "1rem",
+                      }}
+                    >
+                      ✔
+                    </span>
+                    {feature}
+                  </div>
+                ))}
+              </div>
+              <div className={styles.featureTitle}>
+                Budget :&nbsp;&#8377; {gig.budget}
+              </div>
             </div>
-            <div className={styles.featureTitle}>
-              Budget :&nbsp;&#8377; {gig.budget}
-            </div>
+            <Standard gig={gig} />
+            <Advanced gig={gig} />
           </div>
         </div>
       </div>

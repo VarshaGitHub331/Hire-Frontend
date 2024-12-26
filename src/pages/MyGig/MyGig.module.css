@@ -28,7 +28,6 @@
   gap: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex-direction: column;
-  margin: auto;
   margin-top: 2%;
   margin-bottom: 2%;
   min-height: 85vh;
@@ -126,4 +125,44 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
+}
+.gigContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.packFeatures {
+  width: 30vw;
+  min-height: 30vh; /* Initial height */
+  display: flex;
+  gap: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 5%;
+}
+
+.description {
+  font-style: italic;
+  display: flex;
+  justify-content: flex-start;
+  color: gray;
+}
+.featureTitle {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  font-style: italic;
+  font-weight: 600;
+  color: black;
+}
+.featureList {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin: auto;
 }

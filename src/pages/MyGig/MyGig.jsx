@@ -8,6 +8,8 @@ import { getCategories } from "../../apis/Categories";
 import { getSkills } from "../../apis/Skills";
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import StandardFeatures from "./StandardFeatures";
+import AdvancedFeatures from "./AdvancedFeatures";
 import toast from "react-hot-toast";
 export default function MyGig() {
   const location = useLocation();
@@ -138,190 +140,201 @@ export default function MyGig() {
           &gt;&gt; {gig.category_name}
         </div>
       </div>
-      <div className={styles.gigCard}>
-        <div className={styles.gigImage}>
-          <img src={gig.picture[0]} alt="gigImage" />
-        </div>
-        {editing ? (
-          <input
-            type="text"
-            className={styles.gigTitle}
-            value={gigTitle}
-            onChange={(e) => setGigTitle(e.target.value)}
-          />
-        ) : (
-          <div className={styles.gigTitle}>{gig.title}</div>
-        )}
-
-        <div className={styles.gigCategories}>
-          Category:
+      <div className={styles.gigContainer}>
+        <div className={styles.gigCard}>
+          <div className={styles.gigImage}>
+            <img src={gig.picture[0]} alt="gigImage" />
+          </div>
           {editing ? (
             <input
               type="text"
-              style={{ width: category ? `${category.length + 1}ch` : `2ch` }}
-              value={category}
-              className={styles.catTag}
-              onChange={(e) => {
-                setShowSuggestedCategories(true);
-                setCategory(e.target.value);
-              }}
+              className={styles.gigTitle}
+              value={gigTitle}
+              onChange={(e) => setGigTitle(e.target.value)}
             />
           ) : (
-            <div className={styles.catTag}>{category}</div>
+            <div className={styles.gigTitle}>{gig.title}</div>
           )}
-        </div>
-        {showSuggestedCategories && (
-          <div className={styles.suggestedCategories}>
-            {fetchedCategories.map((cat) => {
-              if (
-                category &&
-                category.length > 3 &&
-                cat.category_name.toLowerCase().includes(category.toLowerCase())
-              )
-                return (
-                  <div
-                    className={styles.catTag}
-                    style={{
-                      backgroundColor: "#2dd889",
-                      height: "0.5rem",
-                      margin: "0.2rem",
-                      fontSize: "0.6rem",
-                      width: "auto",
-                    }}
-                    onClick={(e) => {
-                      setCategory((category) => cat.category_name);
-                      setShowSuggestedCategories((show) => !show);
-                      setSelectedCategory(
-                        (selectedCategory) => cat.category_name
-                      );
-                    }}
-                  >
-                    {cat.category_name}
-                  </div>
-                );
-            })}
+          <div className={styles.featureTitle}>Description</div>
+          <div className={styles.description}>{gig.description}</div>
+          <div className={styles.gigCategories}>
+            Category:
+            {editing ? (
+              <input
+                type="text"
+                style={{ width: category ? `${category.length + 1}ch` : `2ch` }}
+                value={category}
+                className={styles.catTag}
+                onChange={(e) => {
+                  setShowSuggestedCategories(true);
+                  setCategory(e.target.value);
+                }}
+              />
+            ) : (
+              <div className={styles.catTag}>{category}</div>
+            )}
           </div>
-        )}
-        <div className={styles.gigCategories}>
-          Skills:
-          {editing
-            ? skillNames.map((skill, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  value={skill}
+          {showSuggestedCategories && (
+            <div className={styles.suggestedCategories}>
+              {fetchedCategories.map((cat) => {
+                if (
+                  category &&
+                  category.length > 3 &&
+                  cat.category_name
+                    .toLowerCase()
+                    .includes(category.toLowerCase())
+                )
+                  return (
+                    <div
+                      className={styles.catTag}
+                      style={{
+                        backgroundColor: "#2dd889",
+                        height: "0.5rem",
+                        margin: "0.2rem",
+                        fontSize: "0.6rem",
+                        width: "auto",
+                      }}
+                      onClick={(e) => {
+                        setCategory((category) => cat.category_name);
+                        setShowSuggestedCategories((show) => !show);
+                        setSelectedCategory(
+                          (selectedCategory) => cat.category_name
+                        );
+                      }}
+                    >
+                      {cat.category_name}
+                    </div>
+                  );
+              })}
+            </div>
+          )}
+          <div className={styles.gigCategories}>
+            Skills:
+            {editing
+              ? skillNames.map((skill, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    value={skill}
+                    className={styles.catTag}
+                    style={{ width: skill ? `${skill.length + 1}ch` : `2ch` }}
+                    onChange={(e) => handleSkillChange(index, e.target.value)}
+                  />
+                ))
+              : gig.skills_names.split(",").map((skill, index) => (
+                  <div key={index} className={styles.catTag}>
+                    {skill}
+                  </div>
+                ))}
+          </div>
+          {showSuggestedSkills && (
+            <div className={styles.suggestedCategories}>
+              {suggestedSkills?.map((sk) => (
+                <div
                   className={styles.catTag}
-                  style={{ width: skill ? `${skill.length + 1}ch` : `2ch` }}
-                  onChange={(e) => handleSkillChange(index, e.target.value)}
-                />
-              ))
-            : gig.skills_names.split(",").map((skill, index) => (
-                <div key={index} className={styles.catTag}>
-                  {skill}
+                  style={{
+                    backgroundColor: "#2dd889",
+                    height: "0.5rem",
+                    margin: "0.2rem",
+                    fontSize: "0.6rem",
+                    width: "auto",
+                  }}
+                  onClick={(e) => {
+                    handleSkillSelect(sk.skill_name);
+                    setShowSuggestedSkills(
+                      (suggestedSkills) => !suggestedSkills
+                    );
+                  }}
+                >
+                  {sk.skill_name}
                 </div>
               ))}
-        </div>
-        {showSuggestedSkills && (
-          <div className={styles.suggestedCategories}>
-            {suggestedSkills?.map((sk) => (
+            </div>
+          )}
+          <div className={styles.features}>
+            {editing == false
+              ? gig.features.map((feature) => (
+                  <div>
+                    <span
+                      style={{
+                        color: "green",
+                        fontSize: "1rem",
+                        marginRight: "1rem",
+                      }}
+                    >
+                      ✔
+                    </span>
+                    {feature}
+                  </div>
+                ))
+              : features.map((feature, index) => (
+                  <div>
+                    <span
+                      style={{
+                        color: "green",
+                        fontSize: "1rem",
+                        marginRight: "1rem",
+                      }}
+                    >
+                      ✔
+                    </span>
+                    <input
+                      style={{ all: "unset", width: `${feature.length + 1}ch` }}
+                      value={feature}
+                      onChange={(e) => {
+                        handleFeatureChange(index, e.target.value);
+                      }}
+                    />
+                  </div>
+                ))}
+          </div>
+          <div className={styles.bottom}>
+            <div
+              className={styles.settings}
+              style={{ display: "flex", gap: "1rem" }}
+            >
               <div
-                className={styles.catTag}
-                style={{
-                  backgroundColor: "#2dd889",
-                  height: "0.5rem",
-                  margin: "0.2rem",
-                  fontSize: "0.6rem",
-                  width: "auto",
-                }}
-                onClick={(e) => {
-                  handleSkillSelect(sk.skill_name);
-                  setShowSuggestedSkills((suggestedSkills) => !suggestedSkills);
+                className={styles.editTag}
+                onClick={() => {
+                  {
+                    editing == true && handleSave();
+                  }
+                  setEditing((prev) => !prev);
                 }}
               >
-                {sk.skill_name}
+                {editing ? "Save" : "Edit"}
               </div>
-            ))}
-          </div>
-        )}
-        <div className={styles.features}>
-          {editing == false
-            ? gig.features.map((feature) => (
-                <div>
-                  <span
-                    style={{
-                      color: "green",
-                      fontSize: "1rem",
-                      marginRight: "1rem",
-                    }}
-                  >
-                    ✔
-                  </span>
-                  {feature}
-                </div>
-              ))
-            : features.map((feature, index) => (
-                <div>
-                  <span
-                    style={{
-                      color: "green",
-                      fontSize: "1rem",
-                      marginRight: "1rem",
-                    }}
-                  >
-                    ✔
-                  </span>
-                  <input
-                    style={{ all: "unset", width: `${feature.length + 1}ch` }}
-                    value={feature}
-                    onChange={(e) => {
-                      handleFeatureChange(index, e.target.value);
-                    }}
-                  />
-                </div>
-              ))}
-        </div>
-        <div className={styles.bottom}>
-          <div
-            className={styles.settings}
-            style={{ display: "flex", gap: "1rem" }}
-          >
-            <div
-              className={styles.editTag}
-              onClick={() => {
-                {
-                  editing == true && handleSave();
-                }
-                setEditing((prev) => !prev);
-              }}
-            >
-              {editing ? "Save" : "Edit"}
-            </div>
-            <div
-              className={styles.deleteTag}
-              onClick={(e) => {
-                handleDelete();
-              }}
-            >
-              Delete
-            </div>
-          </div>
-
-          {editing ? (
-            <div className={styles.budget}>
-              &#8377;{" "}
-              <input
-                style={{
-                  all: "unset",
-
-                  width: `${String(budget).length + 1}ch`, // Convert number to string to calculate its length
+              <div
+                className={styles.deleteTag}
+                onClick={(e) => {
+                  handleDelete();
                 }}
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-              />
+              >
+                Delete
+              </div>
             </div>
-          ) : (
-            <div className={styles.budget}>&#8377; {budget}</div>
-          )}
+
+            {editing ? (
+              <div className={styles.budget}>
+                &#8377;{" "}
+                <input
+                  style={{
+                    all: "unset",
+
+                    width: `${String(budget).length + 1}ch`, // Convert number to string to calculate its length
+                  }}
+                  value={budget}
+                  onChange={(e) => setBudget(e.target.value)}
+                />
+              </div>
+            ) : (
+              <div className={styles.budget}>&#8377; {budget}</div>
+            )}
+          </div>
+        </div>
+        <div>
+          <StandardFeatures gig={gig} setGig={setGig} />
+          <AdvancedFeatures gig={gig} setGig={setGig} />
         </div>
       </div>
     </div>

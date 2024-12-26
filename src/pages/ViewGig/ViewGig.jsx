@@ -100,8 +100,10 @@ export default function ViewGig() {
                 Budget :&nbsp;&#8377; {gig.budget}
               </div>
             </div>
-            <Standard gig={gig} />
-            <Advanced gig={gig} />
+            {gig.standard_features != null ||
+              (gig.standard_features != undefined && <Standard gig={gig} />)}
+            {gig.advanced_features != null ||
+              (gig.standard_features != undefined && <Advanced gig={gig} />)}
           </div>
         </div>
       </div>

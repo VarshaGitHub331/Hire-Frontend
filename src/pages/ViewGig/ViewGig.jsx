@@ -17,6 +17,7 @@ export default function ViewGig() {
   const url = process.env.REACT_APP_SERVER_URL;
   const { userState } = useAuthContext();
   const user_id = userState.user_id;
+  const role = userState.user_id;
   const navigate = useNavigate();
   const handleChat = () => {
     navigate("/chat", {
@@ -55,24 +56,26 @@ export default function ViewGig() {
               </div>
             ))}
           </div>
-          <div className={styles.bottom}>
-            <div
-              className={styles.settings}
-              style={{ display: "flex", gap: "1rem" }}
-            >
-              <div className={styles.editTag} onClick={(e) => {}}>
-                Order
-              </div>
+          {role == "client" && (
+            <div className={styles.bottom}>
               <div
-                className={styles.deleteTag}
-                onClick={(e) => {
-                  handleChat();
-                }}
+                className={styles.settings}
+                style={{ display: "flex", gap: "1rem" }}
               >
-                Chat
+                <div className={styles.editTag} onClick={(e) => {}}>
+                  Order
+                </div>
+                <div
+                  className={styles.deleteTag}
+                  onClick={(e) => {
+                    handleChat();
+                  }}
+                >
+                  Chat
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <div>
           <div>

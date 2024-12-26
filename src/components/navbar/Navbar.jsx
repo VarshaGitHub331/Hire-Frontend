@@ -164,8 +164,11 @@ function Navbar() {
                   <Link to="/orders">
                     <div>Orders</div>
                   </Link>
-                  <Link to="/messages">
+                  <Link to="/chat">
                     <div>Messages</div>
+                  </Link>
+                  <Link to="/viewAllGigs">
+                    <div>All Gigs</div>
                   </Link>
                   <div onClick={handleLogout} style={{ cursor: "pointer" }}>
                     Logout

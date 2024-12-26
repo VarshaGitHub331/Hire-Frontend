@@ -54,7 +54,9 @@ const Chat = () => {
             setMessages={setMessages}
           />
         ) : (
-          <h1>Click any chat to start</h1>
+          <button className={styles.chatButton}>
+            Click On A Chat To Start
+          </button>
         )}
       </div>
     </div>

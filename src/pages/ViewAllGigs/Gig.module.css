@@ -34,26 +34,33 @@
   grid-template-columns: repeat(3, 1fr); /* 3 columns */
   grid-auto-rows: auto;
   min-height: 0;
-} /* Ensure rows grow based on content */
+}
 
 .gigCard {
   cursor: pointer;
   width: 20vw;
   margin-top: 3%;
-  height: auto;
   display: flex;
   gap: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   min-height: 55vh;
 }
+
 .gigImage {
-  height: 60%;
+  width: 100%; /* Make it scale with the card */
+  aspect-ratio: 16 / 9; /* Maintain a consistent aspect ratio (16:9 as an example) */
+  overflow: hidden; /* Hide any overflowing content */
+  position: relative; /* For better control if needed */
 }
+
 .gigImage img {
-  height: 100%;
   width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+  display: block; /* Prevents any gaps caused by inline elements */
 }
+
 .gigTitle {
   color: gray;
   font-weight: 500;

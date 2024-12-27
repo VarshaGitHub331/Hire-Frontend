@@ -145,12 +145,18 @@
   margin-bottom: 2%;
 }
 .description {
+  padding: 1%;
+  border: 2px solid black;
   font-style: italic;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 2%;
+  display: block;
+  width: 100%; /* Ensure it stays within its parent */
+  box-sizing: border-box; /* Include padding and border in width calculation */
   color: gray;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
+
 .featureTitle {
   width: 100%;
   display: flex;

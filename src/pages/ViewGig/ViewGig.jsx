@@ -102,10 +102,8 @@ export default function ViewGig() {
         </div>
         <div>
           <div>
-            {gig.standard_features != null &&
-              gig.standard_features != undefined && <Standard gig={gig} />}
-            {gig.advanced_features != null &&
-              gig.standard_features != undefined && <Advanced gig={gig} />}
+            {gig?.standard_features && <Standard gig={gig} />}
+            {gig?.advanced_features && <Advanced gig={gig} />}
           </div>
         </div>
       </div>

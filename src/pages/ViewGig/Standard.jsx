@@ -2,8 +2,7 @@ import styles from "./ViewGig.module.css";
 export default function Standard({ gig }) {
   return (
     <div className={styles.features}>
-      <div className={styles.featureTitle}>Description</div>
-      <div className={styles.description}>{gig.description}</div>
+      <div className={styles.featureTitle}>Standard Package</div>
       <div className={styles.featureTitle}>Features</div>
       <div className={styles.featureList}>
         {JSON.parse(gig.standard_features).map((feature) => (

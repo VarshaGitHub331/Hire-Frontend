@@ -134,11 +134,21 @@
   margin-bottom: 2%;
   padding: 5%;
 }
+.basicFeatures {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
 
+  flex-direction: column;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
 .description {
   font-style: italic;
   display: flex;
   justify-content: flex-start;
+  margin-left: 2%;
   color: gray;
 }
 .featureTitle {
@@ -148,12 +158,13 @@
   font-style: italic;
   font-weight: 600;
   color: black;
+  margin-left: 2%;
 }
 .featureList {
   display: flex;
   gap: 1rem;
   flex-direction: column;
   align-items: flex-start;
+  margin-left: 2%;
   width: 100%;
-  margin: auto;
 }

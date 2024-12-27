@@ -17,7 +17,7 @@ export default function ViewGig() {
   const url = process.env.REACT_APP_SERVER_URL;
   const { userState } = useAuthContext();
   const user_id = userState.user_id;
-  const role = userState.user_id;
+  const role = userState.role;
   const navigate = useNavigate();
   const handleChat = () => {
     navigate("/chat", {
@@ -42,7 +42,27 @@ export default function ViewGig() {
             <div>⭐ {gig.freelancer_rating}</div>
           </div>
           <div className={styles.gigTitle}>{gig.title}</div>
-
+          <div className={styles.featureTitle}>Description</div>
+          <div className={styles.description}>{gig.description}</div>
+          <div className={styles.basicFeatures}>
+            <div className={styles.featureTitle}>Features</div>
+            <div className={styles.featureList}>
+              {gig.features.map((feature) => (
+                <div>
+                  <span
+                    style={{
+                      color: "green",
+                      fontSize: "1rem",
+                      marginRight: "1rem",
+                    }}
+                  >
+                    ✔
+                  </span>
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </div>
           <div className={styles.gigCategories}>
             Category:
             <div className={styles.catTag}>{gig.category_name}</div>
@@ -58,6 +78,9 @@ export default function ViewGig() {
           </div>
           {role == "client" && (
             <div className={styles.bottom}>
+              <div className={styles.featureTitle}>
+                Budget :&nbsp;&#8377; {gig.budget}
+              </div>
               <div
                 className={styles.settings}
                 style={{ display: "flex", gap: "1rem" }}
@@ -79,34 +102,10 @@ export default function ViewGig() {
         </div>
         <div>
           <div>
-            <div className={styles.features}>
-              <div className={styles.featureTitle}>Description</div>
-              <div className={styles.description}>{gig.description}</div>
-              <div className={styles.featureTitle}>Features</div>
-              <div className={styles.featureList}>
-                {gig.features.map((feature) => (
-                  <div>
-                    <span
-                      style={{
-                        color: "green",
-                        fontSize: "1rem",
-                        marginRight: "1rem",
-                      }}
-                    >
-                      ✔
-                    </span>
-                    {feature}
-                  </div>
-                ))}
-              </div>
-              <div className={styles.featureTitle}>
-                Budget :&nbsp;&#8377; {gig.budget}
-              </div>
-            </div>
-            {gig.standard_features != null ||
-              (gig.standard_features != undefined && <Standard gig={gig} />)}
-            {gig.advanced_features != null ||
-              (gig.standard_features != undefined && <Advanced gig={gig} />)}
+            {gig.standard_features != null &&
+              gig.standard_features != undefined && <Standard gig={gig} />}
+            {gig.advanced_features != null &&
+              gig.standard_features != undefined && <Advanced gig={gig} />}
           </div>
         </div>
       </div>

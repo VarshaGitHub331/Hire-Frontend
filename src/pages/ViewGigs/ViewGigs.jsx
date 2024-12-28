@@ -7,6 +7,7 @@ import axios from "axios";
 export default function ClientIntro() {
   const navigate = useNavigate();
   const [detailModal, setDetailModal] = useState(true);
+  const [project, setProject] = useState("");
   return (
     <>
       <div className={styles.about}>
@@ -18,7 +19,7 @@ export default function ClientIntro() {
           <div
             className={styles.viewGigs}
             onClick={(e) => {
-              navigate("/viewAllGigs");
+              navigate("/viewAllGigs", { state: project });
             }}
           >
             View All Gigs
@@ -31,18 +32,23 @@ export default function ClientIntro() {
           </div>
         </div>
       </div>
-      <ProjectModal detailModal={detailModal} setDetailModal={setDetailModal} />
+      <ProjectModal
+        detailModal={detailModal}
+        setDetailModal={setDetailModal}
+        project={project}
+        setProject={setProject}
+      />
     </>
   );
 }
-function ProjectModal({ detailModal, setDetailModal }) {
+function ProjectModal({ detailModal, setDetailModal, project, setProject }) {
   async function fetchTailoredGigs() {
     try {
     } catch (e) {
       console.log(e);
     }
   }
-  const [project, setProject] = useState("");
+  const navigate = useNavigate();
   return (
     <Modal
       isOpen={detailModal}
@@ -52,10 +58,11 @@ function ProjectModal({ detailModal, setDetailModal }) {
       contentLabel="Upload Project Details"
       className={styles.box}
     >
-      <h3>Brief Us On Your Project Requirements</h3>
+      <h3>Brief Us About Your Project Requirements</h3>
       <button
         onClick={(e) => {
           setDetailModal(false);
+          setProject("");
         }}
         className={styles.closeButton}
       >
@@ -82,7 +89,7 @@ function ProjectModal({ detailModal, setDetailModal }) {
         className={styles.projectContinue}
         disabled={!project}
         onClick={(e) => {
-          fetchTailoredGigs();
+          navigate("/viewAllGigs", { state: project });
         }}
       >
         Continue

@@ -24,26 +24,37 @@ async function fetchGigs(user_id, pageParam) {
     alert(e); // Handle error
   }
 }
-async function fetchAllGigs(pageParam) {
+async function fetchAllGigs(pageParam, projectDetails) {
   try {
-    const result = await axios.get(
-      `${SERVER}/gigs/allGigs`, // Use the correct URL path
+    const result = await axios.post(
+      `${SERVER}/gigs/tailoredGigs`,
+      {
+        clientText: projectDetails, // Payload sent to the server
+      },
       {
         params: {
-          page: pageParam, // Add page as a query parameter
-          limit: 6, // Set limit directly
+          page: pageParam, // Page number for pagination
+          limit: 6, // Number of results per page
         },
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Ensure JSON payload
         },
       }
     );
-    console.log(result);
+
+    // Log the result for debugging
+    console.log("Fetch Gigs Result:", result);
+
+    // Return structured data
     return {
-      gigs: result.data, // Array of gigs
+      gigs: result.data.results || [], // Default to an empty array
+      extracted_categories: result.data.extracted_categories || [], // Handle potential undefined
+      extracted_budget: result.data.extracted_budget || {}, // Default to an empty object
     };
-  } catch (e) {
-    alert(e); // Handle error
+  } catch (error) {
+    console.error("Error fetching gigs:", error); // Log detailed error info
+    throw new Error("Unable to fetch gigs. Please try again later."); // Throw an error for query handling
   }
 }
+
 export { fetchGigs, fetchAllGigs };

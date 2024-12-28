@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchAllGigs } from "../../apis/Gigs";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useState, useEffect, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getCategories } from "../../apis/Categories";
 import { useQuery } from "@tanstack/react-query";
 
@@ -14,29 +14,56 @@ export default function MyGigs() {
     queryFn: getCategories,
     queryKey: ["categories"],
   });
+
   const user_id = userState.user_id;
   const [showCat, setShowCat] = useState(false);
   const [filteredCategory, setFilteredCategory] = useState([]);
+  const [filterBudget, setFilterBudget] = useState();
   const [showFilter, setShowFilter] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
   const [ratingOrder, setRatingOrder] = useState("");
   const [showBudget, setShowBudget] = useState(false);
   const [showRating, setShowRating] = useState(false);
 
+  const location = useLocation();
+  const [projectDetails, setProjectDetails] = useState(location.state);
+
   const {
     data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    hasNextPage,
     fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isError,
   } = useInfiniteQuery({
-    queryKey: ["gigs", user_id],
-    queryFn: ({ pageParam = 1 }) => fetchAllGigs(pageParam),
+    queryKey: ["gigs", projectDetails], // Include the project details only in the first call
+    queryFn: ({ pageParam = 1 }) => fetchAllGigs(pageParam, projectDetails),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.gigs.length > 0 ? pages.length + 1 : undefined;
     },
+    onSuccess: () => {
+      // Clear the project details after the first query
+      if (projectDetails) {
+        setProjectDetails(null);
+      }
+    },
   });
+  useEffect(() => {
+    if (data?.pages.length > 0) {
+      for (let page of data.pages) {
+        // Use data.pages instead of pages
+        if (page.extracted_categories && page.extracted_categories.length > 0) {
+          setFilteredCategory((filteredCategory) => [
+            ...filteredCategory,
+            ...page.extracted_categories,
+          ]);
+        }
+        if (page.extracted_budget) {
+          setFilterBudget(page.extracted_budget);
+        }
+      }
+    }
+  }, [data]);
 
   const handleCardClick = (gig) => {
     navigate(`/viewGig/${gig.gig_id}`, {
@@ -52,17 +79,20 @@ export default function MyGigs() {
   };
 
   const filteredData = useMemo(() => {
+    console.log("Here");
     return data?.pages.flatMap((page) =>
       page.gigs.filter((gig) => {
         return (
-          !filteredCategory.length ||
-          filteredCategory.includes(gig.category_name)
+          (!filteredCategory.length ||
+            filteredCategory.includes(gig.category_name)) &&
+          (!filterBudget || gig.budget <= filterBudget)
         );
       })
     );
   }, [data, filteredCategory]);
-
+  console.log(filteredData);
   const sortedData = useMemo(() => {
+    console.log("here too");
     if (!filteredData) return [];
     if (sortOrder === "ASC") {
       return [...filteredData].sort((a, b) => a.budget - b.budget);
@@ -90,8 +120,7 @@ export default function MyGigs() {
   }, [filteredData, sortedData, ratingOrder]);
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading gigs!</div>;
-
+  if (isError) return <div>Error</div>;
   return (
     <div className={styles.myGig}>
       <div className={styles.titlePart}>
@@ -139,6 +168,9 @@ export default function MyGigs() {
                     <input
                       type="checkbox"
                       value={category.category_name}
+                      checked={filteredCategory.includes(
+                        category.category_name
+                      )}
                       onChange={handleCheckBoxChange}
                     />
                     <label>{category.category_name}</label>

@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 export default function OrderModel({ openOrder, setOpenOrder, gig }) {
+  const navigate = useNavigate();
   const { userState } = useAuthContext();
   const { user_id, token } = userState;
   const [selectedPackage, setSelectedPackage] = useState("");
-  const [payable, setPayable] = useState(gig.budget);
+  const [payable, setPayable] = useState(gig?.budget || 0);
   function handlePackageChange(e) {
     setSelectedPackage((selectedPackage) => e.target.value);
   }
@@ -28,6 +30,8 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
         }
       );
       console.log("Order created successfully:", result.data);
+      toast.success("Your order has been placed!");
+      navigate("/orders");
     } catch (e) {
       console.error("Error creating order:", e.response?.data || e.message);
     }

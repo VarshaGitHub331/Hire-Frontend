@@ -1,0 +1,27 @@
+.titlePart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 2vh;
+  padding-left: 5%;
+  margin-top: 2%;
+}
+.direction {
+  color: gray;
+  font-weight: 500;
+}
+/* In MyOrder.module.css */
+
+/* Table Styles */
+.myOrderTable {
+  width: 80%;
+  max-width: 100%;
+  height: auto;
+  overflow-x: auto;
+  margin: 2% auto;
+}
+/* Table Styles */
+
+/* Header Styles */

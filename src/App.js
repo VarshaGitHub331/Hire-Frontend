@@ -4,7 +4,6 @@ import Footer from "./components/footer/footer.jsx";
 import Home from "./pages/home/Home.jsx";
 import Gigs from "./pages/MyGigs/MyGig.jsx";
 import Gig from "./pages/ViewAllGigs/Gig.jsx";
-import Order from "./pages/MyOrder/MyOrder.jsx";
 import Add from "./pages/Add/AddGig.jsx";
 import Messages from "./pages/MyMessages/MyMessage.jsx";
 import Message from "./pages/Message/Message.jsx";

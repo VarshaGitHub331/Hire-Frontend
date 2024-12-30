@@ -24,6 +24,7 @@ import ViewGigs from "./pages/ViewGigs/ViewGigs.jsx";
 import ViewAllGigs from "./pages/ViewAllGigs/Gig.jsx";
 import ViewGig from "./pages/ViewGig/ViewGig.jsx";
 import Chat from "./pages/Chat/Chat.jsx";
+import Order from "./pages/MyOrder/MyOrder.jsx";
 
 import styles from "./App.module.css";
 

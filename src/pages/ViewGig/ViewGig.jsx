@@ -4,17 +4,16 @@ import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import { getCategories } from "../../apis/Categories";
-import { getSkills } from "../../apis/Skills";
-import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import Standard from "./Standard";
+import OrderModel from "./OrderModule";
 import Advanced from "./Advanced";
 export default function ViewGig() {
   const location = useLocation();
   const [gig, setGig] = useState(location.state?.gig);
   const url = process.env.REACT_APP_SERVER_URL;
+
   const { userState } = useAuthContext();
   const user_id = userState.user_id;
   const role = userState.role;
@@ -24,6 +23,7 @@ export default function ViewGig() {
       state: { buyerId: user_id, sellerId: gig.freelancer_id },
     });
   };
+  const [openOrder, setOpenOrder] = useState(false);
   return (
     <>
       <div className={styles.titlePart}>
@@ -85,7 +85,12 @@ export default function ViewGig() {
                 className={styles.settings}
                 style={{ display: "flex", gap: "1rem" }}
               >
-                <div className={styles.editTag} onClick={(e) => {}}>
+                <div
+                  className={styles.editTag}
+                  onClick={(e) => {
+                    setOpenOrder(true);
+                  }}
+                >
                   Order
                 </div>
                 <div
@@ -106,6 +111,11 @@ export default function ViewGig() {
             {gig?.advanced_features && <Advanced gig={gig} />}
           </div>
         </div>
+        <OrderModel
+          openOrder={openOrder}
+          setOpenOrder={setOpenOrder}
+          gig={gig}
+        />
       </div>
     </>
   );

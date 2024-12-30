@@ -5,7 +5,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getCategories } from "../../apis/Categories";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function MyGigs() {
   const navigate = useNavigate();
@@ -19,15 +19,13 @@ export default function MyGigs() {
   const [showCat, setShowCat] = useState(false);
   const [filteredCategory, setFilteredCategory] = useState([]);
   const [filterBudget, setFilterBudget] = useState();
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(true);
   const [sortOrder, setSortOrder] = useState("");
   const [ratingOrder, setRatingOrder] = useState("");
   const [showBudget, setShowBudget] = useState(false);
   const [showRating, setShowRating] = useState(false);
-
   const location = useLocation();
   const [projectDetails, setProjectDetails] = useState(location.state);
-
   const {
     data,
     fetchNextPage,
@@ -36,28 +34,29 @@ export default function MyGigs() {
     isFetchingNextPage,
     isError,
   } = useInfiniteQuery({
-    queryKey: ["gigs", projectDetails], // Include the project details only in the first call
+    queryKey: ["gigs", projectDetails],
     queryFn: ({ pageParam = 1 }) => fetchAllGigs(pageParam, projectDetails),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.gigs.length > 0 ? pages.length + 1 : undefined;
     },
     onSuccess: () => {
-      // Clear the project details after the first query
-      if (projectDetails) {
-        setProjectDetails(null);
-      }
+      setProjectDetails(null); // Clear project details after first query
     },
+    staleTime: 0, // Forces the query to be considered stale immediately
+    cacheTime: 0, // Removes the cached data immediately after use
   });
+
   useEffect(() => {
     if (data?.pages.length > 0) {
       for (let page of data.pages) {
-        // Use data.pages instead of pages
         if (page.extracted_categories && page.extracted_categories.length > 0) {
+          // Use data.pages instead of pages
+
           setFilteredCategory((filteredCategory) => [
-            ...filteredCategory,
             ...page.extracted_categories,
           ]);
         }
+
         if (page.extracted_budget) {
           setFilterBudget(page.extracted_budget);
         }
@@ -125,8 +124,6 @@ export default function MyGigs() {
     <div className={styles.myGig}>
       <div className={styles.titlePart}>
         <div className={styles.direction}>HIRE &gt; ALL GIGS &gt;&gt;</div>
-        <h2>Your Gigs</h2>
-        <div className={styles.about}>View All Gigs Available &gt;&gt;</div>
       </div>
       <div
         className={styles.filterCat}

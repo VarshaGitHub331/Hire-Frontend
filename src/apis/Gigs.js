@@ -49,7 +49,7 @@ async function fetchAllGigs(pageParam, projectDetails) {
     return {
       gigs: result.data.results || [], // Default to an empty array
       extracted_categories: result.data.extracted_categories || [], // Handle potential undefined
-      extracted_budget: result.data.extracted_budget || {}, // Default to an empty object
+      extracted_budget: result.data.extracted_budget || null, // Default to an empty object
     };
   } catch (error) {
     console.error("Error fetching gigs:", error); // Log detailed error info

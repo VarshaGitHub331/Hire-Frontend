@@ -71,14 +71,18 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
         </div>
       </div>
       <div className={styles.mainFeatures}>
-        <div className={styles.feature}>
-          <i class="fas fa-clock "></i>{" "}
-          <div style={{ marginLeft: "2%" }}>{gig.duration} duration</div>
-        </div>
-        <div className={styles.feature}>
-          <i class="fas fa-sync"></i>
-          <div style={{ marginLeft: "2%" }}>{gig.revisions}</div>
-        </div>
+        {gig.duration && (
+          <div className={styles.feature}>
+            <i class="fas fa-clock "></i>{" "}
+            <div style={{ marginLeft: "2%" }}>{gig.duration} duration</div>
+          </div>
+        )}
+        {gig.revisions && (
+          <div className={styles.feature}>
+            <i class="fas fa-sync"></i>
+            <div style={{ marginLeft: "2%" }}>{gig.revisions}</div>
+          </div>
+        )}
       </div>
       <div className={styles.package}>
         <div style={{ fontWeight: "500", fontSize: "0.9rem" }}>

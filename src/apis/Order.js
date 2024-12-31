@@ -29,4 +29,22 @@ async function getClientOrders(role, user_id, page, limit) {
     return result.data;
   }
 }
-export { getClientOrders };
+async function ChangeOrderStatus(order_id, status) {
+  try {
+    await axios.put(
+      `${process.env.REACT_APP_SERVER_URL}/order/edit`,
+      {
+        status,
+        order_id,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
+export { getClientOrders, ChangeOrderStatus };

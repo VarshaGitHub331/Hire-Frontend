@@ -17,7 +17,6 @@
 /* Table Styles */
 .myOrderTable {
   width: 80%;
-  max-width: 100%;
   height: auto;
   overflow-x: auto;
   margin: 2% auto;
@@ -25,3 +24,14 @@
 /* Table Styles */
 
 /* Header Styles */
+.popUp {
+  position: absolute;
+  background: white;
+  z-index: 1000; /* Ensures it appears above the table */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 2%;
+}
+.popUp select {
+  border: none;
+  outline: none;
+}

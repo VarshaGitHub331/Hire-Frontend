@@ -11,6 +11,7 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
   const { user_id, token } = userState;
   const [selectedPackage, setSelectedPackage] = useState("");
   const [payable, setPayable] = useState(gig?.budget || 0);
+  const [notes, setNotes] = useState("");
   function handlePackageChange(e) {
     setSelectedPackage((selectedPackage) => e.target.value);
   }
@@ -22,6 +23,8 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
           user_id,
           freelancer_id: gig.freelancer_id,
           gig_id: gig.gig_id,
+          payable: payable,
+          notes: notes,
         },
         {
           headers: {
@@ -53,15 +56,33 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
       contentLabel="Confirm Order"
       className={styles.orderBox}
     >
-      <h3>Place Your Order</h3>
+      <h4>Place Your Order</h4>
+
       <div className={styles.freelancerProfile}>
-        Freelancer:
+        <div> Freelancer:</div>
         <div style={{ cursor: "pointer" }}>{gig.freelancer_name}</div>
-        <div>⭐ {gig.freelancer_rating}5</div>
+        <div>
+          {" "}
+          <i
+            className="starIcon fas fa-star"
+            style={{ color: "orange" }}
+          ></i>{" "}
+          {/* FontAwesome Star Icon */} {gig.freelancer_rating}5
+        </div>
+      </div>
+      <div className={styles.mainFeatures}>
+        <div className={styles.feature}>
+          <i class="fas fa-clock "></i>{" "}
+          <div style={{ marginLeft: "2%" }}>{gig.duration} duration</div>
+        </div>
+        <div className={styles.feature}>
+          <i class="fas fa-sync"></i>
+          <div style={{ marginLeft: "2%" }}>{gig.revisions}</div>
+        </div>
       </div>
       <div className={styles.package}>
-        <div style={{ fontWeight: "500", fontStyle: "italic" }}>
-          Package Type
+        <div style={{ fontWeight: "500", fontSize: "0.9rem" }}>
+          Package Type :
         </div>
         <div>
           <label>
@@ -100,18 +121,23 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
           </label>
         </div>
       </div>
-      <div className={styles.parameters}></div>
-      <div className={styles.mainFeatures}>
-        <div style={{ display: "flex" }}>
-          <i class="fas fa-clock "></i>
-          <div>{gig.duration}</div>
-        </div>
-        <div style={{ display: "flex" }}>
-          <i class="fas fa-sync"></i>
-          <div>{gig.revisions}</div>
-        </div>
+      <textarea
+        value={notes}
+        placeholder="Add notes"
+        className={styles.notes}
+        onChange={(e) => setNotes((notes) => e.target.value)}
+      ></textarea>
+      <div className={styles.payable}>
+        Payable : &#8377;{payable}
+        <button
+          className={styles.orderContinue}
+          onClick={(e) => {
+            createOrder();
+          }}
+        >
+          Continue
+        </button>
       </div>
-      <div className={styles.payable}>Payable : &#8377;{payable}</div>
       <button
         onClick={(e) => {
           setOpenOrder(false);
@@ -119,15 +145,6 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
         className={styles.closeButton}
       >
         &times;
-      </button>
-
-      <button
-        className={styles.orderContinue}
-        onClick={(e) => {
-          createOrder();
-        }}
-      >
-        Continue
       </button>
     </Modal>
   );

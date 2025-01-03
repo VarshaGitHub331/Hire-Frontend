@@ -71,6 +71,7 @@ hr {
   display: flex;
   justify-content: center;
   gap: 10px;
+  display: none;
 }
 
 .Img {
@@ -171,3 +172,35 @@ span {
 }
 
 /* Responsive Adjustments */
+.general {
+  /* Temporary background color */
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .general {
+    display: block;
+  }
+  .hamburger {
+    display: none;
+  }
+  .join {
+    position: fixed;
+    top: 8vh;
+  }
+}
+@media (min-width: 1176px) {
+  .general {
+    display: block;
+  }
+  .hamburger {
+    display: none;
+  }
+  .join {
+    position: fixed;
+    top: 12vh;
+  }
+  .user {
+    display: flex;
+  }
+}

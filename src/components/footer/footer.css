@@ -2,28 +2,31 @@
   display: flex;
   justify-content: center;
   color: #666;
-  margin-top: auto;
+  margin-top: 10%;
   margin-left: 2%;
 }
 
 .footer img {
-  width: 24px;
-  height: 24px;
+  width: 2.5vw;
+  height: 2.5vw;
 }
 
 .footer .container {
-  width: 1400px;
+  width: 100vw;
 }
 
 .footer .container .top {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 .footer .container .top .item {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 2vh;
 }
 
 .footer .container .top .item h2 {
@@ -38,6 +41,7 @@
 .footer .container hr {
   margin: 50px 0px;
   height: 0;
+  width: 100vw;
   border: 1px solid #ebe9e9;
 }
 
@@ -75,4 +79,30 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+@media (min-width: 1076px) {
+  .footer .container .top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .footer .container .bottom img {
+    display: flex;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+  }
+  .footer .container .bottom .right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .footer .container .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 45%;
+  }
 }

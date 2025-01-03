@@ -24,6 +24,8 @@ import ViewAllGigs from "./pages/ViewAllGigs/Gig.jsx";
 import ViewGig from "./pages/ViewGig/ViewGig.jsx";
 import Chat from "./pages/Chat/Chat.jsx";
 import Order from "./pages/MyOrder/MyOrder.jsx";
+import ViewOrder from "./pages/ViewOrder/ViewOrder.jsx";
+import SideBar from "./components/sidebar/sidebar.jsx";
 
 import styles from "./App.module.css";
 
@@ -148,6 +150,10 @@ function App() {
         {
           path: "/chat",
           element: <Chat />,
+        },
+        {
+          path: "/order/:id",
+          element: <ViewOrder />,
         },
       ],
     },

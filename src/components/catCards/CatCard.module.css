@@ -1,13 +1,13 @@
 .catcard {
   position: relative; /* Set the container to relative to position the title inside */
-  width: 50%;
-  height: 300px; /* Set a fixed height for the card */
+  width: 70vw;
+  height: 30vh; /* Set a fixed height for the card */
   overflow: hidden; /* Ensure nothing overflows the card */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 5vh;
   z-index: -2;
   display: flex; /* Use flexbox to center the content */
   align-items: center; /* Center items vertically */
@@ -49,18 +49,9 @@
   background-color: rgba(0, 0, 0, 0.8); /* Darken background on hover */
 }
 
-@media (max-width: 768px) {
+@media (min-width: 1076px) {
   .catcard {
-    max-width: 90%;
-    margin: 0 auto;
-  }
-  .title {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 1rem;
+    width: 20vw;
+    margin-left: 0 0;
   }
 }

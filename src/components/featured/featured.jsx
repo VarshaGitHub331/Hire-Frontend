@@ -9,6 +9,14 @@ export default function Featured() {
   return (
     <div className={styles.featured}>
       <div className={styles.container}>
+        <div className={styles.right}>
+          <img
+            src="/assets/man.png"
+            alt="person"
+            width="350px"
+            height="370px"
+          />
+        </div>
         <div className={styles.left}>
           <h1 className={styles.title}>
             Find the perfect Freelancer Services for your business
@@ -32,14 +40,6 @@ export default function Featured() {
             <button>Logo Design</button>
             <button>AI Services</button>
           </div>
-        </div>
-        <div className={styles.right}>
-          <img
-            src="/assets/man.png"
-            alt="person"
-            width="350px"
-            height="370px"
-          />
         </div>
       </div>
     </div>

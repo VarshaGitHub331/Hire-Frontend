@@ -10,17 +10,28 @@ export default function Categories() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4, // Number of slides visible
+    slidesToShow: 3, // Default number of slides to show
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024, // For screens smaller than 1024px
+        settings: {
+          slidesToShow: 1, // Show 1 slide on smaller screens
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <Slider {...settings}>
-      {cards.map((item, index) => (
-        <div key={index} style={{ display: "flex" }}>
-          <CatCard item={item} />
-        </div>
-      ))}
-    </Slider>
+    <div style={{ marginTop: "2vh" }}>
+      <Slider {...settings}>
+        {cards.map((item, index) => (
+          <div key={index} style={{ display: "flex", marginTop: "2vh" }}>
+            <CatCard item={item} />
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 }

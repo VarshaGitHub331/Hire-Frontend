@@ -7,6 +7,7 @@ import styles from "./MyOrder.module.css";
 import { FaEdit } from "react-icons/fa"; // Edit icon from react-icon
 import { Popover } from "react-bootstrap";
 import { ChangeOrderStatus } from "../../apis/Order";
+import { useNavigate } from "react-router-dom";
 
 const OrderTable = () => {
   const queryClient = useQueryClient();
@@ -16,6 +17,7 @@ const OrderTable = () => {
   const [pop, setPop] = useState(false);
   const [newStatus, setNewStatus] = useState("");
   const [editingId, setEditingId] = useState("");
+  const navigate = useNavigate();
   const columns = [
     { name: "Order Id", selector: (row) => row.order_id },
     {
@@ -125,6 +127,9 @@ const OrderTable = () => {
           paginationPerPage={limit}
           onChangePage={changePage}
           onChangeRowsPerPage={changeLimit}
+          onRowClicked={(row) => {
+            navigate(`/order/${row.order_id}`);
+          }}
           customStyles={{
             table: {
               style: {

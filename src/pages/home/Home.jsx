@@ -11,7 +11,7 @@ export default function Home() {
         <div className={styles.container}>
           <div className={styles.item}>
             <h1>A whole world of freelance talent at your fingertips</h1>
-            <div className={styles.title}>
+            <div className={styles.point}>
               <img src="/assets/check.png" alt="sorry" />
               The best for every budget
             </div>
@@ -19,7 +19,7 @@ export default function Home() {
               Find high-quality services at every price point. No hourly rates,
               just project-based pricing.
             </p>
-            <div className={styles.title}>
+            <div className={styles.point}>
               <img src="/assets/check.png" alt="sorry" />
               Quality work done quickly
             </div>
@@ -27,7 +27,7 @@ export default function Home() {
               Find the right freelancer to begin working on your project within
               minutes.
             </p>
-            <div className={styles.title}>
+            <div className={styles.point}>
               <img src="/assets/check.png" alt="sorry" />
               Protected payments, every time
             </div>
@@ -35,7 +35,7 @@ export default function Home() {
               Always know what you'll pay upfront. Your payment isn't released
               until you approve the work.
             </p>
-            <div className={styles.title}>
+            <div className={styles.point}>
               <img src="/assets/check.png" alt="sorry" />
               24/7 support
             </div>

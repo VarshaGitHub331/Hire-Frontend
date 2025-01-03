@@ -1,0 +1,21 @@
+.viewGig {
+  width: 100%;
+  min-height: 100%;
+}
+.viewGig .orderHeader {
+  width: 100%;
+  text-align: left;
+  padding: 2.5%;
+  display: flex;
+  flex-direction: column;
+}
+.direction {
+  color: rgb(56, 55, 55);
+  font-weight: 500;
+  margin-bottom: 1.5%;
+}
+.orderTime {
+  color: rgb(56, 55, 55);
+  font-size: 0.8rem;
+  font-weight: 500;
+}

@@ -12,8 +12,17 @@ export default function Projects() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 3, // Default number of slides to show
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024, // For screens smaller than 1024px
+        settings: {
+          slidesToShow: 1, // Show 1 slide on smaller screens
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (

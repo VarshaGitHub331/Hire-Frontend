@@ -1,7 +1,7 @@
 .catcard {
   position: relative; /* Set the container to relative to position the title inside */
-  width: 50%;
-  height: 150px; /* Set a fixed height for the card */
+  width: 70%;
+  height: 30%; /* Set a fixed height for the card */
   overflow: hidden; /* Ensure nothing overflows the card */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -64,13 +64,19 @@
     max-width: 90%;
     margin: 0 auto;
   }
-  .title {
-    font-size: 1.2rem;
+  .cat {
+    font-size: 60%;
+    font-weight: 600;
+  }
+  .username {
+    font-weight: 500;
+    font-size: 70%;
   }
 }
 
-@media (max-width: 480px) {
-  .title {
-    font-size: 1rem;
+@media (min-width: 1076px) {
+  .catcard {
+    width: 20vw;
+    margin-left: 0 0;
   }
 }

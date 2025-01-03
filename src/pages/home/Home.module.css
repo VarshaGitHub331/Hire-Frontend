@@ -1,3 +1,8 @@
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
 .features {
   width: 100%;
   margin-top: 3rem;
@@ -8,6 +13,7 @@
 .container {
   width: 100%;
   background-color: #f1fdf7;
+  font-size: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,9 +28,48 @@
   padding: 1.5rem;
   gap: 1rem;
 }
-.title {
+.point {
   width: 100%;
   display: flex;
-
-  font-weight: 600;
+  font-weight: 500;
+}
+.point div {
+  font-size: 1.2rem;
+}
+.point img {
+  width: 2.5vw;
+}
+@media (max-width: 768px) {
+  .catcard {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  .cat {
+    font-size: 60%;
+    font-weight: 600;
+  }
+  .username {
+    font-weight: 500;
+    font-size: 70%;
+  }
+  .features {
+    font-size: 1.2rem;
+  }
+  .point {
+    font-size: 0.8rem;
+  }
+  .item p {
+    font-size: 0.8rem;
+  }
+}
+@media (min-width: 1280px) {
+  .features {
+    font-size: 1.5rem;
+  }
+  .point {
+    font-size: 1rem;
+  }
+  .item p {
+    font-size: 1rem;
+  }
 }

@@ -9,14 +9,16 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
   const navigate = useNavigate();
   const { userState } = useAuthContext();
   const { user_id, token } = userState;
-  const [selectedPackage, setSelectedPackage] = useState("");
+  const [selectedPackage, setSelectedPackage] = useState("Basic");
   const [payable, setPayable] = useState(gig?.budget || 0);
   const [notes, setNotes] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   function handlePackageChange(e) {
     setSelectedPackage((selectedPackage) => e.target.value);
   }
   async function createOrder() {
     try {
+      setSubmitting((submitting) => true);
       const result = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/order/createOrderForGig`,
         {
@@ -25,6 +27,7 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
           gig_id: gig.gig_id,
           payable: payable,
           notes: notes,
+          package: selectedPackage,
         },
         {
           headers: {
@@ -34,6 +37,7 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
       );
       console.log("Order created successfully:", result.data);
       toast.success("Your order has been placed!");
+      setSubmitting(false);
       navigate("/orders");
     } catch (e) {
       console.error("Error creating order:", e.response?.data || e.message);
@@ -146,6 +150,7 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
         onClick={(e) => {
           setOpenOrder(false);
         }}
+        disabled={submitting}
         className={styles.closeButton}
       >
         &times;

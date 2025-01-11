@@ -165,3 +165,105 @@
 
   margin: 2%;
 }
+@media (max-width: 768px) {
+  .box {
+    width: 60vw;
+    height: 50vh;
+    margin-top: 20vh;
+  }
+  .closeButton {
+    width: 1%;
+    height: 1%;
+    position: absolute;
+    font-size: 32px;
+    color: grey;
+    top: 2%;
+    right: 10%;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+  }
+  .uploadBox {
+    height: 60%;
+    font-size: 0.8rem;
+  }
+  .link {
+    font-size: 0.8rem;
+  }
+  .box h3 {
+    font-size: 0.7rem;
+  }
+
+  .search {
+    width: 85%;
+    margin: auto;
+    margin-top: 2%;
+    height: 8%;
+    margin-bottom: 0;
+  }
+  .search img {
+    width: 25px;
+    height: 25px;
+  }
+  .searchInput input {
+    font-size: 0.7rem;
+  }
+  .searchInput button {
+    font-size: 0.6rem;
+  }
+  .skillBox {
+    width: 80%;
+    min-height: 30%; /* Ensures a minimum height */
+    height: auto; /* Allows height to grow based on content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    padding: 1%;
+    border-radius: 15px;
+    margin-top: 10%;
+  }
+  .suggestBox {
+    margin-top: 5%;
+  }
+  .skillContainer {
+    display: inline-flex; /* Places button and close symbol inline */
+    align-items: center; /* Vertically centers items */
+    gap: 2%; /* Adds a small gap between button and close icon */
+    border: 1px solid #ccc; /* Optional: Add a border for visibility */
+    border-radius: 2.5vw; /* Optional: Rounded corners */
+    background-color: #1dbf73; /* Optional: Background color */
+    white-space: nowrap;
+    cursor: pointer;
+    margin: 2%; /* Prevents wrapping of text */
+  }
+  .skillContainer button {
+    background: none;
+    font-size: 0.8rem;
+    outline: none;
+    border: none;
+  }
+  .closeIcon {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: white;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .continue {
+    border: none;
+    outline: none;
+    width: 40%;
+    height: 5vh;
+    background-color: whitesmoke;
+    color: hsl(120, 100%, 25%);
+    border: 2px solid rgb(180, 174, 174);
+    border-radius: 25px;
+    cursor: pointer;
+    position: absolute;
+    right: 3.6vw;
+    margin-top: 1vh;
+    font-size: 0.6rem;
+    bottom: 1.5vh;
+  }
+}

@@ -86,3 +86,59 @@ input {
 
   cursor: pointer;
 }
+@media (max-width: 768px) {
+  .box {
+    width: 60vw;
+    height: 50vh;
+    margin-top: 20vh;
+  }
+  .closeButton {
+    width: 1.5%;
+    height: 1.5%;
+    position: absolute;
+    font-size: 32px;
+    color: grey;
+    top: 2.5%;
+    right: 10%;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+  }
+  .box h3 {
+    font-size: 0.8rem;
+  }
+  .budget {
+    width: 100%;
+  }
+  .linkedin {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .continue {
+    background-color: #1dbf73;
+    color: white;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    width: 40%;
+    height: 5vh;
+    border-radius: 25px;
+    position: absolute;
+    cursor: pointer;
+    margin-left: 2vw;
+  }
+  .skip {
+    background-color: white;
+    color: #1dbf73;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    width: 40%;
+    height: 5vh;
+    border-radius: 25px;
+    position: absolute;
+    border: 2px solid hsl(120, 97%, 28%);
+    left: 5%;
+    cursor: pointer;
+  }
+}

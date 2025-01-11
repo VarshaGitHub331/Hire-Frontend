@@ -123,7 +123,7 @@ export default function CategoryModal() {
         &times;
       </button>
       <button
-        className={styles.continue}
+        className={styles.categoryContinue}
         disabled={!selectedCategories.length}
         onClick={(e) => {
           AddCategories(e);

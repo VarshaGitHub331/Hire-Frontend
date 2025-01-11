@@ -120,7 +120,15 @@ function Navbar() {
         <div className={styles.container}>
           <Link to="/">
             <div className={styles.logo}>
-              <span className={styles.text}>Hire</span>
+              <span
+                className={styles.text}
+                style={{ cursor: "pointer" }}
+                onClick={(e) => {
+                  navigate("/");
+                }}
+              >
+                Hire
+              </span>
               <span className={styles.dot}>.</span>
             </div>
           </Link>

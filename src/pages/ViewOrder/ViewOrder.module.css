@@ -2,6 +2,7 @@
   width: 100%;
   min-height: 100%;
 }
+
 .viewGig .orderHeader {
   width: 100%;
   text-align: left;
@@ -9,13 +10,93 @@
   display: flex;
   flex-direction: column;
 }
+
 .direction {
   color: rgb(56, 55, 55);
   font-weight: 500;
   margin-bottom: 1.5%;
 }
+
 .orderTime {
   color: rgb(56, 55, 55);
   font-size: 0.8rem;
   font-weight: 500;
+}
+
+.orderDetails {
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 1rem; /* Spacing between columns */
+  padding: 1rem;
+}
+.orderContent {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center;
+  align-items: flex-start;
+}
+.orderContent .orderItem {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Use explicit spacing for better visibility */
+  width: 100%;
+  border: 2px solid rgb(238, 236, 236);
+  border-radius: 7px;
+  padding: 2%;
+}
+
+.orderContent .orderDetails {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  width: 100%;
+  border: 2px solid gray;
+}
+.heading {
+  font-weight: 600;
+  text-align: left;
+  padding: 1%;
+}
+.status {
+  background-color: #fff; /* Optional: White background for contrast */
+  font-size: 1rem; /* Optional: Adjust text size */
+  color: #333; /* Optional: Text color */
+  border-radius: 8px; /* Optional: Rounded corners */
+  width: 10%;
+  font-size: 0.8rem;
+  background-color: rgb(237, 205, 205);
+  color: red;
+  text-align: center;
+}
+.gigItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  align-items: center;
+}
+.gigTitle {
+  font-weight: 600;
+  display: flex;
+  gap: 2vw;
+  align-items: center;
+}
+.gigTitle img {
+  width: 70px;
+  height: 70px;
+}
+.payable {
+  border: 2px solid rgb(220, 216, 216);
+  border-radius: 8px;
+  padding: 1%;
+  font-weight: 600;
+}
+/* For smaller screens: Stack the columns */
+@media (max-width: 768px) {
+  .orderDetails {
+    grid-template-columns: 1fr; /* Single column */
+    grid-template-rows: auto auto; /* Rows for stacking */
+  }
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./sidebar.module.css";
 import { useAuthContext } from "../../contexts/AuthContext";
+
 import { Link } from "react-router-dom";
 export default function SideBar({ handleLogout, setOpenSideBar }) {
   const { userState } = useAuthContext();
@@ -8,20 +9,27 @@ export default function SideBar({ handleLogout, setOpenSideBar }) {
   return (
     <div className={styles.sideBar}>
       <div className={styles.user}>
-        <div style={{ display: "flex", width: "100%", position: "relative" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            width: "100%",
+            position: "relative",
+          }}
+        >
           <img src="/assets/Logo.webp" alt="" className={styles.Img} />
-          <i
-            className="fa fa-window-close"
-            style={{
-              fontSize: "2.5vw",
-              position: "absolute",
-              right: "0.2%",
-              marginTop: "2vh",
-            }}
-            onClick={(e) => setOpenSideBar(false)}
-          ></i>
+          <div style={{ marginLeft: "0.5rem" }}>{userState?.name}</div>
         </div>
-        <div style={{ marginLeft: "0.5rem" }}>{userState?.name}</div>
+        <i
+          className="fa fa-window-close"
+          style={{
+            fontSize: "2.5vw",
+            position: "absolute",
+            right: "0.2%",
+            marginTop: "2vh",
+          }}
+          onClick={(e) => setOpenSideBar(false)}
+        ></i>
       </div>
       <div className={styles.options}>
         {userState.role == "freelancer" && (

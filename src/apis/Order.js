@@ -47,4 +47,15 @@ async function ChangeOrderStatus(order_id, status) {
     console.log(e);
   }
 }
-export { getClientOrders, ChangeOrderStatus };
+async function getOrder({ order_id }) {
+  
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/order/getOrder/${order_id}`
+    );
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+export { getClientOrders, ChangeOrderStatus, getOrder };

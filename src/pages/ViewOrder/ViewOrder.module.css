@@ -26,10 +26,9 @@
 .orderDetails {
   width: 100%;
   height: 100%;
-  border: 2px solid black;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 1rem; /* Spacing between columns */
+  grid-template-columns: 2fr 1fr; /* Two equal columns */
+  gap: 2%; /* Spacing between columns */
   padding: 1rem;
 }
 .orderContent {
@@ -37,40 +36,44 @@
   flex-direction: column; /* Stack children vertically */
   justify-content: center;
   align-items: flex-start;
+  gap: 10px;
 }
 .orderContent .orderItem {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Use explicit spacing for better visibility */
+  gap: 10px; /* Use explicit spacing for better visibility */
   width: 100%;
   border: 2px solid rgb(238, 236, 236);
   border-radius: 7px;
-  padding: 2%;
 }
 
-.orderContent .orderDetails {
+.orderContent .orderFeatures {
   display: flex;
   flex-direction: column;
-  padding: 2%;
   width: 100%;
   border: 2px solid gray;
+  border: 2px solid rgb(238, 236, 236);
+  border-radius: 7px;
 }
 .heading {
   font-weight: 600;
   text-align: left;
-  padding: 1%;
+  padding: 2%;
 }
 .status {
-  background-color: #fff; /* Optional: White background for contrast */
-  font-size: 1rem; /* Optional: Adjust text size */
-  color: #333; /* Optional: Text color */
-  border-radius: 8px; /* Optional: Rounded corners */
+  display: inline-block; /* Ensures the element only takes the space of its content */
   width: 10%;
-  font-size: 0.8rem;
-  background-color: rgb(237, 205, 205);
-  color: red;
-  text-align: center;
+  background-color: rgb(237, 205, 205); /* Light background color */
+  color: red; /* Text color */
+  font-size: 0.8rem; /* Text size */
+  padding: 0.2rem 0.5rem; /* Internal spacing for better appearance */
+  border-radius: 8px; /* Optional: Rounded corners */
+  text-align: center; /* Centers text */
+  white-space: nowrap; /* Prevents wrapping of text */
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+  margin-left: 1vw; /* Removes any unwanted margins */
 }
+
 .gigItem {
   display: flex;
   justify-content: space-between;
@@ -80,23 +83,156 @@
 .gigTitle {
   font-weight: 600;
   display: flex;
-  gap: 2vw;
+  gap: 1vw;
   align-items: center;
+  font-size: 0.8rem;
 }
 .gigTitle img {
   width: 70px;
   height: 70px;
 }
+.orderFooter {
+  height: 7vh;
+  margin: 0;
+  background-color: #f5f1f1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  border-bottom-left-radius: 8px;
+  font-weight: 500;
+  color: #5c5a5a;
+  border-bottom-right-radius: 8px;
+}
+.orderFooter div {
+  display: flex;
+  width: auto;
+  gap: 1vw;
+}
+.orderFooter button {
+  border: none;
+  outline: none;
+  width: 5vw;
+  padding: 2%;
+  border: 2px solid gray;
+  background-color: white;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
 .payable {
-  border: 2px solid rgb(220, 216, 216);
+  border: 2px solid rgb(249, 245, 245);
   border-radius: 8px;
   padding: 1%;
   font-weight: 600;
 }
+.payment {
+  font-size: 1rem; /* Optional: Adjust text size */
+  color: #333; /* Optional: Text color */
+  border-radius: 8px; /* Optional: Rounded corners */
+  width: 20%;
+  font-size: 0.8rem;
+  background-color: rgb(237, 237, 192);
+  color: rgb(199, 156, 77);
+  text-align: center;
+  margin-left: 2%;
+}
+.description {
+  color: rgb(105, 103, 103);
+  width: 80%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  font-weight: 600;
+}
+.description button {
+  border: none;
+  outline: none;
+  background-color: rgb(181, 219, 181);
+  padding: 1.5%;
+  border-radius: 8px;
+  color: green;
+}
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2%;
+  gap: 2vh;
+  color: rgb(117, 116, 116);
+}
+.feature {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.feature .packageType {
+  color: gray;
+  font-weight: 600;
+}
+.notes {
+  display: flex;
+  flex-direction: column;
+  min-height: 20%;
+  gap: 10px; /* Use explicit spacing for better visibility */
+  width: 90%;
+  border: 2px solid rgb(238, 236, 236);
+  border-radius: 7px;
+}
+.freelancer {
+  display: flex;
+  flex-direction: column;
+  min-height: 20%;
+  gap: 10px; /* Use explicit spacing for better visibility */
+  width: 90%;
+  border: 2px solid rgb(238, 236, 236);
+  border-radius: 7px;
+}
+.freelancerDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+.freelancerInfo {
+  display: flex;
+  gap: 2%;
+  color: gray;
+  font-weight: 500;
+  justify-self: start;
+  margin: 2%;
+  margin-top: 0;
+}
+.note {
+  color: gray;
+  font-weight: 500;
+  display: flex;
+  margin: 2%;
+}
 /* For smaller screens: Stack the columns */
 @media (max-width: 768px) {
+  .viewGig {
+    width: 90%;
+  }
   .orderDetails {
     grid-template-columns: 1fr; /* Single column */
     grid-template-rows: auto auto; /* Rows for stacking */
+    padding: 2%;
+  }
+  .gigTitle {
+    font-size: 0.5rem;
+  }
+  .payable {
+    font-size: 0.5rem;
+    padding: 0.5%;
+  }
+  .status {
+    width: 30%;
+  }
+  .payment {
+    width: 30%;
+  }
+  .orderFooter button {
+    width: 20vw;
   }
 }

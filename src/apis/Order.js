@@ -82,4 +82,25 @@ async function createTask({ order_id, description }) {
   );
   return result.data;
 }
-export { getClientOrders, ChangeOrderStatus, getOrder, getTasks, createTask };
+async function completeTask({ id }) {
+  const result = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/order/completeTask`,
+    {
+      id,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return result.data;
+}
+export {
+  getClientOrders,
+  ChangeOrderStatus,
+  getOrder,
+  getTasks,
+  createTask,
+  completeTask,
+};

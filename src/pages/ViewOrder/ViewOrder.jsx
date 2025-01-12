@@ -1,6 +1,6 @@
 import styles from "./ViewOrder.module.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getOrder, getTasks, createTask } from "../../apis/Order";
+import { getOrder, getTasks, createTask, completeTask } from "../../apis/Order";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -41,6 +41,15 @@ export default function ViewOrder() {
     },
   });
 
+  const { mutate: removeTask } = useMutation({
+    mutationFn: ({ id }) => completeTask({ id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tasks"]); // Refresh tasks after adding a new one
+    },
+    onError: () => {
+      alert("Error removing task. Please try again.");
+    },
+  });
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -124,15 +133,25 @@ export default function ViewOrder() {
               {tasks?.map((task, index) => (
                 <div className={styles.feature} key={index}>
                   {task.task_description}
-                  <span
-                    className={
-                      task.task_status == "Pending"
-                        ? styles.pending
-                        : styles.completed
-                    }
-                  >
-                    {task.task_status}
-                  </span>
+                  <div className={styles.operations}>
+                    <span
+                      className={
+                        task.task_status == "Pending"
+                          ? styles.pending
+                          : styles.completed
+                      }
+                    >
+                      {task.task_status}
+                    </span>
+                    {task.task_status != "Completed" && (
+                      <span
+                        className={styles.complete}
+                        onClick={(e) => removeTask({ id: task.id })}
+                      >
+                        Complete
+                      </span>
+                    )}
+                  </div>
                 </div>
               ))}
               {addTask && (

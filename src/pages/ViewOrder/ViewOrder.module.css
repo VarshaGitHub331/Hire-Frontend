@@ -85,7 +85,7 @@
   display: flex;
   gap: 1vw;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 .gigTitle img {
   width: 70px;
@@ -113,11 +113,13 @@
   border: none;
   outline: none;
   width: 5vw;
-  padding: 2%;
+  padding: 5%;
   border: 2px solid gray;
   background-color: white;
   border-radius: 10px;
   font-size: 0.8rem;
+  font-weight: 500;
+  color: rgb(100, 95, 95);
 }
 
 .payable {
@@ -146,13 +148,18 @@
   padding: 2%;
   font-weight: 600;
 }
-.description button {
+.orderTimeline .description button {
   border: none;
   outline: none;
   background-color: rgb(181, 219, 181);
-  padding: 1.5%;
+  width: 20%;
+  padding: 1%;
   border-radius: 8px;
   color: green;
+}
+.orderTimeline .description {
+  width: 90%;
+  justify-content: space-between;
 }
 .features {
   display: flex;
@@ -203,21 +210,49 @@
   margin: 2%;
   margin-top: 0;
 }
+.orderTimeline {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 2px solid gray;
+  border: 2px solid rgb(238, 236, 236);
+  border-radius: 7px;
+}
 .note {
   color: gray;
   font-weight: 500;
   display: flex;
   margin: 2%;
 }
+.taskInput {
+  all: unset;
+  border: 2px solid rgb(166, 165, 165);
+  width: auto;
+  border-radius: 8px;
+}
+.feature .completed {
+  background-color: rgb(138, 183, 138);
+  color: white;
+  border-radius: 8px;
+  padding: 1%;
+}
+.feature .pending {
+  background-color: rgb(209, 209, 105);
+  color: white;
+  border-radius: 8px;
+  padding: 1%;
+}
 /* For smaller screens: Stack the columns */
 @media (max-width: 768px) {
   .viewGig {
     width: 90%;
+    padding: 2%;
   }
   .orderDetails {
     grid-template-columns: 1fr; /* Single column */
     grid-template-rows: auto auto; /* Rows for stacking */
     padding: 2%;
+    gap: 5%;
   }
   .gigTitle {
     font-size: 0.5rem;
@@ -230,9 +265,24 @@
     width: 30%;
   }
   .payment {
-    width: 30%;
+    width: 40%;
   }
   .orderFooter button {
     width: 20vw;
+  }
+  .description {
+    font-size: 0.8rem;
+  }
+  .orderTimeline .description {
+    font-size: 0.8rem;
+  }
+  .orderTimeline .description button {
+    width: 30%;
+    height: 60%;
+    padding: 0.5%;
+    margin-left: 2%;
+  }
+  .feature {
+    font-size: 0.7rem;
   }
 }

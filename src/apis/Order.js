@@ -113,7 +113,32 @@ async function editTask({ id, description }) {
   console.log(result.data);
   return result.data;
 }
-
+async function addReview({
+  reviewer_id,
+  reviewee_id,
+  order_id,
+  rating,
+  comment,
+  role,
+}) {
+  const result = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/reviews/createReview`,
+    {
+      reviewee_id,
+      reviewer_id,
+      order_id,
+      rating,
+      comment,
+      role,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return result.data;
+}
 export {
   getClientOrders,
   ChangeOrderStatus,
@@ -122,4 +147,5 @@ export {
   createTask,
   completeTask,
   editTask,
+  addReview,
 };

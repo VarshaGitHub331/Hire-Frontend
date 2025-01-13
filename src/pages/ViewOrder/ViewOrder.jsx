@@ -21,6 +21,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import { editTask } from "../../apis/Order";
 import { useNavigate } from "react-router-dom";
+import ReviewModal from "../../components/Review/Review.jsx";
 
 export default function ViewOrder() {
   const { userState } = useAuthContext();
@@ -30,6 +31,7 @@ export default function ViewOrder() {
   const [taskDescription, setTaskDescription] = useState("");
   const [editingId, setEditingId] = useState();
   const [editingDesc, setEditingDesc] = useState();
+  const [openReview, setOpenReview] = useState(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const {
@@ -125,13 +127,25 @@ export default function ViewOrder() {
             <div className={styles.orderFooter}>
               <div>Manage Your Orders</div>
               <div>
-                <button
-                  onClick={(e) => {
-                    completeOrder({ order_id: order.order_id });
-                  }}
-                >
-                  Fulfill
-                </button>
+                {role == "client" && order.status != "complete" && (
+                  <button
+                    onClick={(e) => {
+                      completeOrder({ order_id: order.order_id });
+                    }}
+                  >
+                    Fulfill
+                  </button>
+                )}
+                {order.status == "complete" && (
+                  <button
+                    onClick={(e) => {
+                      setOpenReview(true);
+                    }}
+                  >
+                    Review
+                  </button>
+                )}
+
                 <button> Orders</button>
               </div>
             </div>
@@ -309,6 +323,13 @@ export default function ViewOrder() {
           </div>
         )}
       </div>
+      {openReview && (
+        <ReviewModal
+          openReview={openReview}
+          setOpenReview={setOpenReview}
+          order={order}
+        />
+      )}
     </div>
   );
 }

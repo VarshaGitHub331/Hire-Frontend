@@ -31,7 +31,7 @@ async function getClientOrders(role, user_id, page, limit) {
 }
 async function ChangeOrderStatus(order_id, status) {
   try {
-    await axios.put(
+    const result = await axios.put(
       `${process.env.REACT_APP_SERVER_URL}/order/edit`,
       {
         status,
@@ -43,6 +43,7 @@ async function ChangeOrderStatus(order_id, status) {
         },
       }
     );
+    console.log(result.data);
   } catch (e) {
     console.log(e);
   }
@@ -96,6 +97,23 @@ async function completeTask({ id }) {
   );
   return result.data;
 }
+async function editTask({ id, description }) {
+  const result = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/order/updateTask`,
+    {
+      id,
+      description,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  console.log(result.data);
+  return result.data;
+}
+
 export {
   getClientOrders,
   ChangeOrderStatus,
@@ -103,4 +121,5 @@ export {
   getTasks,
   createTask,
   completeTask,
+  editTask,
 };

@@ -1,21 +1,37 @@
 import styles from "./ViewOrder.module.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getOrder, getTasks, createTask, completeTask } from "../../apis/Order";
+import {
+  getOrder,
+  getTasks,
+  createTask,
+  completeTask,
+  ChangeOrderStatus,
+} from "../../apis/Order";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faEnvelope,
+  faEdit,
+  faSave,
+} from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useMutation } from "@tanstack/react-query";
+import { editTask } from "../../apis/Order";
+import { useNavigate } from "react-router-dom";
+
 export default function ViewOrder() {
   const { userState } = useAuthContext();
   const { role } = userState;
   const { id } = useParams();
   const [addTask, setAddTask] = useState(false);
   const [taskDescription, setTaskDescription] = useState("");
+  const [editingId, setEditingId] = useState();
+  const [editingDesc, setEditingDesc] = useState();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const {
     data: order,
     isLoading,
@@ -24,6 +40,7 @@ export default function ViewOrder() {
     queryFn: () => getOrder({ order_id: id }),
     queryKey: ["order"],
   });
+
   const { data: tasks, isLoadingTasks } = useQuery({
     queryFn: () => getTasks({ order_id: id }),
     queryKey: ["tasks"],
@@ -34,7 +51,8 @@ export default function ViewOrder() {
     mutationFn: ({ order_id, description }) =>
       createTask({ order_id, description }),
     onSuccess: () => {
-      queryClient.invalidateQueries(["tasks"]); // Refresh tasks after adding a new one
+      queryClient.invalidateQueries(["tasks"]);
+      setEditingId(""); // Refresh tasks after adding a new one
     },
     onError: () => {
       alert("Error adding task. Please try again.");
@@ -48,6 +66,28 @@ export default function ViewOrder() {
     },
     onError: () => {
       alert("Error removing task. Please try again.");
+    },
+  });
+
+  const { mutate: updateTask } = useMutation({
+    mutationFn: ({ id, description }) => editTask({ id, description }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tasks"]);
+      setEditingId("");
+      setEditingDesc("");
+    },
+    onError: () => {
+      alert("Could not edit task");
+    },
+  });
+  const { mutate: completeOrder } = useMutation({
+    mutationFn: ({ order_id }) => ChangeOrderStatus(order_id, "complete"),
+    onSuccess: () => {
+      navigate("/orders");
+    },
+    onError: (e) => {
+      console.log(e);
+      alert("Could not complete order");
     },
   });
   if (isLoading) {
@@ -85,7 +125,13 @@ export default function ViewOrder() {
             <div className={styles.orderFooter}>
               <div>Manage Your Orders</div>
               <div>
-                <button>Fulfill</button>
+                <button
+                  onClick={(e) => {
+                    completeOrder({ order_id: order.order_id });
+                  }}
+                >
+                  Fulfill
+                </button>
                 <button> Orders</button>
               </div>
             </div>
@@ -132,21 +178,56 @@ export default function ViewOrder() {
               {isLoadingTasks && <div>Loading Features</div>}
               {tasks?.map((task, index) => (
                 <div className={styles.feature} key={index}>
-                  {task.task_description}
+                  {editingId !== task.id && task.task_description}
+                  {editingId === task.id && (
+                    <input
+                      value={editingDesc}
+                      className={styles.taskInput}
+                      onChange={(e) => setEditingDesc(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                        }
+                      }}
+                    />
+                  )}
                   <div className={styles.operations}>
+                    {editingId !== task.id &&
+                      task.task_status !== "Completed" && (
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          style={{ marginLeft: "10px", cursor: "pointer" }}
+                          onClick={() => {
+                            setEditingDesc(task.description);
+                            setEditingId(task.id);
+                          }}
+                        />
+                      )}
+                    {editingId === task.id && (
+                      <FontAwesomeIcon
+                        icon={faSave}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          updateTask({
+                            id: editingId,
+                            description: editingDesc,
+                          });
+                        }}
+                      />
+                    )}
                     <span
                       className={
-                        task.task_status == "Pending"
+                        task.task_status === "Pending"
                           ? styles.pending
                           : styles.completed
                       }
                     >
                       {task.task_status}
                     </span>
-                    {task.task_status != "Completed" && (
+                    {task.task_status !== "Completed" && (
                       <span
                         className={styles.complete}
-                        onClick={(e) => removeTask({ id: task.id })}
+                        onClick={() => removeTask({ id: task.id })}
                       >
                         Complete
                       </span>
@@ -166,7 +247,7 @@ export default function ViewOrder() {
                       addNewTask({
                         order_id: id,
                         description: taskDescription,
-                      }); // Call the mutation with order_id and description
+                      });
                       setAddTask(false);
                     }
                   }}
@@ -177,7 +258,7 @@ export default function ViewOrder() {
         </div>
 
         {/* Freelancer Details */}
-        {role == "client" && (
+        {role === "client" && (
           <div className={styles.freelancerDetails}>
             <div className={styles.notes}>
               <div className={styles.heading}>Notes</div>
@@ -202,7 +283,7 @@ export default function ViewOrder() {
             </div>
           </div>
         )}
-        {role == "freelancer" && (
+        {role === "freelancer" && (
           <div className={styles.freelancerDetails}>
             <div className={styles.notes}>
               <div className={styles.heading}>Notes</div>

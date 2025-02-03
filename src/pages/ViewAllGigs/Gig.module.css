@@ -24,27 +24,16 @@
   color: gray;
   font-weight: 400;
 }
-.gigsHolder {
-  width: 95%;
-  padding: 2%;
-  display: grid;
-  justify-content: start;
-  overflow: visible;
-  grid-gap: auto;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  grid-auto-rows: auto;
-  min-height: 0;
-}
-
 .gigCard {
   cursor: pointer;
-  width: 20vw;
+  width: auto;
   margin-top: 3%;
   display: flex;
   gap: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   min-height: 55vh;
+  max-height: 50%;
 }
 
 .gigImage {
@@ -64,6 +53,7 @@
 .gigTitle {
   color: gray;
   font-weight: 500;
+  font-size: 0.8rem;
   text-align: left;
   margin-left: 2.5%;
 }
@@ -123,6 +113,13 @@
   gap: 2.5vw;
   margin-left: 2vw;
 }
+.filterIcon {
+  border: 1px solid gray;
+  width: 5vw;
+  padding: 0.5%;
+  margin-left: 2.5%;
+  margin-bottom: 2.5%;
+}
 .filter .catFilter {
   border-color: #0a8049;
   border-width: 0.8px;
@@ -159,7 +156,7 @@
   width: 95%;
 }
 .filtering {
-  width: 20vw;
+  min-width: 20%;
   min-height: 30vh; /* Sets the initial height */
   display: flex; /* Ensures proper handling of children elements */
   flex-direction: column; /* Stack children vertically */
@@ -216,4 +213,59 @@
   height: 10vh;
   border: 1px solid rgb(198, 193, 193);
   gap: 2%;
+}
+.gigsHolder {
+  width: 95%;
+  padding: 2%;
+  display: grid;
+  justify-content: start;
+  overflow: visible;
+  grid-gap: 1.5rem; /* Adjusted gap between grid items */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Default 1fr for flexible width */
+  grid-auto-rows: auto;
+  min-height: 0;
+}
+
+@media (min-width: 768px) {
+  .gigsHolder {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    ); /* Flexible columns */
+  }
+  .gigCard {
+    max-width: 25vw;
+  }
+}
+
+@media (max-width: 992px) {
+  .gigsHolder {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    ); /* Reduce column width */
+  }
+}
+
+@media (max-width: 768px) {
+  .gigsHolder {
+    grid-template-columns: repeat(1, 1fr); /* Stack items in a single column */
+  }
+  .filterIcon {
+    width: 20%;
+    margin-left: 5vw;
+  }
+  .filtering {
+    min-width: 40%;
+  }
+}
+
+@media (max-width: 480px) {
+  .gigsHolder {
+    grid-template-columns: 1fr; /* Ensure a single column on mobile */
+    padding: 5%; /* Add more padding on small screens */
+  }
 }

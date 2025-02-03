@@ -139,6 +139,28 @@ async function addReview({
   );
   return result.data;
 }
+async function fetchAITimeline({
+  features,
+  packageFeatures,
+  gigTitle,
+  order_id,
+}) {
+  const result = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/order/generateAITimeline`,
+    {
+      features,
+      packageFeatures,
+      gigTitle,
+      order_id,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return result.data;
+}
 export {
   getClientOrders,
   ChangeOrderStatus,
@@ -148,4 +170,5 @@ export {
   completeTask,
   editTask,
   addReview,
+  fetchAITimeline,
 };

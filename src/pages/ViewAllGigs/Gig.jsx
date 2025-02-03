@@ -125,16 +125,7 @@ export default function MyGigs() {
       <div className={styles.titlePart}>
         <div className={styles.direction}>HIRE &gt; ALL GIGS &gt;&gt;</div>
       </div>
-      <div
-        className={styles.filterCat}
-        style={{
-          border: "1px solid gray",
-          width: "5%",
-          padding: "0.5%",
-          marginLeft: "2.5%",
-          marginBottom: "2.5%",
-        }}
-      >
+      <div className={styles.filterIcon}>
         <span>
           <i className="fas fa-filter"></i>{" "}
         </span>
@@ -243,7 +234,7 @@ export default function MyGigs() {
               </div>
               <div className={styles.creator}>
                 <div>{gig.freelancer_name}</div>
-                <div>⭐ {gig.freelancer_rating}</div>
+                <div>⭐ {gig.freelancer_rating?.toFixed(1)}</div>
               </div>
               <div className={styles.gigTitle}>{gig.title}</div>
               <div className={styles.gigCategories}>

@@ -6,6 +6,7 @@ import {
   createTask,
   completeTask,
   ChangeOrderStatus,
+  fetchAITimeline,
 } from "../../apis/Order";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -92,6 +93,21 @@ export default function ViewOrder() {
       alert("Could not complete order");
     },
   });
+  const { mutate: aiTimeline } = useMutation({
+    mutationFn: ({ gigTitle, features, packageFeatures }) =>
+      fetchAITimeline({
+        gigTitle,
+        features,
+        packageFeatures,
+        order_id: order.order_id,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tasks"]);
+    },
+    onError: () => {
+      alert("Error generating AI timeline");
+    },
+  });
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -120,7 +136,7 @@ export default function ViewOrder() {
             <div className={styles.gigItem}>
               <div className={styles.gigTitle}>
                 <img src={order.picture} alt="Order Logo" />
-                {order.title && JSON.parse(order.title)}
+                {order?.title}
               </div>
               <div className={styles.payable}>&#8377; {order.payable}</div>
             </div>
@@ -185,7 +201,17 @@ export default function ViewOrder() {
             <div className={styles.heading}>Timeline</div>
             <div className={styles.description}>
               View Personalized Timeline For Your Order
-              <button>Use AI</button>
+              <button
+                onClick={(e) => {
+                  aiTimeline({
+                    features: order.features,
+                    packageFeatures: order.packageFeatures,
+                    gigTitle: order.title,
+                  });
+                }}
+              >
+                Use AI
+              </button>
               <button onClick={(e) => setAddTask(true)}>Add Task</button>
             </div>
             <div className={styles.features}>

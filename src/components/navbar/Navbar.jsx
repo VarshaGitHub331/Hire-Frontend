@@ -210,6 +210,18 @@ function Navbar() {
                     <Link to="/viewAllGigs">
                       <div>All Gigs</div>
                     </Link>
+                    <Link to="/viewGigs">
+                      <div>View Gigs</div>
+                    </Link>
+                    <Link
+                      to={
+                        userState.role == "freelancer"
+                          ? "/myFreelancerProfile"
+                          : "/myClient"
+                      }
+                    >
+                      <div>My Profile</div>
+                    </Link>
                     <div onClick={handleLogout} style={{ cursor: "pointer" }}>
                       Logout
                     </div>

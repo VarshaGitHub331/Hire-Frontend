@@ -26,7 +26,7 @@ import Chat from "./pages/Chat/Chat.jsx";
 import Order from "./pages/MyOrder/MyOrder.jsx";
 import ViewOrder from "./pages/ViewOrder/ViewOrder.jsx";
 import SideBar from "./components/sidebar/sidebar.jsx";
-
+import ProfilePage from "./pages/MyProfile/MyProfile.jsx";
 import styles from "./App.module.css";
 
 function App() {
@@ -154,6 +154,10 @@ function App() {
         {
           path: "/order/:id",
           element: <ViewOrder />,
+        },
+        {
+          path: "/myFreelancerProfile",
+          element: <ProfilePage />,
         },
       ],
     },

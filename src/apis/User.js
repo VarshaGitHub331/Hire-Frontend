@@ -19,4 +19,41 @@ async function getUserProfile({ user_id, role }) {
 async function updateUserProfile() {
   console.log("updateind profile");
 }
-export { getUserProfile, updateUserProfile };
+async function editEmailProfile({ value, user_id }) {
+  const response = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/user/updateUserProfile`,
+    {
+      email: value,
+      user_id,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+}
+async function updateFreelancerProfile({ user_id, key, value }) {
+  console.log(key, value);
+  const response = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/freelancer/updateProfile`,
+    {
+      [key]: value,
+      user_id,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+}
+
+export {
+  getUserProfile,
+  updateUserProfile,
+  editEmailProfile,
+  updateFreelancerProfile,
+};

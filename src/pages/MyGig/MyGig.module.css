@@ -3,9 +3,9 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
-
   overflow: visible;
 }
+
 .titlePart {
   width: 100%;
   display: flex;
@@ -16,10 +16,12 @@
   padding-left: 5%;
   margin-top: 2%;
 }
+
 .direction {
   color: gray;
   font-weight: 500;
 }
+
 .gigCard {
   cursor: pointer;
   width: 30vw;
@@ -32,13 +34,17 @@
   margin-bottom: 2%;
   min-height: 85vh;
 }
+
 .gigImage {
   height: 60%;
 }
+
 .gigImage img {
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
+
 .gigTitle {
   all: unset;
   color: gray;
@@ -46,6 +52,7 @@
   text-align: left;
   margin-left: 2.5%;
 }
+
 .gigCategories {
   width: 100%;
   display: flex;
@@ -56,61 +63,47 @@
   justify-content: flex-start;
   margin-left: 1vw;
 }
-.catTag {
-  all: unset;
-  display: inline-flex; /* Places button and close symbol inline */
-  align-items: center; /* Vertically centers items */
-  gap: 5px; /* Adds a small gap between button and close icon */
-  padding: 4px; /* Optional: Adds a bit of padding around the content */
+
+.catTag,
+.editTag,
+.deleteTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
   border: 1px solid #f1f1f1;
-  color: white; /* Optional: Add a border for visibility */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: #0f6c41; /* Optional: Background color */
+  color: white;
+  border-radius: 4px;
   white-space: nowrap;
   cursor: pointer;
   font-size: 0.8em;
-  /* Prevents wrapping of text */
 }
+
+.catTag {
+  background-color: #0f6c41;
+}
+
+.editTag {
+  background-color: #19965c;
+}
+
+.deleteTag {
+  background-color: red;
+}
+
 .bottom {
   width: 95%;
   display: flex;
   justify-content: space-between;
-
   padding: 2%;
 }
+
 .budget {
   color: #0f6c41;
   font-size: 1rem;
   font-weight: 700;
 }
-.editTag {
-  display: inline-flex; /* Places button and close symbol inline */
-  align-items: center; /* Vertically centers items */
-  gap: 5px; /* Adds a small gap between button and close icon */
-  padding: 4px; /* Optional: Adds a bit of padding around the content */
-  border: 1px solid #f1f1f1;
-  color: white; /* Optional: Add a border for visibility */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: #19965c; /* Optional: Background color */
-  white-space: nowrap;
-  cursor: pointer;
-  min-width: 2vw;
-  font-size: 0.8em;
-}
-.deleteTag {
-  display: inline-flex;
-  min-width: 2vw; /* Places button and close symbol inline */
-  align-items: center; /* Vertically centers items */
-  gap: 5px; /* Adds a small gap between button and close icon */
-  padding: 4px; /* Optional: Adds a bit of padding around the content */
-  border: 1px solid #f1f1f1;
-  color: white; /* Optional: Add a border for visibility */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: red; /* Optional: Background color */
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 0.8em;
-}
+
 .features {
   display: flex;
   flex-direction: column;
@@ -119,6 +112,7 @@
   color: rgb(67, 66, 66);
   font-style: italic;
 }
+
 .suggestedCategories {
   width: 100%;
   display: flex;
@@ -126,14 +120,16 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+
 .gigContainer {
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
+
 .packFeatures {
   width: 30vw;
-  min-height: 30vh; /* Initial height */
+  min-height: 30vh;
   display: flex;
   gap: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -150,6 +146,7 @@
   justify-content: flex-start;
   color: gray;
 }
+
 .featureTitle {
   width: 100%;
   display: flex;
@@ -158,6 +155,7 @@
   font-weight: 600;
   color: black;
 }
+
 .featureList {
   display: flex;
   gap: 1rem;
@@ -165,4 +163,102 @@
   align-items: flex-start;
   width: 100%;
   margin: auto;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Medium Screens (e.g., tablets) */
+@media (max-width: 1200px) {
+  .gigCard {
+    width: 45vw;
+  }
+
+  .packFeatures {
+    width: 45vw;
+  }
+}
+
+/* Small Screens (e.g., mobile landscape) */
+@media (max-width: 768px) {
+  .gigCard {
+    width: 95%;
+    margin-top: 5%;
+  }
+
+  .packFeatures {
+    width: 100%;
+    padding: 3%;
+  }
+
+  .titlePart {
+    padding-left: 3%;
+    margin-top: 5%;
+  }
+
+  .gigCategories {
+    font-size: 0.75rem;
+  }
+  .gigContainer {
+    display: grid; /* Switch to grid */
+    grid-template-columns: 1fr; /* Two-column grid for better display */
+    grid-template-rows: auto;
+    gap: 1rem;
+    padding: 2% 2%;
+  }
+
+  .budget {
+    font-size: 1rem;
+  }
+}
+
+/* Smallest Screens (e.g., mobile portrait) */
+@media (max-width: 480px) {
+  /* Change the entire layout to grid for smaller screens */
+  .MyGig {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-gap: 2rem;
+  }
+
+  .gigCard,
+  .packFeatures {
+    width: 95%; /* Full width for small screens */
+    margin-top: 5%;
+  }
+
+  .gigImage {
+    height: 50%; /* Reduce the height of images for smaller screens */
+  }
+
+  .gigTitle {
+    font-size: 0.9rem;
+    margin-left: 2%;
+  }
+
+  .gigCategories {
+    font-size: 0.7rem;
+  }
+
+  .catTag,
+  .editTag,
+  .deleteTag {
+    font-size: 0.7em;
+    padding: 3px;
+  }
+
+  .features {
+    padding-left: 3%;
+  }
+
+  .gigContainer {
+    display: grid; /* Switch to grid */
+    grid-template-columns: 1fr; /* Two-column grid for better display */
+    grid-template-rows: auto;
+    gap: 1rem;
+    padding: 2% 2%;
+  }
+
+  .budget {
+    font-size: 1rem;
+  }
 }

@@ -7,14 +7,15 @@ import {
   updateFreelancerProfile,
 } from "../../apis/User";
 import { useState, useEffect } from "react";
-import moment from "moment";
 import axios from "axios";
 import { FaCamera, FaPen, FaCheck } from "react-icons/fa";
+import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const ProfilePage = () => {
   const { userState } = useAuthContext();
   const { user_id, role, token } = userState;
   const queryClient = new QueryClient();
-
+  const navigate = useNavigate();
   const [editEmail, setEditEmail] = useState("");
   const [editLinkedin, setEditLinkedin] = useState("");
   const [editResume, setEditResume] = useState(null);
@@ -153,7 +154,7 @@ const ProfilePage = () => {
         </h3>
         <ul className={styles.details}>
           <li>
-            <strong>Work e-mail:</strong>
+            <strong>Mail:</strong>
             {editingField === "email" ? (
               <input
                 type="email"
@@ -255,41 +256,12 @@ const ProfilePage = () => {
       </div>
       <div className={styles.mainContent}>
         <nav className={styles.tabs}>
-          <a href="#">Overview</a>
-          <a href="#">Activity</a>
+          <a onClick={(e) => navigate("/myFreelancerProfile")}>Overview</a>
+          <a onClick={(e) => navigate("activity")}>Activity</a>
+          <a onClick={(e) => navigate("about")}>About</a>
         </nav>
 
-        <div className={styles.stats}>
-          <div className={styles.stat}>
-            <h4>{profileData?.completedOrders}</h4>
-            <p>orders completed</p>
-          </div>
-          <div className={styles.stat}>
-            <h4>{profileData?.progressingOrder}</h4>
-            <p>orders pending</p>
-          </div>
-        </div>
-
-        <div className={styles.highlight}>
-          <p>One important thing...</p>
-          <h3>Arlene is waiting for the draft contract</h3>
-          <button className={styles.createBtn}>Create contract</button>
-        </div>
-
-        <div className={styles.status}>
-          <p>
-            <strong>Created:</strong>{" "}
-            {profileData
-              ? moment(profileData.UserDetails.created_at).format(
-                  "MMMM D, YYYY"
-                )
-              : "N/A"}
-          </p>
-          <p>
-            <strong>Last updated:</strong>{" "}
-            {moment(profileData?.UserDetails.updated_at).format("MMMM D, YYYY")}
-          </p>
-        </div>
+        {profileData && <Outlet context={{ profileData }} />}
       </div>
     </div>
   );

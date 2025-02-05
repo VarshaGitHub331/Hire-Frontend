@@ -28,7 +28,9 @@ import ViewOrder from "./pages/ViewOrder/ViewOrder.jsx";
 import SideBar from "./components/sidebar/sidebar.jsx";
 import ProfilePage from "./pages/MyProfile/MyProfile.jsx";
 import styles from "./App.module.css";
-
+import MainDashboard from "./pages/MyProfile/MainDashboard.jsx";
+import ProfileAbout from "./pages/MyProfile/ProfileAbout.jsx";
+import Activity from "./pages/MyProfile/Activity.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -158,6 +160,20 @@ function App() {
         {
           path: "/myFreelancerProfile",
           element: <ProfilePage />,
+          children: [
+            {
+              path: "",
+              element: <MainDashboard />,
+            },
+            {
+              path: "about",
+              element: <ProfileAbout />,
+            },
+            {
+              path: "activity",
+              element: <Activity />,
+            },
+          ],
         },
       ],
     },

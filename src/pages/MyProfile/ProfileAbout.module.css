@@ -46,3 +46,53 @@
 .removeIcon:hover {
   color: #f8d7da; /* Light red for hover */
 }
+.profileInfoContainer {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.profileInfoContainer h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profileInfoContainer p {
+  font-size: 1rem;
+  color: #555;
+}
+i {
+  color: gray;
+  margin-left: 1%;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.inputField {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .suggestions {
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .suggestionItem {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .suggestionItem:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .suggestionItem i {
+    margin-left: 10px;
+  }
+  

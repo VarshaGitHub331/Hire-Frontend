@@ -20,6 +20,21 @@ async function getSkills(categories) {
     return result.data;
   } catch (e) {}
 }
+async function getAllSkills() {
+  try {
+    const result = await axios.get(
+      `${BASE_URL}/data/fetchAllSkills`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("All skills are ", result);
+    return result.data.skills;
+  } catch (e) {}
+}
 async function getRecommendedCategories(extractText) {
   try {
     const result = await axios.post(
@@ -43,4 +58,4 @@ async function getRecommendedCategories(extractText) {
   }
 }
 
-export { getSkills, getRecommendedCategories };
+export { getSkills, getRecommendedCategories, getAllSkills };

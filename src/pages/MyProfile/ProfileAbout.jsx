@@ -5,38 +5,45 @@ import { useOutletContext } from "react-router-dom";
 import { getCategories } from "../../apis/Categories";
 import { getAllSkills } from "../../apis/Skills";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import {
   updateFreelancerSkills,
   updateFreelancerCategories,
 } from "../../apis/UpdateProfile";
 import { useAuthContext } from "../../contexts/AuthContext";
+
 const ProfileSkills = () => {
-  const { profileData } = useOutletContext();
+  const { profileData, refetch } = useOutletContext();
   const { userState } = useAuthContext();
 
-  const { data: allSkills, isLoadingSkills } = useQuery({
-    queryFn: () => getAllSkills(),
+  const { data: allSkills = [], isLoading: isLoadingSkills } = useQuery({
+    queryFn: getAllSkills,
     queryKey: ["skills"],
   });
-  const { data: allCategories, isLoadingCategories } = useQuery({
-    queryFn: () => getCategories(),
-    queryKey: ["categories"],
-  });
 
-  // Ensure freelancerSkills and freelancerCategory are always arrays
+  const { data: allCategories = [], isLoading: isLoadingCategories } = useQuery(
+    {
+      queryFn: getCategories,
+      queryKey: ["categories"],
+    }
+  );
+
   const [skills, setSkills] = useState(profileData.freelancerSkills || []);
   const [categories, setCategories] = useState(
     Array.isArray(profileData.freelancerCategory)
       ? profileData.freelancerCategory
-      : [profileData.freelancerCategory]
+      : profileData.freelancerCategory
+      ? [profileData.freelancerCategory]
+      : []
   );
-  const [bio, setBio] = useState(profileData.FrelancerDetails.profile);
 
-  // Input fields for adding skills and categories
+  const [editBio, setEditBio] = useState(
+    profileData.FrelancerDetails?.profile || ""
+  );
+  const [editingBio, setEditingBio] = useState(false);
   const [newSkill, setNewSkill] = useState("");
   const [newCategory, setNewCategory] = useState("");
 
-  // Use Mutation hooks to make requests to the backend with mutationFn approach
   const updateSkillsMutation = useMutation({
     mutationFn: (updatedSkills) =>
       updateFreelancerSkills({
@@ -53,63 +60,86 @@ const ProfileSkills = () => {
       }),
   });
 
-  // Remove skill
   const removeSkill = (skillName) => {
     const updatedSkills = skills.filter(
       (item) => item.skill_name !== skillName
     );
     setSkills(updatedSkills);
-    updateSkillsMutation.mutate(updatedSkills); // Trigger API to update the database
+    updateSkillsMutation.mutate(updatedSkills);
   };
 
-  // Remove category
   const removeCategory = (categoryName) => {
     const updatedCategories = categories.filter(
       (item) => item.category_name !== categoryName
     );
     setCategories(updatedCategories);
-    updateCategoriesMutation.mutate(updatedCategories); // Trigger API to update the database
+    updateCategoriesMutation.mutate(updatedCategories);
   };
 
-  // Add new skill
   const addSkill = (skillName) => {
-    const updatedSkills = [...skills, { skill_name: skillName }];
-    setSkills(updatedSkills);
-    setNewSkill(""); // Clear input field after adding
-    updateSkillsMutation.mutate(updatedSkills); // Trigger API to update the database
+    if (!skills.some((skill) => skill.skill_name === skillName)) {
+      const updatedSkills = [...skills, { skill_name: skillName }];
+      setSkills(updatedSkills);
+      setNewSkill("");
+      updateSkillsMutation.mutate(updatedSkills);
+    }
   };
 
-  // Add new category
   const addCategory = (categoryName) => {
-    const updatedCategories = [...categories, { category_name: categoryName }];
-    setCategories(updatedCategories);
-    setNewCategory(""); // Clear input field after adding
-    updateCategoriesMutation.mutate(updatedCategories); // Trigger API to update the database
+    if (
+      !categories.some((category) => category.category_name === categoryName)
+    ) {
+      const updatedCategories = [
+        ...categories,
+        { category_name: categoryName },
+      ];
+      setCategories(updatedCategories);
+      setNewCategory("");
+      updateCategoriesMutation.mutate(updatedCategories);
+    }
   };
 
-  // Filter suggestions for skills based on input
-  const skillSuggestions = allSkills
-    ? allSkills.filter((skill) =>
-        skill.skill_name.toLowerCase().includes(newSkill.toLowerCase())
-      )
-    : [];
+  const skillSuggestions = allSkills.filter((skill) =>
+    skill.skill_name.toLowerCase().includes(newSkill.toLowerCase())
+  );
 
-  // Filter suggestions for categories based on input
-  const categorySuggestions = allCategories
-    ? allCategories.filter((category) =>
-        category.category_name.toLowerCase().includes(newCategory.toLowerCase())
-      )
-    : [];
+  const categorySuggestions = allCategories.filter((category) =>
+    category.category_name.toLowerCase().includes(newCategory.toLowerCase())
+  );
+
+  const handleBioSave = async () => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/freelancer/updateProfile`,
+        { profile: editBio, user_id: userState.user_id },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      refetch();
+      setEditingBio(false);
+    } catch (e) {
+      console.error("Error updating bio:", e);
+    }
+  };
 
   return (
     <div className={styles.profileSkillsContainer}>
       <div className={styles.profileInfoContainer}>
         <div>Bio</div>
-        <p>{bio}</p>
-        <i>
-          <FaPen />
+        {!editingBio ? (
+          <div style={{ marginLeft: "2%", color: "gray" }}>{editBio}</div>
+        ) : (
+          <input
+            type="text"
+            className={styles.bioInput}
+            value={editBio}
+            onChange={(e) => setEditBio(e.target.value)}
+          />
+        )}
+        <i onClick={editingBio ? handleBioSave : () => setEditingBio(true)}>
+          {editingBio ? <FaCheck /> : <FaPen />}
         </i>
       </div>
+
       <div className={styles.tagsContainer}>
         <div className={styles.tags}>
           <div>Skills</div>
@@ -129,7 +159,7 @@ const ProfileSkills = () => {
             placeholder="Add a skill"
             className={styles.inputField}
           />
-          {newSkill && (
+          {newSkill && skillSuggestions.length > 0 && (
             <div className={styles.suggestions}>
               {skillSuggestions.map((suggestedSkill) => (
                 <div
@@ -163,7 +193,7 @@ const ProfileSkills = () => {
             placeholder="Add a category"
             className={styles.inputField}
           />
-          {newCategory && (
+          {newCategory && categorySuggestions.length > 0 && (
             <div className={styles.suggestions}>
               {categorySuggestions.map((suggestedCategory) => (
                 <div

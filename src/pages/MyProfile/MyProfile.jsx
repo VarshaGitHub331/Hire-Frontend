@@ -261,7 +261,7 @@ const ProfilePage = () => {
           <a onClick={(e) => navigate("about")}>About</a>
         </nav>
 
-        {profileData && <Outlet context={{ profileData }} />}
+        {profileData && <Outlet context={{ profileData, refetch }} />}
       </div>
     </div>
   );

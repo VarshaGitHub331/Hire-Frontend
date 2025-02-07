@@ -257,7 +257,8 @@ const ProfilePage = () => {
       <div className={styles.mainContent}>
         <nav className={styles.tabs}>
           <a onClick={(e) => navigate("/myFreelancerProfile")}>Overview</a>
-          <a onClick={(e) => navigate("activity")}>Activity</a>
+          <a onClick={(e) => navigate("ratings")}>Ratings</a>
+          <a onClick={(e) => navigate("orders")}>Orders</a>
           <a onClick={(e) => navigate("about")}>About</a>
         </nav>
 

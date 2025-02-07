@@ -30,7 +30,8 @@ import ProfilePage from "./pages/MyProfile/MyProfile.jsx";
 import styles from "./App.module.css";
 import MainDashboard from "./pages/MyProfile/MainDashboard.jsx";
 import ProfileAbout from "./pages/MyProfile/ProfileAbout.jsx";
-import Activity from "./pages/MyProfile/Activity.jsx";
+import RatingsActivity from "./pages/MyProfile/Activity.jsx";
+import OrdersActivity from "./pages/MyProfile/OrderActivity.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -170,8 +171,12 @@ function App() {
               element: <ProfileAbout />,
             },
             {
-              path: "activity",
-              element: <Activity />,
+              path: "ratings",
+              element: <RatingsActivity />,
+            },
+            {
+              path: "orders",
+              element: <OrdersActivity />,
             },
           ],
         },

@@ -12,7 +12,7 @@ const formatMonth = (dateString) => {
 
 const fetchRatingsGrowth = async (user_id) => {
   const response = await axios.get(
-    `http://localhost:3001/freelancer/getFreelancerRatingsGrowth?user_id=${user_id}`
+    `http://localhost:3001/client/getClientRatingsGrowth?user_id=${user_id}`
   );
   return response.data.monthlyRatings.map((item) => ({
     ...item,
@@ -20,11 +20,11 @@ const fetchRatingsGrowth = async (user_id) => {
   }));
 };
 
-const RatingsChart = () => {
+const ClientRatings = () => {
   const { userState } = useAuthContext();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["freelancerRatingsGrowth", userState?.user_id],
+    queryKey: ["clientRatingsGrowth", userState?.user_id],
     queryFn: () => fetchRatingsGrowth(userState?.user_id),
     enabled: !!userState?.user_id,
     staleTime: 1000 * 60 * 5,
@@ -40,4 +40,4 @@ const RatingsChart = () => {
   );
 };
 
-export default RatingsChart;
+export default ClientRatings;

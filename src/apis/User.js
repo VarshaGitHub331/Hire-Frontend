@@ -50,10 +50,27 @@ async function updateFreelancerProfile({ user_id, key, value }) {
   );
   return response.data;
 }
-
+async function updateClientProfile({ user_id, key, value, token }) {
+  console.log(key, value);
+  const response = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/client/updateProfile`,
+    {
+      [key]: value,
+      user_id,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+}
 export {
   getUserProfile,
   updateUserProfile,
   editEmailProfile,
   updateFreelancerProfile,
+  updateClientProfile,
 };

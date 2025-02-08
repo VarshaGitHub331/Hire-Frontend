@@ -217,7 +217,7 @@ function Navbar() {
                       to={
                         userState.role == "freelancer"
                           ? "/myFreelancerProfile"
-                          : "/myClient"
+                          : "/myClientProfile"
                       }
                     >
                       <div>My Profile</div>

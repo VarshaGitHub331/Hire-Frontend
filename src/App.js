@@ -32,6 +32,9 @@ import MainDashboard from "./pages/MyProfile/MainDashboard.jsx";
 import ProfileAbout from "./pages/MyProfile/ProfileAbout.jsx";
 import RatingsActivity from "./pages/MyProfile/Activity.jsx";
 import OrdersActivity from "./pages/MyProfile/OrderActivity.jsx";
+import MyClientProfile from "./pages/ClientProfile/ClientProfile.jsx";
+import ClientOrders from "./pages/ClientProfile/ClientOrders.jsx";
+import ClientRatings from "./pages/ClientProfile/ClientRatings.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -177,6 +180,28 @@ function App() {
             {
               path: "orders",
               element: <OrdersActivity />,
+            },
+          ],
+        },
+        {
+          path: "/myClientProfile",
+          element: <MyClientProfile />,
+          children: [
+            {
+              path: "",
+              element: <MainDashboard />,
+            },
+            {
+              path: "about",
+              element: <ProfileAbout />,
+            },
+            {
+              path: "ratings",
+              element: <ClientRatings />,
+            },
+            {
+              path: "orders",
+              element: <ClientOrders />,
             },
           ],
         },

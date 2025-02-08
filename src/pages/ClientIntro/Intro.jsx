@@ -64,7 +64,7 @@ function DetailModal({ detailModal, setDetailModal }) {
 
   const onSubmit = async (values, actions) => {
     try {
-      const updatedProfile = await axios.put(
+      const updatedProfile = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/client/updateProfile`,
         {
           user_id,
@@ -73,6 +73,7 @@ function DetailModal({ detailModal, setDetailModal }) {
         },
         {
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }

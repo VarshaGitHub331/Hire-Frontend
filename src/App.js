@@ -35,6 +35,7 @@ import OrdersActivity from "./pages/MyProfile/OrderActivity.jsx";
 import MyClientProfile from "./pages/ClientProfile/ClientProfile.jsx";
 import ClientOrders from "./pages/ClientProfile/ClientOrders.jsx";
 import ClientRatings from "./pages/ClientProfile/ClientRatings.jsx";
+import CreatePosting from "./pages/CreatePosting/CreatePosting.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -204,6 +205,10 @@ function App() {
               element: <ClientOrders />,
             },
           ],
+        },
+        {
+          path: "/createJobPosting",
+          element: <CreatePosting />,
         },
       ],
     },

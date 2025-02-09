@@ -222,6 +222,9 @@ function Navbar() {
                     >
                       <div>My Profile</div>
                     </Link>
+                    <Link to="/createJobPosting">
+                      <div>Add Posting</div>
+                    </Link>
                     <div onClick={handleLogout} style={{ cursor: "pointer" }}>
                       Logout
                     </div>

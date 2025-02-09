@@ -131,6 +131,7 @@
 .buttonContainer {
   display: flex;
   justify-content: space-between;
+  margin-top: 5%;
   gap: 1rem;
   grid-column: span 2;
 }
@@ -139,10 +140,10 @@
 .button {
   background-color: rgb(12, 101, 12);
   color: #fff;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   border: none;
-  border-radius: 0.375rem;
-  font-size: 0.8rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
@@ -156,6 +157,49 @@
 
 .button:active {
   transform: translateY(0);
+}
+.skillSet {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+.skillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+  width: 100%; /* Makes it take full width */
+} /* Individual Skill Tag */
+.skillTag {
+  display: flex;
+  align-items: center;
+  border: 2px solid rgb(12, 101, 12); /* Green */
+  color: rgb(12, 101, 12);
+  background-color: white;
+  padding: 0.3rem 0.3rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: default;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Remove Button (White Cross) */
+.removeSkill {
+  background: none;
+  border: none;
+  color: rgb(12, 101, 12);
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.removeSkill:hover {
+  color: #f8d7da; /* Light Red on Hover */
 }
 
 /* Mobile Responsive Adjustments */
@@ -178,5 +222,8 @@
     flex-direction: column;
     gap: 0.5rem;
     grid-column: span 1; /* Fixing layout issue */
+  }
+  .skillsContainer {
+    justify-content: center;
   }
 }

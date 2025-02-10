@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import styles from "./CreatePosting.module.css";
 import { Link } from "react-router-dom";
-import { createPosting } from "../../apis/JobPosting";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { extractSkillsFromPosting, createPosting } from "../../apis/JobPosting";
+import {
+  extractSkillsFromPosting,
+  CreatePosting,
+  fetchPostings,
+} from "../../apis/JobPosting";
+
 const PostJob = () => {
   const [formData, setFormData] = useState({
     jobLocation: "",
@@ -37,7 +41,7 @@ const PostJob = () => {
   };
   const handleCreatePosting = async (e) => {
     e.preventDefault();
-    await createPosting(formData, user_id, skills);
+    await CreatePosting(formData, user_id, skills);
   };
   // Remove skill from list
   const removeSkill = (skillToRemove) => {

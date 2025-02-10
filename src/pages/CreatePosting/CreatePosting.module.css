@@ -58,6 +58,7 @@
   width: 100%;
 }
 
+
 /* Adjusting form layout for larger screens */
 @media (min-width: 768px) {
   .form {

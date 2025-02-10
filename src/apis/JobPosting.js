@@ -40,4 +40,27 @@ async function CreatePosting(formData, user_id, skills) {
     alert(e); // Handle error
   }
 }
-export { extractSkillsFromPosting, CreatePosting };
+async function fetchPostings(user_id, pageParam) {
+  try {
+    const result = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/client/getJobPostings`, // Use the correct URL path
+      {
+        params: {
+          user_id: user_id,
+          page: pageParam, // Add page as a query parameter
+          limit: 3, // Set limit directly
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(result);
+    return {
+      jobResults: result.data.jobResults, // Array of gigs
+    };
+  } catch (e) {
+    alert(e); // Handle error
+  }
+}
+export { extractSkillsFromPosting, CreatePosting, fetchPostings };

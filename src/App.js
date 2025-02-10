@@ -2,8 +2,6 @@ import React from "react";
 import Navbar from "./components/navbar/Navbar.jsx";
 import Footer from "./components/footer/footer.jsx";
 import Home from "./pages/home/Home.jsx";
-import Gigs from "./pages/MyGigs/MyGig.jsx";
-import Gig from "./pages/ViewAllGigs/Gig.jsx";
 import Add from "./pages/Add/AddGig.jsx";
 import Messages from "./pages/MyMessages/MyMessage.jsx";
 import Message from "./pages/Message/Message.jsx";
@@ -25,7 +23,6 @@ import ViewGig from "./pages/ViewGig/ViewGig.jsx";
 import Chat from "./pages/Chat/Chat.jsx";
 import Order from "./pages/MyOrder/MyOrder.jsx";
 import ViewOrder from "./pages/ViewOrder/ViewOrder.jsx";
-import SideBar from "./components/sidebar/sidebar.jsx";
 import ProfilePage from "./pages/MyProfile/MyProfile.jsx";
 import styles from "./App.module.css";
 import MainDashboard from "./pages/MyProfile/MainDashboard.jsx";
@@ -36,6 +33,7 @@ import MyClientProfile from "./pages/ClientProfile/ClientProfile.jsx";
 import ClientOrders from "./pages/ClientProfile/ClientOrders.jsx";
 import ClientRatings from "./pages/ClientProfile/ClientRatings.jsx";
 import CreatePosting from "./pages/CreatePosting/CreatePosting.jsx";
+import JobBoard from "./pages/ClientJobBoard/ClientJobBoard.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -209,6 +207,10 @@ function App() {
         {
           path: "/createJobPosting",
           element: <CreatePosting />,
+        },
+        {
+          path: "/clientJobs",
+          element: <JobBoard />,
         },
       ],
     },

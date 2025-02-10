@@ -1,0 +1,132 @@
+.titlePart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 2vh;
+  padding-left: 5%;
+  margin-top: 2%;
+}
+
+.direction {
+  color: gray;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: left;
+  padding: 2%;
+}
+.container {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #2f4f2f; /* Green theme */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2f4f2f;
+  color: white;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: white;
+}
+
+.profile {
+  font-size: 1rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.searchBar input {
+  margin: 0 5px;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.searchBar button {
+  padding: 10px 20px;
+  background-color: #008000;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  padding: 20px;
+}
+
+.filters {
+  width: 25%;
+  padding-right: 20px;
+}
+
+.jobs {
+  width: 75%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
+  gap: 30px;
+}
+
+.jobCard {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.jobCard:hover {
+  transform: scale(1.05);
+  border-color: #008000;
+}
+
+.tag {
+  display: inline-block;
+  margin: 5px 5px 0 0;
+  padding: 5px 10px;
+  background-color: #008000;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+.loadMore {
+  width: 95%;
+  padding-right: 5%;
+  margin-top: 2%;
+  display: flex;
+  justify-content: flex-end;
+}
+.loadMore button {
+  border: none;
+  margin: none;
+  background-color: white;
+  font-weight: 500;
+  color: #0f6c41;
+}

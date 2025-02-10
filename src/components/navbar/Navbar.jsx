@@ -201,6 +201,13 @@ function Navbar() {
                         </Link>
                       </>
                     )}
+                    {userState.role === "client" && (
+                      <>
+                        <Link to="/clientJobs">
+                          <div>View Postings</div>
+                        </Link>
+                      </>
+                    )}
                     <Link to="/orders">
                       <div>Orders</div>
                     </Link>

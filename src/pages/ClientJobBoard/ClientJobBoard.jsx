@@ -6,7 +6,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useState } from "react";
 import { useMemo } from "react";
-import JobModal from "./JobModal";
+import { useNavigate } from "react-router-dom";
 const JobBoard = () => {
   const { userState } = useAuthContext();
   const user_id = userState.user_id;
@@ -25,8 +25,8 @@ const JobBoard = () => {
       return lastPage.jobResults.length > 0 ? pages.length + 1 : undefined;
     },
   });
+  const navigate = useNavigate();
   const [jobTitle, setJobTitle] = useState("");
-  const [selectedJob, setSelectedJob] = useState(null);
   const filteredData = useMemo(() => {
     return data?.pages.flatMap((page) =>
       page.jobResults.filter(
@@ -65,7 +65,11 @@ const JobBoard = () => {
                 className={styles.jobCard}
                 key={i}
                 onClick={(e) => {
-                  setSelectedJob((selectedJob) => job);
+                  navigate(`/clientJobs/${job.job_id}`, {
+                    state: {
+                      job,
+                    },
+                  });
                 }}
               >
                 <h5>{job.title}</h5>
@@ -73,7 +77,7 @@ const JobBoard = () => {
                   <span className={styles.tag}>{job.experience}</span>{" "}
                   <span className={styles.tag}>{job.job_type}</span>
                 </p>
-                <p>
+                <p className={styles.budget}>
                   {"\u20B9"} {parseInt(job.min_budget)} - {"\u20B9"}{" "}
                   {parseInt(job.max_budget)}
                 </p>
@@ -88,9 +92,6 @@ const JobBoard = () => {
             {isFetchingNextPage ? "LOADING..." : "SHOW MORE"}
           </button>
         </div>
-      )}
-      {selectedJob && (
-        <JobModal job={selectedJob} onClose={() => setSelectedJob(null)} />
       )}
     </>
   );

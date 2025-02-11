@@ -34,6 +34,7 @@ import ClientOrders from "./pages/ClientProfile/ClientOrders.jsx";
 import ClientRatings from "./pages/ClientProfile/ClientRatings.jsx";
 import CreatePosting from "./pages/CreatePosting/CreatePosting.jsx";
 import JobBoard from "./pages/ClientJobBoard/ClientJobBoard.jsx";
+import ViewJob from "./pages/ClientJobBoard/ViewJob.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -211,6 +212,10 @@ function App() {
         {
           path: "/clientJobs",
           element: <JobBoard />,
+        },
+        {
+          path: "/clientJobs/:id",
+          element: <ViewJob />,
         },
       ],
     },

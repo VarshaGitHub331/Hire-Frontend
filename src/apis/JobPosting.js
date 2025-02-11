@@ -63,4 +63,22 @@ async function fetchPostings(user_id, pageParam) {
     alert(e); // Handle error
   }
 }
-export { extractSkillsFromPosting, CreatePosting, fetchPostings };
+async function editPosting(editJob) {
+  try {
+    const result = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/client/editPosting`,
+      editJob,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("Edited Job Response:", result.data);
+    return result.data.updatedJob; // Ensure backend returns updated job
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export { extractSkillsFromPosting, CreatePosting, fetchPostings, editPosting };

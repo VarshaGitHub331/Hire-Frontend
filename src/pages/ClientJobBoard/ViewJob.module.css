@@ -1,0 +1,210 @@
+.titlePart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 2vh;
+  padding-left: 5%;
+  margin-top: 2%;
+}
+
+.direction {
+  color: gray;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: left;
+  padding: 2%;
+}
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 80%;
+  margin-top: 2%;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin: auto;
+}
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form div {
+  width: 100%;
+}
+
+/* Adjusting form layout for larger screens */
+@media (min-width: 768px) {
+  .form {
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+  }
+}
+
+/* Labels */
+.label {
+  display: block;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+/* Inputs */
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  color: #2d3748;
+  background-color: #f7fafc;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #4299e1;
+  outline: none;
+}
+
+.textarea {
+  resize: vertical;
+  grid-column: span 2;
+}
+
+/* Radio Buttons */
+.radioGroup {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.radio {
+  margin-right: 0.5rem;
+}
+
+/* Checkbox */
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+/* Buttons */
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+  gap: 1rem;
+  grid-column: span 2;
+}
+
+/* Buttons Responsive */
+.button {
+  background-color: rgb(12, 101, 12);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: white;
+  color: rgb(12, 101, 12);
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+.skillSet {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+.skillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+  width: 100%; /* Makes it take full width */
+} /* Individual Skill Tag */
+.skillTag {
+  display: flex;
+  align-items: center;
+  border: 2px solid rgb(12, 101, 12); /* Green */
+  color: rgb(12, 101, 12);
+  background-color: white;
+  padding: 0.3rem 0.3rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: default;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Remove Button (White Cross) */
+.removeSkill {
+  background: none;
+  border: none;
+  color: rgb(12, 101, 12);
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.removeSkill:hover {
+  color: #f8d7da; /* Light Red on Hover */
+}
+
+/* Mobile Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .card {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .mainContent {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .form {
+    grid-template-columns: 1fr; /* Single column for mobile */
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    gap: 0.5rem;
+    grid-column: span 1; /* Fixing layout issue */
+  }
+  .skillsContainer {
+    justify-content: center;
+  }
+}

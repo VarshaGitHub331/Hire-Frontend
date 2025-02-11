@@ -72,11 +72,14 @@ const JobBoard = () => {
                   });
                 }}
               >
-                <h5>{job.title}</h5>
-                <p>
-                  <span className={styles.tag}>{job.experience}</span>{" "}
-                  <span className={styles.tag}>{job.job_type}</span>
+                <div className={styles.jobTitle}>{job.title}</div>
+                <p className={styles.tags}>
+                  <span className={styles.expTag}>{job.experience}</span>{" "}
+                  <span className={styles.typeTag}>{job.job_type}</span>
                 </p>
+
+                <p className={styles.desc}>{job.description}</p>
+                <hr />
                 <p className={styles.budget}>
                   {"\u20B9"} {parseInt(job.min_budget)} - {"\u20B9"}{" "}
                   {parseInt(job.max_budget)}

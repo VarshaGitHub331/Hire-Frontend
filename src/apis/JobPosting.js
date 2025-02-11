@@ -80,5 +80,49 @@ async function editPosting(editJob) {
     console.log(e);
   }
 }
-
-export { extractSkillsFromPosting, CreatePosting, fetchPostings, editPosting };
+async function closePosting(job_id, postingStatus) {
+  try {
+    const result = await axios.patch(
+      `${process.env.REACT_APP_SERVER_URL}/client/removePosting/${job_id}`,
+      {
+        status: postingStatus,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return result.data.newJob;
+  } catch (e) {
+    console.log(e);
+  }
+}
+async function fetchPostingsForFreelancer(user_id) {
+  try {
+    const result = await axios.patch(
+      `${process.env.REACT_APP_SERVER_URL}/freelancer/jobsForFreelancer}`,
+      {
+        params: {
+          user_id,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return result.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+export {
+  extractSkillsFromPosting,
+  CreatePosting,
+  fetchPostings,
+  editPosting,
+  closePosting,
+  fetchPostingsForFreelancer,
+};

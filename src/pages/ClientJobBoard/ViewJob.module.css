@@ -21,10 +21,11 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  width: 80%;
+  width: 70%;
   margin-top: 2%;
-  padding: 1rem;
   box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 2%;
   margin: auto;
 }
 .form {
@@ -139,50 +140,21 @@
 .button:active {
   transform: translateY(0);
 }
-.skillSet {
-  display: flex;
-  flex-direction: column;
-  margin-top: 2%;
-}
-.skillsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-top: 10px;
-  width: 100%; /* Makes it take full width */
-} /* Individual Skill Tag */
-.skillTag {
-  display: flex;
-  align-items: center;
-  border: 2px solid rgb(12, 101, 12); /* Green */
-  color: rgb(12, 101, 12);
-  background-color: white;
-  padding: 0.3rem 0.3rem;
-  border-radius: 1rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: default;
-  transition: background-color 0.2s ease-in-out;
-}
-
-/* Remove Button (White Cross) */
-.removeSkill {
-  background: none;
+.deleteButton {
+  background-color: red;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
   border: none;
-  color: rgb(12, 101, 12);
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
-
-.removeSkill:hover {
-  color: #f8d7da; /* Light Red on Hover */
+.deleteButton:hover {
+  color: red;
+  background-color: white;
 }
-
 /* Mobile Responsive Adjustments */
 @media screen and (max-width: 768px) {
   .card {

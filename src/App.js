@@ -35,6 +35,7 @@ import ClientRatings from "./pages/ClientProfile/ClientRatings.jsx";
 import CreatePosting from "./pages/CreatePosting/CreatePosting.jsx";
 import JobBoard from "./pages/ClientJobBoard/ClientJobBoard.jsx";
 import ViewJob from "./pages/ClientJobBoard/ViewJob.jsx";
+import JobListing from "./pages/FreelancerJobBoard/FreelancerJobBoard.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -216,6 +217,10 @@ function App() {
         {
           path: "/clientJobs/:id",
           element: <ViewJob />,
+        },
+        {
+          path: "/freelancerJobs",
+          element: <JobListing />,
         },
       ],
     },

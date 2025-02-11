@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styles from "./ViewJob.module.css";
 import { useLocation, Link } from "react-router-dom";
-import { editPosting, getPosting } from "../../apis/JobPosting";
+import { editPosting, closePosting } from "../../apis/JobPosting";
 
 const ViewJob = () => {
   const location = useLocation();
   const job = location?.state?.job || {}; // Ensure job is defined
   console.log(job);
   const [editedJob, setEditedJob] = useState({ ...job });
-
+  const [saving, setSaving] = useState(false);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setEditedJob({
@@ -19,10 +19,16 @@ const ViewJob = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    setSaving(true);
     const updatedJob = await editPosting(editedJob);
     setEditedJob(updatedJob);
+    setSaving(false);
   };
-
+  const handleClosePosting = async (e, postingStatus) => {
+    e.preventDefault();
+    const updatedJob = await closePosting(editedJob.job_id, postingStatus);
+    setEditedJob(updatedJob);
+  };
   return (
     <>
       <div className={styles.direction}>
@@ -141,10 +147,20 @@ const ViewJob = () => {
               className={styles.button}
               onClick={handleSave}
             >
-              Save
+              {saving == true ? "Saving" : "Save"}
             </button>
-            <button type="button" className={styles.button}>
-              Delete
+
+            <button
+              type="button"
+              className={styles.button}
+              onClick={(e) => {
+                handleClosePosting(
+                  e,
+                  editedJob.status == "Closed" ? "Open" : "Closed"
+                );
+              }}
+            >
+              {editedJob.status != "Closed" ? "Close" : "Open"}
             </button>
           </div>
         </form>

@@ -196,8 +196,8 @@ function Navbar() {
                         <Link to="/add">
                           <div>Add A Gig</div>
                         </Link>
-                        <Link>
-                          <div>Popular Skills</div>
+                        <Link to="/freelancerJobs">
+                          <div>Jobs For You</div>
                         </Link>
                       </>
                     )}
@@ -205,6 +205,12 @@ function Navbar() {
                       <>
                         <Link to="/clientJobs">
                           <div>View Postings</div>
+                        </Link>
+                        <Link to="/viewGigs">
+                          <div>View Gigs</div>
+                        </Link>
+                        <Link to="/createJobPosting">
+                          <div>Add Posting</div>
                         </Link>
                       </>
                     )}
@@ -217,9 +223,6 @@ function Navbar() {
                     <Link to="/viewAllGigs">
                       <div>All Gigs</div>
                     </Link>
-                    <Link to="/viewGigs">
-                      <div>View Gigs</div>
-                    </Link>
                     <Link
                       to={
                         userState.role == "freelancer"
@@ -229,9 +232,7 @@ function Navbar() {
                     >
                       <div>My Profile</div>
                     </Link>
-                    <Link to="/createJobPosting">
-                      <div>Add Posting</div>
-                    </Link>
+
                     <div onClick={handleLogout} style={{ cursor: "pointer" }}>
                       Logout
                     </div>

@@ -19,7 +19,7 @@ export default function ClientIntro() {
           <div
             className={styles.viewGigs}
             onClick={(e) => {
-              navigate("/viewAllGigs", { state: project });
+              navigate("/viewAllGigs");
             }}
           >
             View All Gigs

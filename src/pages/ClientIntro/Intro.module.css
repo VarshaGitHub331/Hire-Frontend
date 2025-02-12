@@ -1,130 +1,206 @@
 .about {
   width: 60vw;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
   flex-direction: column;
-  position: relative;
+  align-items: flex-start;
   gap: 3.5vh;
   margin: 2.5vw;
 }
+
 .intro {
   font-size: 2rem;
   font-weight: 600;
   color: rgb(23, 23, 23);
 }
+
 .desc {
   text-align: left;
+  font-size: 1rem;
 }
 
 .options {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   gap: 1.5rem;
   width: 40%;
-  height: auto;
 }
-.createPosting {
+
+.createPosting,
+.viewGigs,
+.chooseGreen {
   width: 100%;
-  height: 8vh;
+  height: 7vh;
   border: 2px solid hsl(120, 100%, 25%);
-  border-radius: 25px;
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: hsl(120, 100%, 25%);
   cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
 }
-.viewGigs {
-  width: 100%;
-  height: 8vh;
-  border: 2px solid hsl(120, 100%, 25%);
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: hsl(120, 100%, 25%);
-  cursor: pointer;
-}
+
 .box {
   background-color: white;
   width: 45vw;
-  height: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
   margin: auto;
-  margin-top: 25vh;
+  margin-top: 15vh;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  position: relative;
-  display: flex;
-  flex-direction: column;
   min-height: 50vh;
+  padding: 2%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 .closeButton {
-  width: 10%;
-  height: 5%;
   position: absolute;
-  font-size: 32px;
+  top: 5%;
+  right: 3%;
+  font-size: 24px;
   color: grey;
-  top: 7%;
-  right: 2%;
   cursor: pointer;
-  background-color: white;
+  background: none;
   border: none;
 }
-.box .title {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-top: 5%;
-  margin-left: 1%;
-  padding: 0.5%;
-  padding-left: 1.5%;
-  color: rgb(23, 23, 23);
-}
+
 .detailContainer {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  padding: 1%;
-  margin: 1.5%;
+  width: 90%;
+  margin: 0 auto;
 }
+
 .companyInput {
   all: unset;
   width: 100%;
   border-radius: 8px;
-  margin-top: 2.5%;
   padding: 5px;
   border: 1px solid hsl(120, 100%, 25%);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
-.continue {
-  border: none;
-  outline: none;
-  width: 20%;
-  height: 6vh;
-  background-color: hsl(120, 100%, 25%);
-  color: white;
-  border: 2px solid rgb(245, 241, 241);
-  border-radius: 25px;
-  cursor: pointer;
-}
-.skip {
-  border: none;
-  outline: none;
-  width: 20%;
-  height: 5vh;
-  background-color: whitesmoke;
-  color: hsl(120, 100%, 25%);
-  border: 2px solid rgb(180, 174, 174);
-  border-radius: 25px;
-  cursor: pointer;
-}
+
 .submitButtons {
   width: 100%;
   display: flex;
-  padding: 2%;
+  justify-content: center;
   gap: 5%;
+}
+
+.continue,
+.skip {
+  width: 40%;
+  height: 6vh;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.continue {
+  background-color: hsl(120, 100%, 25%);
+  color: white;
+  border: none;
+}
+
+.skip {
+  background-color: whitesmoke;
+  color: hsl(120, 100%, 25%);
+  border: 2px solid rgb(180, 174, 174);
+}
+
+/* 📱 Mobile View */
+@media (max-width: 768px) {
+  .about {
+    width: 90vw;
+    margin: 5% auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .intro {
+    font-size: 1.5rem;
+  }
+
+  .desc {
+    font-size: 0.9rem;
+  }
+
+  .options {
+    width: 100%;
+    align-items: center;
+  }
+
+  .box {
+    width: 90vw;
+    margin-top: 10vh;
+  }
+
+  .chooseGreen {
+    width: 80%;
+    height: 6vh;
+    font-size: 0.9rem;
+  }
+
+  .createPosting,
+  .viewGigs {
+    height: 6vh;
+    font-size: 0.9rem;
+  }
+
+  .continue,
+  .skip {
+    width: 80%;
+    height: 5vh;
+    font-size: 0.9rem;
+  }
+}
+
+/* 🖥️ Tablets & Small Laptops */
+@media (min-width: 768px) and (max-width: 1076px) {
+  .about {
+    width: 80vw;
+    margin: 5% auto;
+    align-items: center;
+  }
+
+  .intro {
+    font-size: 1.8rem;
+  }
+
+  .desc {
+    font-size: 1rem;
+  }
+
+  .chooseGreen {
+    width: 60%;
+    height: 6vh;
+    font-size: 1rem;
+  }
+
+  .createPosting,
+  .viewGigs {
+    height: 7vh;
+    font-size: 1rem;
+  }
+
+  .continue,
+  .skip {
+    width: 60%;
+    height: 5.5vh;
+    font-size: 1rem;
+  }
+}
+
+/* 🖥️ Large Screens */
+@media (min-width: 1076px) {
+  .chooseGreen {
+    width: 30vw;
+    height: 7vh;
+  }
+
+  .box {
+    width: 50vw;
+  }
 }

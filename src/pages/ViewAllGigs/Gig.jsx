@@ -25,7 +25,7 @@ export default function MyGigs() {
   const [showBudget, setShowBudget] = useState(false);
   const [showRating, setShowRating] = useState(false);
   const location = useLocation();
-  const [projectDetails, setProjectDetails] = useState(location.state);
+  const [projectDetails, setProjectDetails] = useState(location.state || null);
   const {
     data,
     fetchNextPage,

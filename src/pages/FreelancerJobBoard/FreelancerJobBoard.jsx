@@ -5,12 +5,14 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { fetchPostingsForFreelancer } from "../../apis/JobPosting";
 import { getAllSkills } from "../../apis/Skills";
 import { getCategories } from "../../apis/Categories";
-
+import Pop from "./JobPopUp";
 const JobPostings = () => {
   const [showFilters, setShowFilters] = useState(false);
   const { userState } = useAuthContext();
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedJob, setSelectedJob] = useState(null);
   const user_id = userState.user_id;
 
   // Toggle filter sidebar
@@ -66,7 +68,11 @@ const JobPostings = () => {
         : prev.filter((id) => id !== skillId)
     );
   };
-
+  const handleTypeCheck = (e) => {
+    setSelectedType((selectedType) =>
+      e.target.checked ? e.target.value : null
+    );
+  };
   // Filter job postings based on selected skills & categories
   const filteredData = data?.pages.flatMap((page) =>
     page?.jobs?.filter((job) => {
@@ -79,8 +85,8 @@ const JobPostings = () => {
         job.Categories.some((category) =>
           selectedCategories.includes(category.category_id)
         );
-
-      return matchesSkills && matchesCategories;
+      const matchedType = !selectedType || job.job_type == selectedType;
+      return matchesSkills && matchesCategories && matchedType;
     })
   );
 
@@ -134,13 +140,59 @@ const JobPostings = () => {
               </li>
             ))}
           </ul>
+
+          <h5>Job Type</h5>
+          <ul>
+            <li>
+              <input
+                type="checkbox"
+                name="JobType"
+                value="Full-Time"
+                onChange={handleTypeCheck}
+              />{" "}
+              Full Time
+            </li>
+            <li>
+              <input
+                type="checkbox"
+                name="JobType"
+                value="Part-Time"
+                onChange={handleTypeCheck}
+              />{" "}
+              Part Time
+            </li>
+            <li>
+              <input
+                type="checkbox"
+                name="JobType"
+                value="Freelance"
+                onChange={handleTypeCheck}
+              />{" "}
+              Freelance
+            </li>
+            <li>
+              <input
+                type="checkbox"
+                name="JobType"
+                value="Contract"
+                onChange={handleTypeCheck}
+              />{" "}
+              Contract
+            </li>
+          </ul>
         </div>
 
         {/* Job Listings */}
         <div className={styles.jobsContainer}>
           {filteredData?.length > 0 ? (
             filteredData.map((job, index) => (
-              <div className={styles.jobCard} key={index}>
+              <div
+                className={styles.jobCard}
+                key={index}
+                onClick={(e) => {
+                  setSelectedJob((selectedJob) => job);
+                }}
+              >
                 <div className={styles.jobTitle}>{job.title}</div>
                 <p className={styles.tags}>
                   <span className={styles.expTag}>{job.experience}</span>{" "}
@@ -160,6 +212,7 @@ const JobPostings = () => {
         </div>
       </div>
 
+      {/* Load More Button */}
       {hasNextPage && (
         <div className={styles.loadMore}>
           <button onClick={() => fetchNextPage()}>
@@ -167,6 +220,7 @@ const JobPostings = () => {
           </button>
         </div>
       )}
+      <Pop job={selectedJob} onClose={() => setSelectedJob(null)} />
     </div>
   );
 };

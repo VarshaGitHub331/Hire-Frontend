@@ -1,0 +1,100 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Slightly darker overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 420px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+  position: relative;
+  text-align: left;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Close button styling */
+.closeBtn {
+  color: black;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 16px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.closeBtn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Header and text */
+h5 {
+  text-align: left;
+}
+
+p {
+  text-align: left;
+  color: rgb(71, 69, 69);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Divider */
+hr {
+  width: 100%;
+  border: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 12px 0;
+}
+
+/* Category & Skills */
+.category,
+.skill {
+  display: flex;
+  align-items: center; /* Align items on the same level */
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Stylish tags */
+.tags {
+  font-size: 0.7rem;
+  background-color: #0f6c41;
+  height: 2%;
+  padding: 1.5%;
+  font-weight: 500;
+  border-radius: 15px;
+  color: white;
+}
+
+.tags:hover {
+  transform: scale(1.05);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

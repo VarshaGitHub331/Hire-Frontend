@@ -1,12 +1,91 @@
 import React, { useState } from "react";
 import styles from "./FreelancerJobBoard.module.css";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { fetchPostingsForFreelancer } from "../../apis/JobPosting";
+import { getAllSkills } from "../../apis/Skills";
+import { getCategories } from "../../apis/Categories";
+
 const JobPostings = () => {
   const [showFilters, setShowFilters] = useState(false);
+  const { userState } = useAuthContext();
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const user_id = userState.user_id;
 
+  // Toggle filter sidebar
   const toggleFilters = () => {
     setShowFilters(!showFilters);
   };
+
+  // Fetch job postings with pagination
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["jobs", user_id],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchPostingsForFreelancer(user_id, pageParam),
+    getNextPageParam: (lastPage, pages) => {
+      if (!lastPage || !lastPage.jobs) return undefined;
+      return lastPage.jobs.length > 0 ? pages.length + 1 : undefined;
+    },
+  });
+
+  // Fetch categories & skills
+  const { data: categories, isLoading: categoriesLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+  });
+
+  const { data: skills, isLoading: skillsLoading } = useQuery({
+    queryKey: ["skills"],
+    queryFn: getAllSkills,
+  });
+
+  // Handle category checkbox change
+  const handleCategoryCheck = (e) => {
+    const categoryId = Number(e.target.value);
+    setSelectedCategories((prev) =>
+      e.target.checked
+        ? [...prev, categoryId]
+        : prev.filter((id) => id !== categoryId)
+    );
+  };
+
+  // Handle skill checkbox change
+  const handleSkillCheck = (e) => {
+    const skillId = Number(e.target.value);
+    setSelectedSkills((prev) =>
+      e.target.checked
+        ? [...prev, skillId]
+        : prev.filter((id) => id !== skillId)
+    );
+  };
+
+  // Filter job postings based on selected skills & categories
+  const filteredData = data?.pages.flatMap((page) =>
+    page?.jobs?.filter((job) => {
+      const matchesSkills =
+        selectedSkills.length === 0 ||
+        job.Skills.some((skill) => selectedSkills.includes(skill.skill_id));
+
+      const matchesCategories =
+        selectedCategories.length === 0 ||
+        job.Categories.some((category) =>
+          selectedCategories.includes(category.category_id)
+        );
+
+      return matchesSkills && matchesCategories;
+    })
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error loading gigs!</div>;
 
   return (
     <div className={styles.container}>
@@ -23,7 +102,6 @@ const JobPostings = () => {
         <button className={styles.searchButton}>Search</button>
       </div>
 
-      {/* Horizontal Divider */}
       <hr className={styles.divider} />
 
       <div className={styles.mainContent}>
@@ -31,84 +109,64 @@ const JobPostings = () => {
         <div className={`${styles.sidebar} ${showFilters ? styles.show : ""}`}>
           <h5>Categories</h5>
           <ul>
-            <li>
-              <input type="checkbox" /> Software Development
-            </li>
-            <li>
-              <input type="checkbox" /> Data Science
-            </li>
-            <li>
-              <input type="checkbox" /> Design
-            </li>
-            <li>
-              <input type="checkbox" /> Marketing
-            </li>
-            <li>
-              <input type="checkbox" /> Finance
-            </li>
+            {categories?.map((category) => (
+              <li key={category.category_id}>
+                <input
+                  type="checkbox"
+                  value={category.category_id}
+                  onChange={handleCategoryCheck}
+                />{" "}
+                {category.category_name}
+              </li>
+            ))}
           </ul>
 
-          <h5>Budget</h5>
+          <h5>Skills</h5>
           <ul>
-            <li>
-              <input type="checkbox" /> ₹0 - ₹10,000
-            </li>
-            <li>
-              <input type="checkbox" /> ₹10,000 - ₹50,000
-            </li>
-            <li>
-              <input type="checkbox" /> ₹50,000+
-            </li>
-          </ul>
-          <h5>Categories</h5>
-          <ul>
-            <li>
-              <input type="checkbox" /> Software Development
-            </li>
-            <li>
-              <input type="checkbox" /> Data Science
-            </li>
-            <li>
-              <input type="checkbox" /> Design
-            </li>
-            <li>
-              <input type="checkbox" /> Marketing
-            </li>
-            <li>
-              <input type="checkbox" /> Finance
-            </li>
-          </ul>
-          <h5>Budget</h5>
-          <ul>
-            <li>
-              <input type="checkbox" /> ₹0 - ₹10,000
-            </li>
-            <li>
-              <input type="checkbox" /> ₹10,000 - ₹50,000
-            </li>
-            <li>
-              <input type="checkbox" /> ₹50,000+
-            </li>
+            {skills?.map((skill) => (
+              <li key={skill.skill_id}>
+                <input
+                  type="checkbox"
+                  value={skill.skill_id}
+                  onChange={handleSkillCheck}
+                />{" "}
+                {skill.skill_name}
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Job Listings */}
         <div className={styles.jobsContainer}>
-          <div className={styles.jobCard}>
-            <h4>Frontend Developer</h4>
-            <p>Company XYZ - Remote</p>
-            <span className={styles.category}>Tech</span>
-            <p className={styles.salary}>₹50,000</p>
-          </div>
-
-          <div className={styles.jobCard}>
-            <h4>Data Analyst</h4>
-            <p>ABC Corp - Bangalore</p>
-            <span className={styles.category}>Data Science</span>
-            <p className={styles.salary}>₹60,000</p>
-          </div>
+          {filteredData?.length > 0 ? (
+            filteredData.map((job, index) => (
+              <div className={styles.jobCard} key={index}>
+                <div className={styles.jobTitle}>{job.title}</div>
+                <p className={styles.tags}>
+                  <span className={styles.expTag}>{job.experience}</span>{" "}
+                  <span className={styles.typeTag}>{job.job_type}</span>
+                </p>
+                <p className={styles.desc}>{job.description}</p>
+                <hr />
+                <p className={styles.budget}>
+                  {"\u20B9"} {parseInt(job.min_budget)} - {"\u20B9"}{" "}
+                  {parseInt(job.max_budget)}
+                </p>
+              </div>
+            ))
+          ) : (
+            <div>No jobs match your filters.</div>
+          )}
         </div>
       </div>
+
+      {hasNextPage && (
+        <div className={styles.loadMore}>
+          <button onClick={() => fetchNextPage()}>
+            {isFetchingNextPage ? "LOADING..." : "SHOW MORE"}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

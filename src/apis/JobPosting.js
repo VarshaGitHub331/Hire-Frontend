@@ -98,26 +98,33 @@ async function closePosting(job_id, postingStatus) {
     console.log(e);
   }
 }
-async function fetchPostingsForFreelancer(user_id) {
+async function fetchPostingsForFreelancer(user_id, pageParam) {
   try {
-    const result = await axios.patch(
-      `${process.env.REACT_APP_SERVER_URL}/freelancer/jobsForFreelancer}`,
+    const result = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/freelancer/jobsForFreelancer`, // ✅ FIXED
       {
         params: {
-          user_id,
+          user_id: user_id,
+          page: pageParam,
+          limit: 3,
         },
-      },
-      {
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-    return result.data;
+
+    console.log("API Response:", result.data); // Debugging log ✅
+
+    return {
+      jobs: result.data, // Ensure result.data is structured correctly
+    };
   } catch (e) {
-    console.log(e);
+    console.error("Error fetching jobs:", e.response?.data || e.message); // More detailed error logging ✅
+    return { jobs: [] }; // Return an empty array to prevent crashes
   }
 }
+
 export {
   extractSkillsFromPosting,
   CreatePosting,

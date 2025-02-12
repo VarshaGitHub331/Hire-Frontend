@@ -87,6 +87,7 @@
   flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2%;
   justify-content: flex-start;
   align-items: start;
   transition: margin-left 0.3s ease-in-out;
@@ -97,31 +98,84 @@
 }
 
 .jobCard {
-  background: white;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
   text-align: center;
-  max-width: 300px;
-  max-height: 200px;
-  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 300px; /* Prevents card from stretching too wide */
+  width: 100%; /* Ensures responsiveness */
+  min-height: 150px; /* Maintains uniform height */
 }
-
-.category {
-  background-color: #206a30;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
+.jobCard:hover {
+  transform: scale(1.05);
+  border-color: #008000;
+}
+.budget {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: left;
+}
+.jobTitle {
+  text-align: left;
+}
+.tags {
+  text-align: left;
+}
+.expTag {
   display: inline-block;
-  margin: 5px 0;
+  margin: 5px 5px 0 0;
+  padding: 5px 10px;
+  background-color: #81d381;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+.typeTag {
+  display: inline-block;
+  margin: 5px 5px 0 0;
+  padding: 5px 10px;
+  background-color: #b8e368;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+.desc {
+  color: gray;
+  font-size: 0.9rem;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Allow max 3 lines */
+  -webkit-box-orient: vertical;
+  max-height: 4.5em; /* (line-height * number of lines) */
+  line-height: 1.5em; /* Controls spacing between lines */
+}
+hr {
+  width: 100%;
 }
 
-.salary {
-  color: #28a745;
-  font-weight: bold;
-  font-size: 1.2em;
+.loadMore {
+  width: 95%;
+  padding-right: 5%;
+  margin-top: 2%;
+  display: flex;
+  justify-content: flex-end;
 }
-
+.loadMore button {
+  border: none;
+  margin: none;
+  background-color: white;
+  font-weight: 500;
+  color: #0f6c41;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .mainContent {

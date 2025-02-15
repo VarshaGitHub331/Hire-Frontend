@@ -36,6 +36,7 @@ import CreatePosting from "./pages/CreatePosting/CreatePosting.jsx";
 import JobBoard from "./pages/ClientJobBoard/ClientJobBoard.jsx";
 import ViewJob from "./pages/ClientJobBoard/ViewJob.jsx";
 import JobListing from "./pages/FreelancerJobBoard/FreelancerJobBoard.jsx";
+import BidProposal from "./pages/CreateProposal/CreateProposal.jsx";
 function App() {
   const Layout = () => {
     return (
@@ -221,6 +222,10 @@ function App() {
         {
           path: "/freelancerJobs",
           element: <JobListing />,
+        },
+        {
+          path: "/createProposal",
+          element: <BidProposal />,
         },
       ],
     },

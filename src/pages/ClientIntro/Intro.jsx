@@ -108,7 +108,7 @@ function DetailModal({ detailModal, setDetailModal }) {
         onSubmit={onSubmit}
       >
         {({ isSubmitting, setFieldValue }) => (
-          <Form>
+          <Form className={styles.companyForm}>
             <div className={styles.detailContainer}>
               <label
                 htmlFor="companyName"
@@ -166,13 +166,6 @@ function DetailModal({ detailModal, setDetailModal }) {
               />
             </div>
             <div className={styles.submitButtons}>
-              <button
-                type="button"
-                onClick={() => setDetailModal(false)}
-                className={styles.skip}
-              >
-                Skip
-              </button>
               <button
                 className={styles.continue}
                 type="submit"

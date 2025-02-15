@@ -3,10 +3,10 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
-
   overflow: visible;
 }
 
+/* Title Section */
 .titlePart {
   width: 100%;
   display: flex;
@@ -16,50 +16,75 @@
   gap: 2vh;
   padding: 2rem;
 }
+
 .direction {
   color: gray;
   font-weight: 500;
 }
+
 .about {
   color: gray;
   font-weight: 400;
 }
+
+/* Gig Holder */
 .gigsHolder {
   width: 95%;
   padding: 2%;
   display: grid;
-  justify-content: start;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Ensures good spacing */
+  grid-gap: 1.5rem;
+  justify-content: center; /* Centers the gigs */
+  align-items: start;
   overflow: visible;
-  grid-gap: auto;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  grid-auto-rows: auto;
   min-height: 0;
-} /* Ensure rows grow based on content */
+}
 
+/* Gig Card */
 .gigCard {
   cursor: pointer;
-  width: 20vw;
-  margin-top: 3%;
-  height: auto;
+  width: 100%;
+  max-width: 300px;
+  min-height: 55vh; /* Ensures uniform height */
+  max-height: 65vh;
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  flex-direction: column;
-  min-height: 55vh;
+  overflow: hidden;
+  background: white;
+  border-radius: 8px;
 }
+
+/* Gig Image */
 .gigImage {
-  height: 60%;
-}
-.gigImage img {
-  height: 100%;
   width: 100%;
+  height: 60%; /* Balanced height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
+
+.gigImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures images fit well without distortion */
+  border-radius: 8px 8px 0 0;
+}
+
+/* Gig Title */
 .gigTitle {
   color: gray;
   font-weight: 500;
   text-align: left;
   margin-left: 2.5%;
 }
+
+/* Gig Categories */
 .gigCategories {
   width: 100%;
   display: flex;
@@ -70,63 +95,123 @@
   justify-content: flex-start;
   margin-left: 1vw;
 }
+
+/* Category Tag */
 .catTag {
-  display: inline-flex; /* Places button and close symbol inline */
-  align-items: center; /* Vertically centers items */
-  gap: 5px; /* Adds a small gap between button and close icon */
-  padding: 4px; /* Optional: Adds a bit of padding around the content */
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
   border: 1px solid #f1f1f1;
-  color: white; /* Optional: Add a border for visibility */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: #0f6c41; /* Optional: Background color */
+  color: white;
+  border-radius: 4px;
+  background-color: #0f6c41;
   white-space: nowrap;
   cursor: pointer;
   font-size: 0.8em;
-  /* Prevents wrapping of text */
 }
+
+/* Budget Section */
 .budget {
   width: 95%;
   display: flex;
   justify-content: flex-end;
-
   color: #0f6c41;
   font-size: 1rem;
   font-weight: 700;
 }
+
+/* Load More Button */
 .loadMore {
   width: 95%;
   padding-right: 5%;
-  margin-top: 2%;
+  margin-top: 3%;
   display: flex;
   justify-content: flex-end;
 }
+
 .loadMore button {
   border: none;
-  margin: none;
   background-color: white;
   font-weight: 500;
   color: #0f6c41;
+  cursor: pointer;
 }
 
+/* Filter Section */
 .filter {
   width: 35vw;
   height: 7vh;
   display: flex;
   justify-content: flex-start;
-  gap: 2.5vw;
+  gap: 2%;
   margin-left: 2vw;
 }
+
+/* Category Filter */
 .filter .catFilter {
-  border-color: #0a8049;
-  border-width: 0.8px;
+  all: unset;
+  width: 12vw;
+  min-width: 120px;
+  height: 2.8vh;
+  padding: 0.5rem;
+  border: 1.5px solid #0f6c41;
   border-radius: 8px;
   outline: none;
+  font-size: 0.9rem;
+  text-align: center;
+  background-color: white;
 }
-.catFilter :focus {
+
+.catFilter:focus {
   border-width: 2px;
 }
+
+/* Dropdown */
 .filter select {
-  background-color: none;
-  width: 25%;
-  text-align: center;
+  all: unset;
+  width: 11vw;
+  height: 6vh;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgb(217, 213, 213);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gigsHolder {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gigCard {
+    max-width: 95%;
+    min-height: 55vh;
+    margin: 0 auto;
+    padding: 1%;
+  }
+
+  .filter {
+    width: 100%;
+    padding: 2%;
+    justify-content: flex-start;
+    gap: 3vw;
+  }
+
+  .filter .catFilter {
+    width: 40vw;
+    height: 3vh;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .filter select {
+    width: 40vw;
+  }
+  .gigImage {
+    height: 40%;
+  }
 }

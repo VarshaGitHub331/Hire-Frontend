@@ -41,31 +41,36 @@
   font-size: 1rem;
   text-align: center;
 }
-
 .box {
-  background-color: white;
-  width: 45vw;
-  margin: auto;
-  margin-top: 15vh;
-  border-radius: 15px;
+  width: 45%;
+  margin: 10% auto;
+  padding: 2%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  min-height: 50vh;
-  padding: 2%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  gap: 1.5rem;
 }
-
 .closeButton {
+  width: 10%;
+  height: 5%;
   position: absolute;
-  top: 5%;
-  right: 3%;
-  font-size: 24px;
+  font-size: 32px;
   color: grey;
+  margin: 2.5%;
+  top: 7%;
+  right: 5%;
   cursor: pointer;
-  background: none;
+  background-color: white;
   border: none;
 }
-
+.companyForm {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 .detailContainer {
   display: flex;
   flex-direction: column;
@@ -77,39 +82,34 @@
   all: unset;
   width: 100%;
   border-radius: 8px;
-  padding: 5px;
-  border: 1px solid hsl(120, 100%, 25%);
+  padding: 10px;
+  border: 1px solid hsl(120, 84%, 20%);
   font-size: 0.9rem;
+  margin-top: 2%;
 }
 
 .submitButtons {
   width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 5%;
-}
-
-.continue,
-.skip {
-  width: 40%;
-  height: 6vh;
-  border-radius: 20px;
-  cursor: pointer;
-  text-align: center;
+  justify-content: flex-end;
 }
 
 .continue {
+  width: 8vw;
+  padding: 1.5%;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-align: center;
   background-color: hsl(120, 100%, 25%);
   color: white;
   border: none;
 }
 
-.skip {
-  background-color: whitesmoke;
-  color: hsl(120, 100%, 25%);
-  border: 2px solid rgb(180, 174, 174);
+.title {
+  font-size: 0.8rem;
+  text-wrap: wrap;
 }
-
 /* 📱 Mobile View */
 @media (max-width: 768px) {
   .about {
@@ -131,12 +131,6 @@
     width: 100%;
     align-items: center;
   }
-
-  .box {
-    width: 90vw;
-    margin-top: 10vh;
-  }
-
   .chooseGreen {
     width: 80%;
     height: 6vh;
@@ -148,12 +142,41 @@
     height: 6vh;
     font-size: 0.9rem;
   }
-
-  .continue,
-  .skip {
-    width: 80%;
-    height: 5vh;
-    font-size: 0.9rem;
+  .continue {
+    width: 20vw;
+    padding: 3%;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    text-align: center;
+    background-color: hsl(120, 100%, 25%);
+    color: white;
+    border: none;
+  }
+  .box {
+    width: 45%;
+    margin: 40% auto;
+    padding: 2%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 1.5rem;
+  }
+  .companyInput {
+    all: unset;
+    width: 100%;
+    border-radius: 8px;
+    padding: 2%;
+    border: 1px solid hsl(120, 84%, 20%);
+    font-size: 0.7rem;
+    margin-top: 2%;
+  }
+  .closeButton {
+    width: 5%;
+    height: 2.5%;
   }
 }
 
@@ -184,13 +207,6 @@
     height: 7vh;
     font-size: 1rem;
   }
-
-  .continue,
-  .skip {
-    width: 60%;
-    height: 5.5vh;
-    font-size: 1rem;
-  }
 }
 
 /* 🖥️ Large Screens */
@@ -198,9 +214,5 @@
   .chooseGreen {
     width: 30vw;
     height: 7vh;
-  }
-
-  .box {
-    width: 50vw;
   }
 }

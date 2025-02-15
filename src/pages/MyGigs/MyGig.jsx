@@ -58,10 +58,6 @@ export default function MyGigs() {
         <div className={styles.direction}>
           HIRE &gt; MY GIGS &gt;&gt;{categorySearch}{" "}
         </div>
-        <h2>Your Gigs</h2>
-        <div className={styles.about}>
-          View All Gigs You Have Created &gt;&gt;
-        </div>
       </div>
       <div className={styles.filter}>
         <input

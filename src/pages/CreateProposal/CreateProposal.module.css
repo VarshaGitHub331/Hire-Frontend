@@ -1,0 +1,209 @@
+/* Overall Page Styling */
+.container {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2%;
+}
+
+/* Responsive card */
+.card {
+  background: white; /* Bottle Green Theme */
+  color: rgb(12, 101, 12);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 70%;
+  max-width: 600px;
+  transition: all 0.3s ease-in-out;
+}
+.card h5 {
+  text-align: left;
+  font-size: 1rem;
+}
+.budget,
+.jobType {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.titlePart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 2vh;
+  padding-left: 5%;
+  margin-top: 5%;
+}
+
+.direction {
+  color: gray;
+  font-weight: 500;
+}
+.textEditor {
+  background: white;
+  width: 100%;
+  color: rgb(48, 48, 48);
+  border-radius: 8px;
+  margin: 2%;
+}
+
+.textEditor .ql-container {
+  min-height: 150px; /* Adjust editor height */
+  border-radius: 8px;
+}
+
+.textEditor .ql-toolbar {
+  background: #f3f3f3;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Bigger on large screens */
+@media (min-width: 1024px) {
+  .card {
+    max-width: 800px;
+    padding: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    max-width: 1000px;
+    padding: 40px;
+  }
+}
+
+/* Typography */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.error {
+  color: #ff6b6b;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5%;
+  max-width: 100%;
+  margin-top: 3%;
+}
+
+/* Labels */
+label {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Sliders */
+.slider {
+  width: 100%;
+  max-width: 400px;
+  margin: 8px 0;
+  display: block;
+  align-self: flex-start;
+  accent-color: rgb(12, 101, 12);
+}
+
+/* Values for Sliders */
+.amount,
+.timeline {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+}
+
+/* Textarea */
+.textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  resize: vertical;
+}
+
+/* Submit Button */
+.submitButton {
+  background-color: rgb(12, 101, 12);
+  color: white;
+  border: none;
+  padding: 1%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.submitButton:hover {
+  background-color: rgb(12, 101, 12);
+  transform: scale(1.05);
+}
+
+/* Heading */
+.heading {
+  display: flex;
+  gap: 2%;
+  font-size: 0.8rem;
+}
+.footButton {
+  display: flex;
+  justify-content: space-between;
+}
+.icon {
+  margin-right: 8px;
+}
+
+/* Responsive font sizes for mobile */
+@media (max-width: 600px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .card h5 {
+    font-size: 0.9rem;
+    margin-top: 0;
+  }
+
+  .budget,
+  .jobType,
+  label,
+  .amount,
+  .timeline {
+    font-size: 0.75rem;
+  }
+
+  .submitButton {
+    font-size: 0.7rem;
+    padding: 2.5%;
+  }
+
+  .heading {
+    font-size: 0.7rem;
+  }
+  .container {
+    align-items: flex-start;
+    margin-top: 10%;
+  }
+  .textEditor {
+    max-height: 30vh; /* Ensures max height */
+    overflow: scroll;
+  }
+
+  .textEditor .ql-container {
+    max-height: 30vh; /* Limit editor height */
+  }
+}

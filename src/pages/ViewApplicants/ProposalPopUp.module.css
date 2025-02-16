@@ -1,0 +1,86 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh; /* Limits height */
+  overflow-y: auto; /* Enables scrolling */
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.modalContent ul {
+  all: unset;
+  text-align: left;
+}
+/* Optional: Styled scrollbar */
+.modalContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 6px;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.closeBtn {
+  color: rgb(105, 101, 101);
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.closeBtn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.footerContainers {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5%;
+}
+
+.footerContainers button {
+  all: unset;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footerContainers button:first-child {
+  color: rgb(192, 0, 0);
+}
+
+.footerContainers button:last-child {
+  color: rgb(12, 79, 12);
+}

@@ -32,90 +32,88 @@ export default function ViewGig() {
           &gt;&gt; {gig.category_name}
         </div>
       </div>
-      <div className={styles.ViewGig}>
-        <div className={styles.gigCard}>
-          <div className={styles.gigImage}>
-            <img src={gig.picture[0]} alt="gigImage" />
-          </div>
-          <div className={styles.creator}>
-            <div>{gig.freelancer_name}</div>
-            <div>⭐ {gig.freelancer_rating}</div>
-          </div>
-          <div className={styles.gigTitle}>{gig.title}</div>
-          <div className={styles.featureTitle}>Description</div>
-          <div className={styles.description}>{gig.description}</div>
-          <div className={styles.basicFeatures}>
-            <div className={styles.featureTitle}>Features</div>
-            <div className={styles.featureList}>
-              {gig.features.map((feature) => (
-                <div>
-                  <span
-                    style={{
-                      color: "green",
-                      fontSize: "1rem",
-                      marginRight: "1rem",
-                    }}
-                  >
-                    ✔
-                  </span>
-                  {feature}
+      <div className={styles.viewGigContainer}>
+        <div className={styles.ViewGig}>
+          <div className={styles.gigCard}>
+            <div className={styles.gigImage}>
+              <img src={gig.picture[0]} alt="gigImage" />
+            </div>
+            <div className={styles.creator}>
+              <div>{gig.freelancer_name}</div>
+              <div>⭐ {gig.freelancer_rating}</div>
+            </div>
+            <div className={styles.description}>{gig.description}</div>
+            <div className={styles.gigCategories}>
+              Category:
+              <div className={styles.catTag}>{gig.category_name}</div>
+            </div>
+
+            <div className={styles.gigCategories}>
+              Skills:
+              {gig.skills_names.split(",").map((skill, index) => (
+                <div key={index} className={styles.catTag}>
+                  {skill}
                 </div>
               ))}
             </div>
-          </div>
-          <div className={styles.gigCategories}>
-            Category:
-            <div className={styles.catTag}>{gig.category_name}</div>
-          </div>
-
-          <div className={styles.gigCategories}>
-            Skills:
-            {gig.skills_names.split(",").map((skill, index) => (
-              <div key={index} className={styles.catTag}>
-                {skill}
-              </div>
-            ))}
-          </div>
-          {role == "client" && (
-            <div className={styles.bottom}>
-              <div className={styles.featureTitle}>
-                Budget :&nbsp;&#8377; {gig.budget}
-              </div>
-              <div
-                className={styles.settings}
-                style={{ display: "flex", gap: "1rem" }}
-              >
+            {role == "client" && (
+              <div className={styles.bottom}>
+                <div className={styles.featureTitle}>&#8377; {gig.budget}</div>
                 <div
-                  className={styles.editTag}
-                  onClick={(e) => {
-                    setOpenOrder(true);
-                  }}
+                  className={styles.settings}
+                  style={{ display: "flex", gap: "1rem" }}
                 >
-                  Order
-                </div>
-                <div
-                  className={styles.deleteTag}
-                  onClick={(e) => {
-                    handleChat();
-                  }}
-                >
-                  Chat
+                  <div
+                    className={styles.editTag}
+                    onClick={(e) => {
+                      setOpenOrder(true);
+                    }}
+                  >
+                    Order
+                  </div>
+                  <div
+                    className={styles.deleteTag}
+                    onClick={(e) => {
+                      handleChat();
+                    }}
+                  >
+                    Chat
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-        <div>
+            )}
+          </div>
           <div>
-            {gig?.standard_features && <Standard gig={gig} />}
-            {gig?.advanced_features && <Advanced gig={gig} />}
+            <div>
+              <div className={styles.features}>
+                <div className={styles.featureTitle}>Basic Features</div>
+                <div className={styles.featureList}>
+                  {gig.features.map((feature) => (
+                    <div>
+                      <span
+                        style={{
+                          color: "green",
+                          fontSize: "1rem",
+                          marginRight: "1rem",
+                        }}
+                      >
+                        ✔
+                      </span>
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {gig?.standard_features && <Standard gig={gig} />}
+              {gig?.advanced_features && <Advanced gig={gig} />}
+            </div>
           </div>
+          <OrderModel
+            openOrder={openOrder}
+            setOpenOrder={setOpenOrder}
+            gig={gig}
+          />
         </div>
-        <OrderModel
-          openOrder={openOrder}
-          setOpenOrder={setOpenOrder}
-          gig={gig}
-        />
       </div>
     </>
   );

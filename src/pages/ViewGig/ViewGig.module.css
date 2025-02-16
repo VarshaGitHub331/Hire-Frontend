@@ -8,21 +8,36 @@
   padding-left: 5%;
   margin-top: 2%;
 }
-.ViewGig {
-  width: 100%;
-  min-height: 100%;
+.viewGigContainer {
   display: flex;
-  justify-content: center;
-  gap: 10%;
-  align-items: center;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  min-height: 100vh; /* Makes sure it takes full height */
 }
+.ViewGig {
+  min-height: 100%;
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(
+    2,
+    minmax(300px, 1fr)
+  ); /* Ensures better wrapping */
+  justify-content: center;
+  align-items: start;
+  gap: 20px; /* Reduce gap to make columns closer */
+  margin: auto; /* Center the grid */
+  padding: 2%;
+}
+
 .direction {
   color: gray;
   font-weight: 500;
 }
+
 .gigCard {
   cursor: pointer;
-  width: 30vw;
+  width: auto;
+  max-width: 350px; /* Set a max-width to prevent excessive stretching */
   min-height: 30vh;
   display: flex;
   gap: 1rem;
@@ -31,15 +46,20 @@
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
 .gigImage {
   height: 40vh;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
+
 .gigImage img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Ensures the image fits within the container without being cropped */
+  object-fit: cover; /* Ensures the image fits within the container without being cropped */
   display: block; /* Removes extra space around the image */
 }
+
 .gigTitle {
   all: unset;
   color: gray;
@@ -47,6 +67,7 @@
   text-align: left;
   margin-left: 2.5%;
 }
+
 .gigCategories {
   width: 100%;
   display: flex;
@@ -57,6 +78,7 @@
   justify-content: flex-start;
   margin-left: 1vw;
 }
+
 .catTag {
   all: unset;
   display: inline-flex; /* Places button and close symbol inline */
@@ -64,54 +86,57 @@
   gap: 5px; /* Adds a small gap between button and close icon */
   padding: 4px; /* Optional: Adds a bit of padding around the content */
   border: 1px solid #f1f1f1;
-  color: white; /* Optional: Add a border for visibility */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: #0f6c41; /* Optional: Background color */
+  color: white;
+  border-radius: 4px;
+  background-color: #0f6c41;
   white-space: nowrap;
   cursor: pointer;
   font-size: 0.8em;
-  /* Prevents wrapping of text */
 }
+
 .bottom {
   width: 95%;
   display: flex;
   justify-content: flex-end;
-
   padding: 2%;
 }
+
 .budget {
   color: #0f6c41;
   font-size: 1rem;
   font-weight: 700;
 }
+
 .editTag {
-  display: inline-flex; /* Places button and close symbol inline */
-  align-items: center; /* Vertically centers items */
-  gap: 5px; /* Adds a small gap between button and close icon */
-  padding: 4px; /* Optional: Adds a bit of padding around the content */
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
   border: 1px solid #f1f1f1;
-  color: white; /* Optional: Add a border for visibility */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: #19965c; /* Optional: Background color */
+  color: white;
+  border-radius: 4px;
+  background-color: #19965c;
   white-space: nowrap;
   cursor: pointer;
   min-width: 2vw;
   font-size: 0.8em;
 }
+
 .deleteTag {
   display: inline-flex;
-  min-width: 2vw; /* Places button and close symbol inline */
-  align-items: center; /* Vertically centers items */
-  gap: 5px; /* Adds a small gap between button and close icon */
-  padding: 4px; /* Optional: Adds a bit of padding around the content */
+  min-width: 2vw;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
   border: 1px solid #f1f1f1;
-  color: white; /* Optional: Add a border for visibility */
-  border-radius: 4px; /* Optional: Rounded corners */
-  background-color: red; /* Optional: Background color */
+  color: white;
+  border-radius: 4px;
+  background-color: red;
   white-space: nowrap;
   cursor: pointer;
   font-size: 0.8em;
 }
+
 .creator {
   width: 95%;
   display: flex;
@@ -122,9 +147,11 @@
   padding-left: 2.5%;
   padding-right: 2.5%;
 }
+
 .features {
-  width: 30vw;
-  min-height: 30vh; /* Initial height */
+  width: auto;
+  max-width: 300px; /* Limit width for better readability */
+  min-height: 30vh;
   display: flex;
   gap: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -134,26 +161,28 @@
   margin-bottom: 2%;
   padding: 5%;
 }
+
 .basicFeatures {
   width: 100%;
   display: flex;
   gap: 1rem;
-
   flex-direction: column;
   margin: auto;
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
 .description {
   padding: 1%;
   font-style: italic;
   display: block;
-  width: 100%; /* Ensure it stays within its parent */
-  box-sizing: border-box; /* Include padding and border in width calculation */
+  width: 100%;
+  box-sizing: border-box;
   color: gray;
   white-space: normal;
   overflow-wrap: break-word;
   word-break: normal;
+  text-align: left;
 }
 
 .featureTitle {
@@ -165,6 +194,7 @@
   color: black;
   margin-left: 2%;
 }
+
 .featureList {
   display: flex;
   gap: 1rem;
@@ -172,4 +202,10 @@
   align-items: flex-start;
   margin-left: 2%;
   width: 100%;
+}
+@media (max-width: 600px) {
+  .ViewGig {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

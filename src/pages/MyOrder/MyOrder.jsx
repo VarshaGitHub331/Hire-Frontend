@@ -48,15 +48,15 @@ const OrderTable = () => {
               <select
                 value={newStatus}
                 onChange={(e) => setNewStatus(e.target.value)}
-                onBlur={() => handleStatusChange(row.order_id, newStatus)} // Call onBlur or similar
+                onBlur={(e) => handleStatusChange(row.order_id, e.target.value)}
               >
-                {role == "freelancer" && (
-                  <option value="accepted">Accepted</option>
+                {role === "freelancer" && (
+                  <option value="accepted">Accept</option>
                 )}
-                {role == "freelancer" && (
+                {role === "freelancer" && (
                   <option value="progress">In Progress</option>
                 )}
-                <option value="complete">Completed</option>
+                <option value="complete">Complete</option>
               </select>
             </Popover>
           )}
@@ -89,7 +89,7 @@ const OrderTable = () => {
   function changeLimit(newLimit) {
     setLimit(newLimit);
   }
-  function handleStatusChange() {
+  function handleStatusChange(editingId, newStatus) {
     orderUpdate({ orderId: editingId, status: newStatus });
     setEditingId("");
   }
@@ -139,7 +139,7 @@ const OrderTable = () => {
             },
             headCells: {
               style: {
-                backgroundColor: "rgb(155, 214, 155)", // Inline header color
+                backgroundColor: "rgb(45, 52, 45)", // Inline header color
                 fontWeight: "bold",
                 color: "#374151",
                 padding: "1rem",

@@ -5,28 +5,39 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
 export default function OrderModel({ openOrder, setOpenOrder, gig }) {
   const navigate = useNavigate();
   const { userState } = useAuthContext();
-  const { user_id, token } = userState;
+  const { user_id } = userState;
+
   const [selectedPackage, setSelectedPackage] = useState("Basic");
   const [payable, setPayable] = useState(gig?.budget || 0);
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
   function handlePackageChange(e) {
-    setSelectedPackage((selectedPackage) => e.target.value);
+    const { value } = e.target;
+    setSelectedPackage(value);
   }
+
+  useEffect(() => {
+    if (selectedPackage === "Basic") setPayable(gig.budget);
+    else if (selectedPackage === "Standard") setPayable(gig.standard_budget);
+    else if (selectedPackage === "Advanced") setPayable(gig.advanced_budget);
+  }, [selectedPackage]);
+
   async function createOrder() {
     try {
-      setSubmitting((submitting) => true);
+      setSubmitting(true);
       const result = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/order/createOrderForGig`,
         {
           user_id,
           freelancer_id: gig.freelancer_id,
           gig_id: gig.gig_id,
-          payable: payable,
-          notes: notes,
+          payable,
+          notes,
           package: selectedPackage,
         },
         {
@@ -44,58 +55,34 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
     }
   }
 
-  useEffect(() => {
-    if (selectedPackage == "Basic") setPayable((payable) => gig.budget);
-    else if (selectedPackage == "Standard")
-      setPayable((payable) => gig.standard_budget);
-    else if (selectedPackage == "Advanced")
-      setPayable((payable) => gig.advanced_budget);
-  }, [selectedPackage]);
   return (
     <Modal
       isOpen={openOrder}
-      onRequestClose={(e) => {
-        setOpenOrder(false);
-      }}
+      onRequestClose={() => setOpenOrder(false)}
       contentLabel="Confirm Order"
       className={styles.orderBox}
     >
-      <h4>Place Your Order</h4>
+      <div className={styles.orderHeader}>ORDER GIG</div>
 
-      <div className={styles.freelancerProfile}>
-        <div> Freelancer:</div>
-        <div style={{ cursor: "pointer" }}>{gig.freelancer_name}</div>
-        <div>
-          {" "}
-          <i
-            className="starIcon fas fa-star"
-            style={{ color: "orange" }}
-          ></i>{" "}
-          {/* FontAwesome Star Icon */} {gig.freelancer_rating}5
-        </div>
-      </div>
       <div className={styles.mainFeatures}>
         {gig.duration && (
           <div className={styles.feature}>
-            <i class="fas fa-clock "></i>{" "}
-            <div style={{ marginLeft: "2%" }}>{gig.duration} duration</div>
+            <i className="fas fa-clock"></i> <div>{gig.duration}</div>
           </div>
         )}
         {gig.revisions && (
           <div className={styles.feature}>
-            <i class="fas fa-sync"></i>
-            <div style={{ marginLeft: "2%" }}>{gig.revisions}</div>
+            <i className="fas fa-sync"></i>
+            <div>{gig.revisions}</div>
           </div>
         )}
       </div>
+
       <div className={styles.package}>
-        <div style={{ fontWeight: "500", fontSize: "0.9rem" }}>
-          Package Type :
-        </div>
         <div>
           <label>
             <input
-              type="radio"
+              type="checkbox"
               name="package"
               value="Basic"
               checked={selectedPackage === "Basic"}
@@ -107,9 +94,9 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
         <div>
           <label>
             <input
-              type="radio"
-              value="Standard"
+              type="checkbox"
               name="package"
+              value="Standard"
               checked={selectedPackage === "Standard"}
               onChange={handlePackageChange}
             />
@@ -119,9 +106,9 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
         <div>
           <label>
             <input
-              type="radio"
-              value="Advanced"
+              type="checkbox"
               name="package"
+              value="Advanced"
               checked={selectedPackage === "Advanced"}
               onChange={handlePackageChange}
             />
@@ -129,27 +116,23 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
           </label>
         </div>
       </div>
+
       <textarea
         value={notes}
         placeholder="Add notes"
         className={styles.notes}
-        onChange={(e) => setNotes((notes) => e.target.value)}
+        onChange={(e) => setNotes(e.target.value)}
       ></textarea>
+
       <div className={styles.payable}>
-        Payable : &#8377;{payable}
-        <button
-          className={styles.orderContinue}
-          onClick={(e) => {
-            createOrder();
-          }}
-        >
+        &#8377;{payable}
+        <button className={styles.orderContinue} onClick={createOrder}>
           Continue
         </button>
       </div>
+
       <button
-        onClick={(e) => {
-          setOpenOrder(false);
-        }}
+        onClick={() => setOpenOrder(false)}
         disabled={submitting}
         className={styles.closeButton}
       >

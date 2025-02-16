@@ -188,9 +188,7 @@ export default function ViewOrder() {
               {(order.packageFeatures || []).map((feature, index) => (
                 <div key={index} className={styles.feature}>
                   {feature}{" "}
-                  <div className={styles.packageType}>
-                    ({order.packageType})
-                  </div>
+                  <div className={styles.packageType}>({order.package})</div>
                 </div>
               ))}
             </div>

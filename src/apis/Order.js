@@ -30,6 +30,7 @@ async function getClientOrders(role, user_id, page, limit) {
   }
 }
 async function ChangeOrderStatus(order_id, status) {
+  console.log("Status is ", status);
   try {
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_URL}/order/edit`,

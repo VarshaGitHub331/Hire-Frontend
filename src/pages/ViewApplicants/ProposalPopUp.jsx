@@ -10,7 +10,8 @@ const ApplicantModal = ({ applicant, onClose }) => {
   const queryClient = new QueryClient();
   // Accept Proposal Mutation
   const { mutate: acceptMutation } = useMutation({
-    mutationFn: () => acceptProposal(applicant.Bids[0].bidId),
+    mutationFn: () =>
+      acceptProposal(applicant.Bids[0].bidId, applicant.applicant_id),
     onSuccess: () => {
       console.log("Accepted Proposal");
       queryClient.invalidateQueries(["applicants"]);
@@ -23,7 +24,8 @@ const ApplicantModal = ({ applicant, onClose }) => {
 
   // Reject Proposal Mutation
   const { mutate: rejectMutation } = useMutation({
-    mutationFn: () => rejectProposal(applicant.Bids[0].bidId),
+    mutationFn: () =>
+      rejectProposal(applicant.Bids[0].bidId, applicant.applicant_id),
     onSuccess: () => {
       console.log("Rejected Proposal");
       queryClient.invalidateQueries(["applicants"]);
@@ -41,10 +43,12 @@ const ApplicantModal = ({ applicant, onClose }) => {
           <X size={20} />
         </button>
         <div dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
-        <div className={styles.footerContainers}>
-          <button onClick={() => rejectMutation()}>REJECT</button>
-          <button onClick={() => acceptMutation()}>ACCEPT</button>
-        </div>
+        {applicant.Bids[0].bid_status == "pending" && (
+          <div className={styles.footerContainers}>
+            <button onClick={() => rejectMutation()}>REJECT</button>
+            <button onClick={() => acceptMutation()}>ACCEPT</button>
+          </div>
+        )}
       </div>
     </div>
   );

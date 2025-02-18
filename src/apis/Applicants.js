@@ -13,13 +13,13 @@ async function getApplicantsForJob(job_id, page, pageSize) {
   console.log(applicantResults.data);
   return applicantResults.data;
 }
-async function acceptProposal(bid_id) {
+async function acceptProposal(bid_id, applicant_id) {
   try {
     console.log("Accepting proposal with bid ID:", bid_id);
 
     const response = await axios.patch(
       `${process.env.REACT_APP_SERVER_URL}/applicants/acceptProposal`,
-      { bid_id },
+      { bid_id, applicant_id },
       {
         headers: {
           "Content-Type": "application/json",
@@ -33,13 +33,13 @@ async function acceptProposal(bid_id) {
     throw error; // Re-throw for handling in UI
   }
 }
-async function rejectProposal(bid_id) {
+async function rejectProposal(bid_id, applicant_id) {
   try {
     console.log("Rejecting proposal with bid ID:", bid_id);
 
     const response = await axios.patch(
       `${process.env.REACT_APP_SERVER_URL}/applicants/rejectProposal`,
-      { bid_id },
+      { bid_id, applicant_id },
       {
         headers: {
           "Content-Type": "application/json",

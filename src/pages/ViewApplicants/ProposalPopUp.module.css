@@ -23,6 +23,7 @@
 }
 .modalContent ul {
   all: unset;
+  margin-left: 5%;
   text-align: left;
 }
 /* Optional: Styled scrollbar */

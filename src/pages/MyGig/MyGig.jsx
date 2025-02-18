@@ -155,7 +155,6 @@ export default function MyGig() {
           ) : (
             <div className={styles.gigTitle}>{gig.title}</div>
           )}
-          <div className={styles.featureTitle}>Description</div>
           <div className={styles.description}>{gig.description}</div>
           <div className={styles.gigCategories}>
             Category:

@@ -26,6 +26,7 @@
   cursor: pointer;
   width: 30vw;
   height: auto;
+  max-height: 50vh;
   display: flex;
   gap: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -33,16 +34,22 @@
   margin-top: 2%;
   margin-bottom: 2%;
   min-height: 85vh;
+  border-radius: 10px;
 }
 
 .gigImage {
-  height: 60%;
+  height: 40%;
+  border-top-left-radius: 10px; /* Apply border-radius to the container */
+  border-top-right-radius: 10px;
 }
 
 .gigImage img {
-  height: 100%;
   width: 100%;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain; /* Ensures the whole image is visible */
+  object-position: center; /* Centers the image */
+  border-radius: inherit; /* Inherits the parent border-radius */
+  background-color: #f1f1f1; /* Optional: Adds a background if the image doesn't fully fill the space */
 }
 
 .gigTitle {
@@ -84,11 +91,17 @@
 }
 
 .editTag {
-  background-color: #19965c;
+  color: #19965c;
+  background-color: white;
+  border: 1.5px solid #19965c;
+  font-weight: 500;
 }
 
 .deleteTag {
-  background-color: red;
+  border: 1.5px solid red;
+  color: red;
+  background-color: white;
+  font-weight: 500;
 }
 
 .bottom {
@@ -101,7 +114,7 @@
 .budget {
   color: #0f6c41;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .features {
@@ -145,6 +158,7 @@
   display: flex;
   justify-content: flex-start;
   color: gray;
+  margin-left: 2%;
 }
 
 .featureTitle {

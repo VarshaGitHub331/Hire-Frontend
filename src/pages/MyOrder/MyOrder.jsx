@@ -139,7 +139,7 @@ const OrderTable = () => {
             },
             headCells: {
               style: {
-                backgroundColor: "rgb(45, 52, 45)", // Inline header color
+                backgroundColor: "rgb(155, 214, 155)", // Inline header color
                 fontWeight: "bold",
                 color: "#374151",
                 padding: "1rem",

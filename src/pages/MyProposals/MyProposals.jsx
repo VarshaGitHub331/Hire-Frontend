@@ -1,61 +1,43 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { getApplicantsForJob } from "../../apis/Applicants";
-import styles from "./ViewApplicants.module.css";
-import ApplicantModal from "./ProposalPopUp";
-import ApplicantProfile from "./Applicant";
-const ViewApplicants = () => {
+import { getMyProposals } from "../../apis/Applicants";
+import styles from "./MyProposals.module.css";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
+const MyProposals = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
-  const location = useLocation();
+  const { userState } = useAuthContext();
+  const user_id = userState.user_id;
   const job_id = location?.state?.job_id;
-  const [selectedApplicant, setSelectedApplicant] = useState(null);
-  const [profileApplicant, setProfileApplicant] = useState(null);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["applicants", job_id, page, pageSize],
-    queryFn: () => getApplicantsForJob(job_id, page, pageSize),
+    queryFn: () => getMyProposals(user_id, page, pageSize),
     keepPreviousData: true,
   });
 
   const columns = [
     {
-      name: "Applicant ID",
-      selector: (row) => row.applicant_id,
+      name: "Proposal ID",
+      selector: (row) => row.bidId,
       sortable: true,
     },
     {
-      name: "Freelancer Name",
-      selector: (row) => (
-        <span
-          style={{
-            color: "blue",
-            cursor: "pointer",
-            textDecoration: "underline",
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            setProfileApplicant(row);
-          }}
-        >
-          {row.Freelancer.User.first_name}
-        </span>
-      ),
+      name: "Job ID",
+      selector: (row) => row.Job_Posting.job_id,
       sortable: true,
     },
     {
-      name: "Bid Amount",
-      selector: (row) => row.Bids[0]?.bid_amount || "N/A",
-      sortable: true,
+      name: "Job Title",
+      selector: (row) => row.Job_Posting.title,
     },
-    { name: "Bid Status", selector: (row) => row.Bids[0]?.bid_status || "N/A" },
+    { name: "Bid Status", selector: (row) => row.bid_status },
     {
       name: "Estimated Time (Days)",
-      selector: (row) => row.Bids[0]?.estimated_time || "N/A",
+      selector: (row) => row.estimated_time || "N/A",
     },
   ];
 
@@ -65,7 +47,11 @@ const ViewApplicants = () => {
     <div style={{ padding: "1rem" }}>
       <div className={styles.titlePart}>
         <div className={styles.direction}>
-          HIRE &gt; JOBS &gt;&gt;APPLICANTS
+          HIRE &gt;{" "}
+          <Link to="/freelancerJobs" style={{ curosr: "pointer" }}>
+            JOBS
+          </Link>{" "}
+          &gt;&gt; PROPOSALS
         </div>
       </div>
       {isLoading ? (
@@ -102,25 +88,10 @@ const ViewApplicants = () => {
               },
             }}
           />
-
-          {selectedApplicant && (
-            <ApplicantModal
-              applicant={selectedApplicant}
-              onClose={() => setSelectedApplicant(null)}
-            />
-          )}
-          {profileApplicant && (
-            <ApplicantProfile
-              applicant={profileApplicant}
-              onClose={() => {
-                setProfileApplicant(null);
-              }}
-            />
-          )}
         </>
       )}
     </div>
   );
 };
 
-export default ViewApplicants;
+export default MyProposals;

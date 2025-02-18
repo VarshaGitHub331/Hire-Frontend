@@ -1,0 +1,18 @@
+.titlePart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 2vh;
+  padding-left: 5%;
+  margin-top: 0.5%;
+}
+
+.direction {
+  color: gray;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-align: left;
+  padding: 2%;
+}

@@ -199,6 +199,9 @@ function Navbar() {
                         <Link to="/freelancerJobs">
                           <div>Jobs For You</div>
                         </Link>
+                        <Link to="/myProposals">
+                          <div>My Proposals</div>
+                        </Link>
                       </>
                     )}
                     {userState.role === "client" && (

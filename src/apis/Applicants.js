@@ -53,4 +53,21 @@ async function rejectProposal(bid_id, applicant_id) {
     throw error; // Re-throw for handling in UI
   }
 }
-export { getApplicantsForJob, acceptProposal, rejectProposal };
+async function getMyProposals(user_id, page, pageSize) {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/applicants/myProposals`,
+      {
+        params: {
+          user_id,
+          page,
+          pageSize,
+        },
+      }
+    );
+    return response.data;
+  } catch (e) {
+    console.error(e);
+  }
+}
+export { getApplicantsForJob, acceptProposal, rejectProposal, getMyProposals };

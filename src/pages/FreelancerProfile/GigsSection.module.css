@@ -1,0 +1,72 @@
+.gigsSection {
+  padding: 20px;
+}
+
+.heading {
+  color: gray;
+  margin-bottom: 20px;
+  text-align: left;
+  margin-left: 5%;
+}
+
+.gigsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 2%;
+  gap: 20px;
+}
+
+.gigCard {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.gigCard:hover {
+  transform: scale(1.03);
+}
+
+.gigImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.gigTitle {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.gigPrice {
+  font-size: 14px;
+  color: #333;
+  padding: 0 10px;
+}
+
+.consultation {
+  font-size: 12px;
+  color: #666;
+  padding: 0 10px 10px;
+}
+
+.viewAllButton {
+  display: block;
+  margin: 20px 0;
+  padding: 10px 20px;
+  border: none;
+  background-color: white;
+  color: #333;
+  border-color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  align-self: left;
+}
+
+.viewAllButton:hover {
+  background-color: #555;
+}

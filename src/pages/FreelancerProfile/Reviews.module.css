@@ -1,0 +1,94 @@
+.reviewsSection {
+  padding: 20px;
+  max-width: 800px;
+  margin-left: 2%;
+}
+
+.heading {
+  color: gray;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.reviewCard {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.reviewCard:hover {
+  transform: scale(1.02);
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.location {
+  color: gray;
+  font-size: 14px;
+}
+
+.repeatClient {
+  color: #007bff;
+  font-size: 14px;
+}
+
+.rating {
+  color: #f5a623;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.timeAgo {
+  color: #888;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.feedback {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.reviewDetails {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.reviewImage {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.responseSection {
+  display: flex;
+  gap: 10px;
+}
+
+.helpfulButton,
+.notHelpfulButton {
+  padding: 5px 10px;
+  border: 1px solid #e0e0e0;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.helpfulButton:hover,
+.notHelpfulButton:hover {
+  background: #e0e0e0;
+}

@@ -77,8 +77,12 @@ const ProfileSkills = () => {
   };
 
   const addSkill = (skillName) => {
+    const foundSkill = allSkills.find((skill) => skill.skill_name == skillName);
     if (!skills.some((skill) => skill.skill_name === skillName)) {
-      const updatedSkills = [...skills, { skill_name: skillName }];
+      const updatedSkills = [
+        ...skills,
+        { skill_name: skillName, skill_id: foundSkill.skill_id },
+      ];
       setSkills(updatedSkills);
       setNewSkill("");
       updateSkillsMutation.mutate(updatedSkills);
@@ -86,12 +90,15 @@ const ProfileSkills = () => {
   };
 
   const addCategory = (categoryName) => {
+    const foundCategory = allCategories.find(
+      (category) => category.categoryName
+    );
     if (
       !categories.some((category) => category.category_name === categoryName)
     ) {
       const updatedCategories = [
         ...categories,
-        { category_name: categoryName },
+        { category_name: categoryName, category_id: foundCategory.category_id },
       ];
       setCategories(updatedCategories);
       setNewCategory("");

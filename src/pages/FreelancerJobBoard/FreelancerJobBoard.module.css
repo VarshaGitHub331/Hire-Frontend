@@ -82,12 +82,11 @@
   gap: 5px;
 }
 
-/* Job Listings */
 .jobsContainer {
   flex-grow: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2%;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns on large screens */
+  gap: 20px;
   justify-content: flex-start;
   align-items: start;
   transition: margin-left 0.3s ease-in-out;

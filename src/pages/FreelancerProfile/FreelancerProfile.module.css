@@ -1,0 +1,87 @@
+.FreelancerProfileContainer {
+  max-width: 1200px;
+  margin: 0 5%;
+  padding: 20px;
+  align-self: flex-start;
+}
+
+.FreelancerProfileContainer .profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.FreelancerProfileContainer .profileImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.FreelancerProfileContainer .profileInfo {
+  flex: 1;
+}
+
+.FreelancerProfileContainer .profileName {
+  font-weight: bold;
+  margin: 0;
+}
+
+.FreelancerProfileContainer .profileDescription {
+  color: #777;
+  margin: 5px 0 15px;
+}
+
+.FreelancerProfileContainer .topRated {
+  background-color: #f5e748;
+  color: #fff;
+  padding: 5px 5px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.FreelancerProfileContainer .actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.FreelancerProfileContainer button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.FreelancerProfileContainer button:first-of-type {
+  background-color: #1dbf73;
+  color: #fff;
+}
+
+.FreelancerProfileContainer button:last-of-type {
+  background-color: #0073e6;
+  color: #fff;
+}
+
+.FreelancerProfileContainer .about,
+.skills {
+  margin-bottom: 20px;
+}
+
+.FreelancerProfileContainer .skillsList {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.FreelancerProfileContainer .skillTag {
+  background-color: #f3f3f3;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+}

@@ -34,9 +34,15 @@
   color: #777;
   margin: 5px 0 15px;
 }
-
+.FreelancerProfileContainer .ratingContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 5%;
+  margin-top: 5%;
+}
 .FreelancerProfileContainer .topRated {
-  background-color: #f5e748;
+  background-color: #efe35e;
   color: #fff;
   padding: 5px 5px;
   border-radius: 5px;

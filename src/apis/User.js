@@ -67,10 +67,23 @@ async function updateClientProfile({ user_id, key, value, token }) {
   );
   return response.data;
 }
+async function fetchFreelancerProfile({ user_id }) {
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/freelancer/fetchFreelancerProfile`,
+    {
+      params: {
+        user_id,
+      },
+    }
+  );
+  console.log(response.data);
+  return response.data.UserProfile;
+}
 export {
   getUserProfile,
   updateUserProfile,
   editEmailProfile,
   updateFreelancerProfile,
   updateClientProfile,
+  fetchFreelancerProfile,
 };

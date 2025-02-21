@@ -35,7 +35,7 @@ const reviewsData = [
 const Reviews = () => {
   return (
     <section className={styles.reviewsSection}>
-      <h3 className={styles.heading}>Client Reviews</h3>
+      <h4 className={styles.heading}>Client Reviews</h4>
       {reviewsData.map((review) => (
         <div className={styles.reviewCard} key={review.id}>
           <div className={styles.reviewHeader}>

@@ -26,6 +26,18 @@ const ApplicantModal = ({ applicant, onClose }) => {
         >
           💬 Chat
         </button>
+        <button
+          className={styles.profileTag}
+          onClick={(e) => {
+            navigate("/freelancerProfile", {
+              state: {
+                user_id: applicant.Freelancer.user_id,
+              },
+            });
+          }}
+        >
+          Profile
+        </button>
         {/* Profile Section */}
         <div className={styles.profileContainer}>
           <div className={styles.profilePic}>

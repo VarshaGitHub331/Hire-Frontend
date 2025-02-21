@@ -12,7 +12,7 @@
 .gigsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  padding: 2%;
+  padding: 3%;
   gap: 20px;
 }
 
@@ -22,6 +22,11 @@
   overflow: hidden;
   background: #fff;
   transition: transform 0.3s ease;
+  max-width: 300px; /* Maximum width of each card */
+  max-height: 450px; /* Maximum height of each card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .gigCard:hover {
@@ -30,13 +35,13 @@
 
 .gigImage {
   width: 100%;
-  height: auto;
+  height: 200px;
   object-fit: cover;
   border-bottom: 1px solid #e0e0e0;
 }
 
 .gigTitle {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   padding: 10px;
 }
@@ -69,4 +74,27 @@
 
 .viewAllButton:hover {
   background-color: #555;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .gigCard {
+    max-width: 100%;
+    max-height: 400px;
+  }
+
+  .gigImage {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gigCard {
+    max-width: 100%;
+    max-height: 350px;
+  }
+
+  .gigImage {
+    height: 160px;
+  }
 }

@@ -70,7 +70,6 @@ const MyProposals = () => {
             paginationDefaultPage={page}
             onChangePage={(newPage) => setPage(newPage)}
             onChangeRowsPerPage={(newSize) => setPageSize(newSize)}
-            onRowClicked={(row) => setSelectedApplicant(row)}
             customStyles={{
               table: {
                 style: { width: "90%", margin: "0 auto" },

@@ -36,10 +36,12 @@ function FreelancerProfile() {
               </div>
             </div>
           </div>
-          <div className={styles.about}>
-            <h5>About me</h5>
-            <p>{freelancerProfileSection?.profile}</p>
-          </div>
+          {freelancerProfileSection?.profile != " " && (
+            <div className={styles.about}>
+              <h5>About me</h5>
+              <p>{freelancerProfileSection?.profile}</p>
+            </div>
+          )}
           <div className={styles.skills}>
             <h5>Skills</h5>
             <div className={styles.skillsList}>
@@ -55,7 +57,7 @@ function FreelancerProfile() {
         </div>
       )}
       <GigsSection user_id={user_id} />
-      <Reviews />
+      <Reviews user_id={user_id} />
     </>
   );
 }

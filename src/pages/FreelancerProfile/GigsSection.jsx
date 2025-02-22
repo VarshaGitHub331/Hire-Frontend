@@ -25,7 +25,6 @@ const GigsSection = ({ user_id }) => {
       state: { gig },
     });
   }
-  if (isLoading) return <div>Loading...</div>;
 
   if (isError) return <div>Error loading gigs!</div>;
   const gigsData = data?.pages.flatMap((page) => page.gigs.map((gig) => gig));
@@ -33,7 +32,7 @@ const GigsSection = ({ user_id }) => {
     <section className={styles.gigsSection}>
       <h4 className={styles.heading}>My Gigs</h4>
       <div className={styles.gigsContainer}>
-        {gigsData.map((gig, index) => (
+        {gigsData?.map((gig, index) => (
           <div
             key={index}
             className={styles.gigCard}
@@ -43,7 +42,7 @@ const GigsSection = ({ user_id }) => {
           >
             <img src={gig.picture} alt="Gig" className={styles.gigImage} />
             <p className={styles.gigTitle}>{gig.title}</p>
-            <p className={styles.gigPrice}>From {gig.budget}</p>
+            <p className={styles.gigPrice}>From &#8377; {gig.budget}</p>
           </div>
         ))}
       </div>
@@ -53,7 +52,7 @@ const GigsSection = ({ user_id }) => {
           fetchNextPage();
         }}
       >
-        View all (22)
+        View More
       </button>
     </section>
   );

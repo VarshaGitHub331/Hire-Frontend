@@ -1,69 +1,82 @@
 import React from "react";
 import styles from "./Reviews.module.css";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchFreelancerReviews } from "../../apis/User";
+import { FaStar } from "react-icons/fa";
 
-const reviewsData = [
-  {
-    id: 1,
-    name: "poulolson",
-    location: "United States",
-    isRepeatClient: true,
-    rating: 5,
-    timeAgo: "1 month ago",
-    feedback:
-      "I've had a great experience working with Amit and his team over the last several months on the buildout of my small business website. They've been very accommodating of making revisions to improve the performance of the site even after the project was delivered. They also have showed me how to make updates...",
-    price: "₹17,600–₹35,200",
-    duration: "10 days",
-    serviceType: "Website UI/UX Design",
-    imageUrl: "https://via.placeholder.com/100x60", // Replace with actual image URL
-  },
-  {
-    id: 2,
-    name: "batuhankrbb",
-    location: "Turkey",
-    isRepeatClient: true,
-    rating: 5,
-    timeAgo: "2 months ago",
-    feedback:
-      "SOOO good. It's my third time working with massiveworks team and every time they provide exceptional value. Every time I need a website to be designed and developed, they are the only freelancer I go to. Definitely recommended.",
-    price: "₹70,400–₹88,000",
-    duration: "3 weeks",
-    serviceType: "Webflow",
-    imageUrl: "https://via.placeholder.com/100x60", // Replace with actual image URL
-  },
-];
+const Reviews = ({ user_id }) => {
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["reviews", user_id],
+    queryFn: ({ pageParam = 1 }) => fetchFreelancerReviews(user_id, pageParam),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.reviews.length > 0 ? pages.length + 1 : undefined;
+    },
+  });
 
-const Reviews = () => {
+  // Flattening the paginated data
+  const reviewsData = data?.pages?.flatMap((page) => page.reviews) || [];
+
+  // Loading state
+  if (isLoading) return <div>Loading reviews...</div>;
+
+  // Error state
+  if (isError) return <div>Error loading reviews! Please try again later.</div>;
+
+  // Empty state
+  if (reviewsData.length === 0) return <div>No reviews yet.</div>;
+
+  // Star Rating Component
+  const StarRating = ({ rating }) => (
+    <div className={styles.starRating}>
+      {[...Array(5)].map((_, index) => (
+        <FaStar
+          key={index}
+          color={index < rating ? "#eecc0f" : "#e0e0e0"}
+          size={10}
+        />
+      ))}
+    </div>
+  );
+
+  // Main JSX
   return (
     <section className={styles.reviewsSection}>
       <h4 className={styles.heading}>Client Reviews</h4>
       {reviewsData.map((review) => (
-        <div className={styles.reviewCard} key={review.id}>
+        <div className={styles.reviewCard} key={review.review_id}>
           <div className={styles.reviewHeader}>
-            <h4>{review.name}</h4>
-            <span className={styles.location}>{review.location}</span>
+            <h4 className={styles.reviewerName}>{review.reviewer_name}</h4>
+            <StarRating rating={review.rating} />
+
             {review.isRepeatClient && (
               <span className={styles.repeatClient}>• Repeat Client</span>
             )}
           </div>
-          <div className={styles.rating}>⭐ {review.rating}</div>
           <div className={styles.timeAgo}>{review.timeAgo}</div>
-          <p className={styles.feedback}>{review.feedback}</p>
+          <p className={styles.feedback}>{review.comment}</p>
           <div className={styles.reviewDetails}>
-            <span className={styles.price}>{review.price}</span>
-            <span className={styles.duration}>{review.duration}</span>
-            <span className={styles.serviceType}>{review.serviceType}</span>
-          </div>
-          <img
-            className={styles.reviewImage}
-            src={review.imageUrl}
-            alt="Service snapshot"
-          />
-          <div className={styles.responseSection}>
-            <button className={styles.helpfulButton}>Helpful</button>
-            <button className={styles.notHelpfulButton}>Not Helpful</button>
+            <span className={styles.price}>
+              ₹ {parseInt(review["Order.payable"], 10)}
+            </span>
           </div>
         </div>
       ))}
+      {hasNextPage && (
+        <button
+          className={styles.viewAllButton}
+          onClick={fetchNextPage}
+          disabled={isFetchingNextPage}
+        >
+          {isFetchingNextPage ? "Loading more..." : "View More"}
+        </button>
+      )}
     </section>
   );
 };

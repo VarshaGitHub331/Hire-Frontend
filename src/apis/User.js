@@ -79,6 +79,22 @@ async function fetchFreelancerProfile({ user_id }) {
   console.log(response.data);
   return response.data.UserProfile;
 }
+async function fetchFreelancerReviews(user_id, pageParam) {
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/freelancer/fetchFreelancerReviews`,
+    {
+      params: {
+        user_id,
+        page: pageParam, // Add page as a query parameter
+        limit: 3, // Set limit directly
+      },
+    }
+  );
+  console.log(response.data);
+  return {
+    reviews: response.data,
+  };
+}
 export {
   getUserProfile,
   updateUserProfile,
@@ -86,4 +102,5 @@ export {
   updateFreelancerProfile,
   updateClientProfile,
   fetchFreelancerProfile,
+  fetchFreelancerReviews,
 };

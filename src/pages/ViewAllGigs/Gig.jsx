@@ -6,7 +6,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getCategories } from "../../apis/Categories";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-
+import { FaStar } from "react-icons/fa";
 export default function MyGigs() {
   const navigate = useNavigate();
   const { userState } = useAuthContext();
@@ -117,7 +117,17 @@ export default function MyGigs() {
       else return filteredData;
     } else return [];
   }, [filteredData, sortedData, ratingOrder]);
-
+  const StarRating = ({ rating }) => (
+    <div className={styles.starRating}>
+      {[...Array(5)].map((_, index) => (
+        <FaStar
+          key={index}
+          color={index < rating ? "#eecc0f" : "#e0e0e0"}
+          size={10}
+        />
+      ))}
+    </div>
+  );
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
   return (
@@ -234,7 +244,7 @@ export default function MyGigs() {
               </div>
               <div className={styles.creator}>
                 <div>{gig.freelancer_name}</div>
-                <div>⭐ {gig.freelancer_rating?.toFixed(1)}</div>
+                <StarRating rating={parseInt(gig.freelancer_rating)} />
               </div>
               <div className={styles.gigTitle}>{gig.title}</div>
               <div className={styles.gigCategories}>

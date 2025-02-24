@@ -35,7 +35,6 @@ function userReducer(state, action) {
 function AuthProvider({ children }) {
   const [userState, dispatch] = useReducer(userReducer, initialUser);
   function UserLogin(user) {
-    alert("CALLED");
     dispatch({ type: "LOGIN", payload: user });
     localStorage.setItem("name", user.user_name);
     localStorage.setItem("role", user.role);

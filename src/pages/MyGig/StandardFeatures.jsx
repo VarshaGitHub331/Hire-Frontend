@@ -14,7 +14,6 @@ export default function StandardFeatures({ gig, setGig }) {
   }
   const handleSave = async () => {
     console.log(features);
-    alert("calledddddd");
 
     try {
       const result = await axios.put(

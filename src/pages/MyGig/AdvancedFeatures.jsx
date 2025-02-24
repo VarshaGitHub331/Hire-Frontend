@@ -8,7 +8,6 @@ export default function AdvancedFeatures({ gig, setGig }) {
     setFeatures((features) => features.map((f, i) => (i == index ? value : f)));
   }
   const handleSave = async () => {
-    alert("calledddddd");
     console.log(skillDetails);
     try {
       const result = await axios.put(

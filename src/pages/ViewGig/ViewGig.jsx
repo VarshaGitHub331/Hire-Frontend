@@ -9,11 +9,12 @@ import toast from "react-hot-toast";
 import Standard from "./Standard";
 import OrderModel from "./OrderModule";
 import Advanced from "./Advanced";
+import { FaStar } from "react-icons/fa";
 export default function ViewGig() {
   const location = useLocation();
   const [gig, setGig] = useState(location.state?.gig);
   const url = process.env.REACT_APP_SERVER_URL;
-
+  const [showDescriptionPopup, setShowDescriptionPopup] = useState(false);
   const { userState } = useAuthContext();
   const user_id = userState.user_id;
   const role = userState.role;
@@ -24,6 +25,17 @@ export default function ViewGig() {
     });
   };
   const [openOrder, setOpenOrder] = useState(false);
+  const StarRating = ({ rating }) => (
+    <div className={styles.starRating}>
+      {[...Array(5)].map((_, index) => (
+        <FaStar
+          key={index}
+          color={index < rating ? "#eecc0f" : "#e0e0e0"}
+          size={10}
+        />
+      ))}
+    </div>
+  );
   return (
     <>
       <div className={styles.titlePart}>
@@ -32,7 +44,12 @@ export default function ViewGig() {
           &gt;&gt; {gig.category_name}
         </div>
       </div>
-      <div className={styles.viewGigContainer}>
+      <div
+        className={styles.viewGigContainer}
+        onClick={(e) => {
+          setShowDescriptionPopup(true);
+        }}
+      >
         <div className={styles.ViewGig}>
           <div className={styles.gigCard}>
             <div className={styles.gigImage}>
@@ -40,9 +57,8 @@ export default function ViewGig() {
             </div>
             <div className={styles.creator}>
               <div>{gig.freelancer_name}</div>
-              <div>⭐ {gig.freelancer_rating}</div>
+              <StarRating rating={parseInt(gig.freelancer_rating)} />
             </div>
-            <div className={styles.description}>{gig.description}</div>
             <div className={styles.gigCategories}>
               Category:
               <div className={styles.catTag}>{gig.category_name}</div>
@@ -66,14 +82,16 @@ export default function ViewGig() {
                   <div
                     className={styles.editTag}
                     onClick={(e) => {
+                      e.stopPropagation();
                       setOpenOrder(true);
                     }}
                   >
                     Order
                   </div>
                   <div
-                    className={styles.deleteTag}
+                    className={styles.editTag}
                     onClick={(e) => {
+                      e.stopPropagation();
                       handleChat();
                     }}
                   >
@@ -104,8 +122,8 @@ export default function ViewGig() {
                   ))}
                 </div>
               </div>
-              {gig?.standard_features && <Standard gig={gig} />}
-              {gig?.advanced_features && <Advanced gig={gig} />}
+              {gig?.standard_budget != 0 && <Standard gig={gig} />}
+              {gig?.advanced_budget != 0 && <Advanced gig={gig} />}
             </div>
           </div>
           <OrderModel
@@ -114,6 +132,22 @@ export default function ViewGig() {
             gig={gig}
           />
         </div>
+        {showDescriptionPopup == true && (
+          <div className={styles.popupOverlay}>
+            <div className={styles.popupContent}>
+              <p>{gig.description}</p>
+              <button
+                className={styles.closeButton}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDescriptionPopup(false);
+                }}
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

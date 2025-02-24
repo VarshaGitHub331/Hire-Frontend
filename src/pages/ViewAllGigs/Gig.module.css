@@ -88,7 +88,7 @@
 
   color: #0f6c41;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 .loadMore {
   width: 95%;
@@ -252,7 +252,10 @@
 
 @media (max-width: 768px) {
   .gigsHolder {
-    grid-template-columns: repeat(1, 1fr); /* Stack items in a single column */
+    grid-template-columns: repeat(
+      auto,
+      1fr
+    ); /* Stack items in a single column */
   }
   .filterIcon {
     width: 20%;
@@ -267,5 +270,21 @@
   .gigsHolder {
     grid-template-columns: 1fr; /* Ensure a single column on mobile */
     padding: 5%; /* Add more padding on small screens */
+  }
+
+  .filtering {
+    min-width: 100%; /* Take full width */
+    position: relative;
+    z-index: 10;
+  }
+  .filter {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%; /* Make it responsive */
+    margin-left: 0;
+  }
+  .filterIcon {
+    width: 15%; /* Smaller icon */
+    margin-left: 2vw;
   }
 }

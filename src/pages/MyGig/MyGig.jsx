@@ -39,8 +39,9 @@ export default function MyGig() {
     queryFn: () => getSkills([selectedCategory]),
     enabled: !!selectedCategory && selectedCategory.length > 0,
   });
+  const [showDescriptionPopup, setShowDescriptionPopup] = useState(false);
+
   const handleSave = async () => {
-    alert("calledddddd");
     console.log(skillDetails);
     try {
       const result = await axios.put(
@@ -140,7 +141,12 @@ export default function MyGig() {
           &gt;&gt; {gig.category_name}
         </div>
       </div>
-      <div className={styles.gigContainer}>
+      <div
+        className={styles.gigContainer}
+        onClick={(e) => {
+          if (!editing) setShowDescriptionPopup(true);
+        }}
+      >
         <div className={styles.gigCard}>
           <div className={styles.gigImage}>
             <img src={gig.picture[0]} alt="gigImage" />
@@ -155,7 +161,6 @@ export default function MyGig() {
           ) : (
             <div className={styles.gigTitle}>{gig.title}</div>
           )}
-          <div className={styles.description}>{gig.description}</div>
           <div className={styles.gigCategories}>
             Category:
             {editing ? (
@@ -294,7 +299,8 @@ export default function MyGig() {
             >
               <div
                 className={styles.editTag}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   {
                     editing == true && handleSave();
                   }
@@ -306,6 +312,7 @@ export default function MyGig() {
               <div
                 className={styles.deleteTag}
                 onClick={(e) => {
+                  e.stopPropagation();
                   handleDelete();
                 }}
               >
@@ -332,9 +339,29 @@ export default function MyGig() {
           </div>
         </div>
         <div>
-          <StandardFeatures gig={gig} setGig={setGig} />
-          <AdvancedFeatures gig={gig} setGig={setGig} />
+          {gig.standard_budget != 0 && (
+            <StandardFeatures gig={gig} setGig={setGig} />
+          )}
+          {gig.advanced_budget != 0 && (
+            <AdvancedFeatures gig={gig} setGig={setGig} />
+          )}
         </div>
+        {showDescriptionPopup == true && (
+          <div className={styles.popupOverlay}>
+            <div className={styles.popupContent}>
+              <p>{gig.description}</p>
+              <button
+                className={styles.closeButton}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDescriptionPopup(false);
+                }}
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

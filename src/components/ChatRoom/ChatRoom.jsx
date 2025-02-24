@@ -2,14 +2,35 @@ import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import styles from "./ChatRoom.module.css";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 // Initialize the socket instance outside the component
 const socket = io("http://localhost:3001");
 
-const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
+const ChatRoom = ({
+  buyerId,
+  sellerId,
+  messages,
+  setMessages,
+  handleBackToChatList,
+  selectedConversation,
+}) => {
   const { user_id } = useAuthContext().userState;
   const [conversationId, setConversationId] = useState("");
   const [newMessage, setNewMessage] = useState("");
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 768;
+      setIsMobileView(isMobile);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (socket.connected) {
@@ -21,14 +42,11 @@ const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
 
   useEffect(() => {
     console.log("Joining Conversation");
-    console.log(buyerId);
-    console.log(sellerId);
     socket.emit("joinConversation", { buyerId, sellerId });
 
     const handleLoadingMessages = ({ loadedMessages, conversation_id }) => {
-      console.log("Loading messages:", loadedMessages);
-      setMessages((messages) => loadedMessages);
-      setConversationId((conversationId) => conversation_id);
+      setMessages(loadedMessages);
+      setConversationId(conversation_id);
     };
 
     // Attach listeners
@@ -39,9 +57,9 @@ const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
       socket.off("loadingMessages", handleLoadingMessages);
     };
   }, [buyerId, sellerId]);
+
   useEffect(() => {
     const handleReceiveMessage = (data) => {
-      console.log("Received message:", data);
       setMessages((prevMessages) => [...prevMessages, data]);
     };
     socket.on("receiveMessage", handleReceiveMessage);
@@ -49,14 +67,11 @@ const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
       socket.off("receiveMessage", handleReceiveMessage);
     };
   }, [buyerId, sellerId]);
+
   useEffect(() => {
-    console.log("Called for filtering");
-    // Filter messages that are received and not yet read
     const unseenMessages = messages.filter(
       (msg) => msg.receiver_id == user_id && msg.status !== "read"
     );
-    console.log("Unsen mesage", unseenMessages);
-    // If there are unseen messages, emit an event to mark them as read
     if (unseenMessages.length > 0) {
       socket.emit("markMessagesAsRead", {
         conversationId,
@@ -64,6 +79,7 @@ const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
       });
     }
   }, [conversationId, messages]);
+
   useEffect(() => {
     const handleMessagesMarkedAsRead = (messageIds) => {
       setMessages((prevMessages) =>
@@ -94,6 +110,14 @@ const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
 
   return (
     <div className={styles.chatRoom}>
+      {isMobileView && (
+        <div className={styles.header}>
+          <button className={styles.backButton} onClick={handleBackToChatList}>
+            <AiOutlineArrowLeft size={20} />
+          </button>
+          {selectedConversation?.other_user_name}
+        </div>
+      )}
       <div className={styles.messagesContainer}>
         {messages.map((msg) => (
           <div
@@ -102,24 +126,17 @@ const ChatRoom = ({ buyerId, sellerId, messages, setMessages }) => {
               msg.sender_id == user_id ? styles.sent : styles.received
             }`}
           >
-            {/* Display the message */}
             <span>{msg.message}</span>
-
-            {/* Display the formatted sent_at time */}
             <span className={styles.sentAt}>
               {new Date(msg.sent_at).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-              })}{" "}
-              {/* Or use toLocaleString() for date and time */}
+              })}
             </span>
-
-            {/* Check if the sender is the current user and conditionally render tick based on message status */}
             {msg.sender_id == user_id && (
-              <span className={styles.tick}>
-                {/* Display two ticks for 'read' and one tick for 'unread' */}
+              <div className={styles.tick}>
                 {msg.status == "read" ? "✔✔" : "✔"}
-              </span>
+              </div>
             )}
           </div>
         ))}

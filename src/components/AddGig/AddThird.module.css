@@ -1,10 +1,8 @@
 .descBox {
-  min-width: 30%;
-  width: auto;
   max-width: 45%;
   min-height: 60vh;
   height: auto;
-  margin: 2rem auto;
+  margin: 0.5rem auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
@@ -26,6 +24,10 @@
 }
 .descBox .thirdLabel {
   color: gray;
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
 }
 .descBox .inputContainer .normalText {
   border-radius: 5px;
@@ -68,8 +70,9 @@
 .buttonHolder {
   display: flex;
   justify-content: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
+  margin-top: 2.5%;
 }
 .thirdSubmit {
   display: inline;
@@ -78,7 +81,7 @@
   color: white;
   font-weight: 400;
   width: 20%;
-  padding: 10px;
+  padding: 8px;
   border-radius: 5px;
   background-color: hsl(120, 75%, 26%);
   cursor: pointer;
@@ -90,8 +93,29 @@
   color: white;
   font-weight: 400;
   width: 20%;
-  padding: 10px;
+  padding: 8px;
   border-radius: 5px;
   background-color: hsl(120, 75%, 26%);
   cursor: pointer;
+}
+.submitButton {
+  background-color: rgb(12, 101, 12);
+  color: white;
+  border: none;
+  padding: 1.5%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.submitButton:hover {
+  background-color: rgb(12, 101, 12);
+  transform: scale(1.05);
+}
+@media screen and (max-width: 768px) {
+  .descBox {
+    max-width: 85vw; /* Override the max-width */
+    width: 85vw;
+  }
 }

@@ -29,6 +29,9 @@ const gigSlice = createSlice({
         state.step -= 1;
       }
     },
+    setGigStep: (state, action) => {
+      state.step = action.payload;
+    },
     changeGigTitle: (state, action) => {
       state.gigTitle = action.payload;
     },
@@ -87,6 +90,7 @@ export const {
   changeGigDuration,
   changeGigRevisions,
   resetGig,
+  setGigStep,
 } = gigSlice.actions;
 
 export default gigSlice.reducer;

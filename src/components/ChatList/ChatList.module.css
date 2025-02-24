@@ -1,69 +1,66 @@
+.chatListContainer {
+  padding: 16px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.searchInput {
+  flex-grow: 1;
+  outline: none;
+  border: none;
+  margin-left: 8px;
+}
+
 .conversationList {
   list-style: none;
-  width: 100%;
-
   padding: 0;
   margin: 0;
 }
 
 .conversationItem {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.3s;
 }
 
 .conversationItem:hover {
-  background-color: #f0f0f0;
+  background: #f9fafb;
 }
-.convSearch {
-  width: 95%;
-  background-color: white;
-  margin: 4%;
-  border-radius: 5px;
-  height: 10%;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
-  display: flex;
-}
-.convSearchInput {
-  width: 100%;
-  height: 70%;
-  display: flex;
 
-  justify-content: space-between;
-}
-.convSearchText {
-  width: 80%;
-  height: 100%;
-  border: none;
-  outline: none;
-  display: flex;
-  justify-content: center;
-  padding: 1.5%;
-  align-items: center;
-}
-.notificationBadge {
-  background-color: #28a745; /* Green background */
-  color: #fff; /* White text */
-  font-size: 12px; /* Adjust font size */
-  font-weight: bold;
-  border-radius: 50%; /* Circle shape */
-  width: 20px; /* Circle diameter */
-  height: 20px; /* Circle diameter */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-end;
-}
-.personName {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
+.username {
   font-weight: 600;
 }
-.convDetails {
-  width: 100%;
+
+.messagePreview {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.unreadCount {
+  background-color: #38a169;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

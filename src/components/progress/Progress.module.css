@@ -1,0 +1,61 @@
+.progressContainer {
+  width: 70vw;
+  margin: 2% 15%;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.progressBar {
+  position: relative;
+  height: 4px;
+  background-color: #ddd;
+  border-radius: 2px;
+  margin-bottom: 30px;
+}
+
+.progress {
+  height: 100%;
+  background-color: hsl(120, 74%, 24%);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step {
+  text-align: center;
+  cursor: pointer;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.active .circle {
+  background-color: hsl(120, 74%, 24%);
+  border-color: hsl(120, 74%, 24%);
+  color: #fff;
+}
+
+.label {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
+@media screen and (min-width: 768px) {
+  .progressContainer {
+    width: 70vw;
+  }
+}

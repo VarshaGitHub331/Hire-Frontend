@@ -5,12 +5,16 @@ import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
-import ProgressBar from "../progress/Progress";
 import axios from "axios";
 import ReactLoading from "react-loading";
+import { FaMagic } from "react-icons/fa";
+import { generateAIDescription } from "../../apis/Gigs";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+
+const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
 // Validation schema
-const BASE_URL = process.env.REACT_APP_SERVER_URL;
 const validationSchema = yup.object({
   gigDesc: yup
     .string()
@@ -22,49 +26,59 @@ const validationSchema = yup.object({
 export default function Gigdesc() {
   const dispatch = useDispatch();
   const gig = useSelector((store) => store.gig);
-  const gigTitle = useSelector((store) => store.gig.gigTitle);
-  const gigCategories = useSelector((store) => store.gig.gigCategories);
-  const gigSkills = useSelector((store) => store.gig.gigSkills);
-  const budget = useSelector((store) => store.gig.budget);
-  const features = useSelector((store) => store.gig.features);
-  const gigDescFromStore = useSelector((state) => state.gig.gigDesc);
-  const gigStoreStandardBudget = useSelector(
-    (store) => store.gig.standardBudget
-  );
-  const gigStoreAdvancedudget = useSelector(
-    (store) => store.gig.advancedBudget
-  );
-  const gigStoreStandardFeatures = useSelector(
-    (store) => store.gig.standardFeatures
-  );
-
-  const gigStoreAdvancedFeatures = useSelector(
-    (store) => store.gig.advancedFeatures
-  );
-
-  const gigDuration = useSelector((store) => store.gig.duration);
-  const gigRevision = useSelector((store) => store.gig.revisions);
+  const gigTitle = gig.gigTitle;
+  const gigCategories = gig.gigCategories;
+  const gigSkills = gig.gigSkills;
+  const budget = gig.budget;
+  const features = gig.features;
+  const gigDescFromStore = gig.gigDesc;
+  const gigStoreStandardBudget = gig.standardBudget;
+  const gigStoreAdvancedBudget = gig.advancedBudget;
+  const gigStoreStandardFeatures = gig.standardFeatures;
+  const gigStoreAdvancedFeatures = gig.advancedFeatures;
+  const gigDuration = gig.duration;
+  const gigRevision = gig.revisions;
+  const [isGenerating, setIsGenerating] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const { userState } = useAuthContext(); // Get persisted gig description value from the store
-
+  const { userState } = useAuthContext();
+  const navigate = useNavigate();
   // Handle image selection
   const handleImageChange = (e, setFieldValue) => {
-    const files = e.target.files; // Get the selected files
-    setFieldValue("gigImage", files); // Update Formik's field with selected files
+    const files = e.target.files;
+    setFieldValue("gigImage", files);
   };
+
+  // AI Description Generation Mutation
+  const mutateDescription = useMutation({
+    mutationFn: async () => {
+      setIsGenerating(true);
+      const data = await generateAIDescription({
+        title: gigTitle,
+        features,
+        standardFeatures: gigStoreStandardFeatures,
+        advancedFeatures: gigStoreAdvancedFeatures,
+      });
+      return data;
+    },
+    onSuccess: (data) => {
+      dispatch(changeGigDesc(data));
+      setIsGenerating(false);
+    },
+    onError: (e) => {
+      console.error(e);
+      setIsGenerating(false);
+    },
+  });
 
   // Form submission handler
   async function onSubmit(values, actions) {
-    // Dispatch the gig description to Redux
     dispatch(changeGigDesc(values.gigDesc));
-    console.log(gig);
-    // Construct FormData to send to the backend
     const formData = new FormData();
-    formData.append("title", gigTitle); // String
-    formData.append("gigCategories", gigCategories); // String
-    formData.append("gigSkills", JSON.stringify(gigSkills)); // JSON array
-    formData.append("budget", budget); // Number
-    formData.append("features", JSON.stringify(features)); // JSON array
+    formData.append("title", gigTitle);
+    formData.append("gigCategories", gigCategories);
+    formData.append("gigSkills", JSON.stringify(gigSkills));
+    formData.append("budget", budget);
+    formData.append("features", JSON.stringify(features));
     formData.append(
       "standard_features",
       JSON.stringify(gigStoreStandardFeatures)
@@ -74,19 +88,17 @@ export default function Gigdesc() {
       JSON.stringify(gigStoreAdvancedFeatures)
     );
     formData.append("standard_budget", gigStoreStandardBudget);
-    formData.append("advanced_budget", gigStoreAdvancedudget);
+    formData.append("advanced_budget", gigStoreAdvancedBudget);
     formData.append("duration", gigDuration);
     formData.append("revisions", gigRevision);
-    formData.append("gigDesc", values.gigDesc); // String
+    formData.append("gigDesc", values.gigDesc);
     formData.append("user_id", userState.user_id);
 
-    // Loop through and append all selected files to formData
     for (let i = 0; i < values.gigImage.length; i++) {
       formData.append("gigImages", values.gigImage[i]);
     }
 
     try {
-      // Send data to backend using axios
       setSubmitting(true);
       const response = await axios.post(
         `${BASE_URL}/freelancer/makeGig`,
@@ -97,44 +109,39 @@ export default function Gigdesc() {
           },
         }
       );
-
-      // Handle successful submission
-      console.log(response.data); // You can process the response data here
-
-      // Reset form fields after successful submission
+      console.log(response.data);
       actions.resetForm();
       setSubmitting(false);
       dispatch(resetGig());
+      navigate("/myGigs");
     } catch (error) {
-      // Handle errors (e.g., display error message)
       console.log(error);
+      setSubmitting(false);
     }
-
-    // Optionally, perform other actions after form submission (e.g., show a success message)
   }
-
-  // Use useEffect to update Formik initial values when the gigDescFromStore changes
 
   return (
     <Formik
       onSubmit={onSubmit}
       initialValues={{
-        gigDesc: gigDescFromStore || "", // Initialize with persisted value from store or default to empty string
-        gigImage: [], // Default empty array for gig images
+        gigDesc: gigDescFromStore || "",
+        gigImage: [],
       }}
       validationSchema={validationSchema}
     >
-      {({ values, isSubmitting, setFieldValue }) => (
-        <Form>
-          <div style={{ width: "45vw", margin: "auto", marginTop: "1.5rem" }}>
-            <ProgressBar step={3} totalSteps={3} />
-          </div>
-          <div className={styles.descBox}>
-            {submitting && (
-              <>
-                {/* Background with blur */}
+      {({ values, isSubmitting, setFieldValue }) => {
+        // Move useEffect here
+        useEffect(() => {
+          // Update Formik field when AI description changes
+          if (gigDescFromStore) {
+            setFieldValue("gigDesc", gigDescFromStore);
+          }
+        }, [gigDescFromStore, setFieldValue]);
 
-                {/* Spinner centered */}
+        return (
+          <Form>
+            <div className={styles.descBox}>
+              {submitting && (
                 <div
                   style={{
                     marginLeft: "25%",
@@ -150,80 +157,83 @@ export default function Gigdesc() {
                     width={25}
                   />
                 </div>
-              </>
-            )}
-            <div styles={{ width: "50%" }}></div>
-            <div className={styles.inputContainer}>
-              <label htmlFor="gigDesc" className={styles.thirdLabel}>
-                Gig Description
-              </label>
-              <Field
-                as="textarea"
-                id="gigDesc"
+              )}
+
+              <div className={styles.inputContainer}>
+                <label htmlFor="gigDesc" className={styles.thirdLabel}>
+                  Gig Description
+                  <button
+                    type="button"
+                    className={styles.submitButton}
+                    disabled={isGenerating}
+                    onClick={() => mutateDescription.mutate()}
+                  >
+                    {isGenerating ? (
+                      "Generating..."
+                    ) : (
+                      <>
+                        <FaMagic className={styles.icon} /> Use AI
+                      </>
+                    )}
+                  </button>
+                </label>
+
+                <Field
+                  as="textarea"
+                  id="gigDesc"
+                  name="gigDesc"
+                  placeholder="...Enter In A Concise Description For Your Gig"
+                  className={styles.normalText}
+                />
+              </div>
+              <ErrorMessage
                 name="gigDesc"
-                placeholder="...Enter In A Concise Description For Your Gig"
-                className={styles.normalText}
-                value={values.gigDesc}
-              />
-            </div>
-            <ErrorMessage
-              name="gigDesc"
-              component="div"
-              style={{
-                fontSize: "12px",
-                color: "red",
-                width: "100%",
-                display: "flex",
-                justifyContent: "flex-start",
-                fontStyle: "italic",
-              }}
-            />
-            <div className={styles.inputContainer}>
-              <label htmlFor="gigImage" className={styles.thirdLabel}>
-                Gig Media
-              </label>
-
-              {/* File input (with 'multiple' to allow multiple file selection) */}
-              <input
-                type="file"
-                id="gigImage"
-                name="gigImage"
-                accept="image/*"
-                multiple
-                onChange={(e) => handleImageChange(e, setFieldValue)} // Handle file input change
-                className={styles.imageInput}
-              />
-            </div>
-
-            <div className={styles.buttonHolder}>
-              <button
-                className={styles.thirdButton}
-                type="button"
-                disabled={isSubmitting}
-              >
-                Use AI
-              </button>
-
-              <button
-                type="button"
-                className={styles.thirdSubmit}
-                onClick={(e) => {
-                  dispatch(decreaseGigStep());
+                component="div"
+                style={{
+                  fontSize: "12px",
+                  color: "red",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  fontStyle: "italic",
                 }}
-              >
-                Prev
-              </button>
-              <button
-                className={styles.thirdSubmit}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Submit
-              </button>
+              />
+
+              <div className={styles.inputContainer}>
+                <label htmlFor="gigImage" className={styles.thirdLabel}>
+                  Gig Media
+                </label>
+                <input
+                  type="file"
+                  id="gigImage"
+                  name="gigImage"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => handleImageChange(e, setFieldValue)}
+                  className={styles.imageInput}
+                />
+              </div>
+
+              <div className={styles.buttonHolder}>
+                <button
+                  type="button"
+                  className={styles.thirdSubmit}
+                  onClick={() => dispatch(decreaseGigStep())}
+                >
+                  Back
+                </button>
+                <button
+                  className={styles.thirdSubmit}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </button>
+              </div>
             </div>
-          </div>
-        </Form>
-      )}
+          </Form>
+        );
+      }}
     </Formik>
   );
 }

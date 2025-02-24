@@ -31,7 +31,9 @@ function FreelancerProfile() {
                 {freelancerProfileSection?.User?.last_name}
               </h5>
               <div className={styles.ratingContainer}>
-                <span className={styles.topRated}>Top Rated</span>
+                {freelancerProfileSection.isTopRated == true && (
+                  <span className={styles.topRated}>Top Rated</span>
+                )}
                 <span>★ {freelancerProfileSection.Freelancer_Rating}</span>
               </div>
             </div>

@@ -1,11 +1,11 @@
 .chatRoom {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  height: 100%;
-  max-height: 80vh;
+  height: 100vh; /* Ensures full height */
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .messagesContainer {
@@ -13,38 +13,49 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding-bottom: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 60px; /* Space for input container */
 }
 
 .message {
-  min-width: 10%;
-  max-width: 40%; /* Optional: Prevent overly long messages from stretching too far */
-  padding: 0.5%;
-  border-radius: 8px; /* Rounded corners for a bubble-like appearance */
-  margin: 4px 0; /* Space between messages */
-  word-wrap: break-word; /* Ensures long words break correctly */
-  margin-right: 1%;
+  min-width: 30%;
+  max-width: 70%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  margin: 4px 0;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-.message span {
-  margin-left: 2.5%;
-}
+
 .sent {
   background-color: #00796b;
   color: white;
   align-self: flex-end;
+  text-align: right;
 }
 
 .received {
   background-color: #fff;
+  color: #333;
   align-self: flex-start;
+  border: 1px solid #f1f1f1;
 }
 
 .inputContainer {
   display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   background-color: #fff;
   border-top: 1px solid #ddd;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
 }
 
 .inputContainer input {
@@ -52,10 +63,11 @@
   padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-right: 1rem;
+  box-sizing: border-box;
 }
 
 .inputContainer button {
+  margin-left: 0.5rem;
   padding: 0.5rem 1rem;
   background-color: #00796b;
   color: #fff;
@@ -68,24 +80,36 @@
   background-color: #004d40;
 }
 
-.typingIndicator {
-  color: #888;
-  font-style: italic;
-  padding-left: 1rem;
-}
-
-.messageStatus {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  border: 2px solid white;
+.sentAt {
+  font-size: 0.6rem;
+  color: #ccc;
+  margin-top: 2px;
+  display: block;
+  text-align: right;
+  align-self: flex-end;
 }
 
 .tick {
-  font-size: 0.5rem;
-  color: white; /* Default color for unseen */
+  font-size: 0.6rem;
+  margin-left: 4px;
+  color: white;
+  align-self: flex-end;
 }
 
-.sentAt {
-  font-size: 0.5rem;
+.header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #00796b;
+  color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }

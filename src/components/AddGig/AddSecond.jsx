@@ -83,9 +83,6 @@ export default function Budget() {
       >
         {({ values, isSubmitting, setFieldValue }) => (
           <Form>
-            <div style={{ width: "45vw", margin: "auto", marginTop: "1rem" }}>
-              <ProgressBar step={2} totalSteps={3} />
-            </div>
             <div className={styles.budgetBox}>
               <Field as="select" name="gigPackage" className={styles.package}>
                 <option value="basic">Basic Package</option>
@@ -158,7 +155,7 @@ export default function Budget() {
                     dispatch(decreaseGigStep());
                   }}
                 >
-                  Prev
+                  Back
                 </button>
                 <button
                   type="submit"

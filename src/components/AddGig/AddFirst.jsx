@@ -136,9 +136,6 @@ function CreateGig() {
   }
   return (
     <>
-      <div className={styles.progressContainer}>
-        <ProgressBar step={1} totalSteps={3} />
-      </div>
       <Formik
         initialValues={{
           gigTitle: gigStoreTitle,
@@ -282,6 +279,7 @@ function CreateGig() {
                   width: "100%",
                   display: "flex",
                   justifyContent: "space-between",
+                  marginTop: "2.5%",
                 }}
               >
                 <button

@@ -1,8 +1,8 @@
 /* Container for the form */
 .box {
-  width: 45%;
+  width: 50%;
   height: auto;
-  margin: 2rem auto;
+  margin: 0.5rem auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
@@ -28,6 +28,7 @@
   color: grey;
   font-style: italic;
   font-weight: 500;
+  font-size: 0.9rem;
 }
 .box .inputContainer .normalText:focus {
   border: 1px solid blue;
@@ -72,9 +73,9 @@
   outline: none;
   border: none;
   color: white;
-  font-weight: 400;
-  width: 20%;
-  padding: 10px;
+  font-weight: 500;
+  width: 15%;
+  padding: 8px;
   border-radius: 5px;
   background-color: hsl(120, 74%, 24%);
 }
@@ -214,7 +215,7 @@ button {
 }
 @media (max-width: 768px) {
   .box {
-    width: 60%;
+    width: 75%;
     height: auto;
     margin: 2rem auto;
     padding: 20px;
@@ -275,5 +276,8 @@ button {
     position: absolute;
     cursor: pointer;
     margin-left: 2vw;
+  }
+  .box .inputContainer .normalText {
+    font-size: 0.7rem;
   }
 }

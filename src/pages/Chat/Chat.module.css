@@ -1,35 +1,79 @@
-.chatPage {
+.chatContainer {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 .chatList {
-  width: 30%;
-  border-right: 1px solid #ddd;
+  width: 100%;
+  max-width: 350px;
+  border-right: 1px solid #e5e7eb;
   overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 .chatRoom {
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.placeholder {
-  display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
-  color: #888;
+  width: 100%;
+  transition: all 0.3s ease;
 }
-.chatButton {
+
+.startChatButton {
+  background-color: #38a169;
   color: white;
-  font-weight: 400;
-  width: 20%;
-  padding: 10px;
-  border-radius: 5px;
+  font-weight: 500;
+  padding: 10px 20px;
   border: none;
-  outline: none;
-  background-color: hsl(120, 74%, 24%);
-  margin: auto;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.startChatButton:hover {
+  background-color: #2f855a;
+}
+
+.backButton {
+  margin-top: 10px;
+  background-color: #4a5568;
+  color: white;
+  font-weight: 500;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.backButton:hover {
+  background-color: #2d3748;
+}
+
+.hideList {
+  display: none;
+}
+
+.hideRoom {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chatContainer {
+    flex-direction: column;
+  }
+
+  .chatList {
+    width: 100%;
+    max-width: 100%;
+    border-right: none;
+  }
+
+  .chatRoom {
+    width: 100%;
+  }
 }

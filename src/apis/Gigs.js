@@ -56,5 +56,21 @@ async function fetchAllGigs(pageParam, projectDetails) {
     throw new Error("Unable to fetch gigs. Please try again later."); // Throw an error for query handling
   }
 }
-
-export { fetchGigs, fetchAllGigs };
+async function generateAIDescription({
+  title,
+  features,
+  standardFeatures,
+  advancedFeatures,
+}) {
+  const result = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/gigs/generateAIDescription`,
+    {
+      title,
+      features,
+      standardFeatures,
+      advancedFeatures,
+    }
+  );
+  return result.data.description;
+}
+export { fetchGigs, fetchAllGigs, generateAIDescription };

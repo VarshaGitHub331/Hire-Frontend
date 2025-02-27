@@ -57,5 +57,19 @@ async function getRecommendedCategories(extractText) {
     return []; // Return an empty array as a fallback
   }
 }
-
-export { getSkills, getRecommendedCategories, getAllSkills };
+async function getPopularCategories() {
+  try {
+    const result = await axios.get(`${BASE_URL}/data/fetchPopularCategories`);
+    console.log(result.data);
+    return result.data;
+  } catch (e) {
+    console.error("Error fetching popular categories");
+    return [];
+  }
+}
+export {
+  getSkills,
+  getRecommendedCategories,
+  getAllSkills,
+  getPopularCategories,
+};

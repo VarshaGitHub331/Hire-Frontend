@@ -17,6 +17,7 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
   const [submitting, setSubmitting] = useState(false);
 
   function handlePackageChange(e) {
+    e.stopPropagation();
     const { value } = e.target;
     setSelectedPackage(value);
   }
@@ -27,7 +28,8 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
     else if (selectedPackage === "Advanced") setPayable(gig.advanced_budget);
   }, [selectedPackage]);
 
-  async function createOrder() {
+  async function createOrder(e) {
+    e.stopPropagation();
     try {
       setSubmitting(true);
       const result = await axios.post(
@@ -86,35 +88,39 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
               name="package"
               value="Basic"
               checked={selectedPackage === "Basic"}
-              onChange={handlePackageChange}
+              onChange={(e) => handlePackageChange(e)}
             />
             Basic
           </label>
         </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="package"
-              value="Standard"
-              checked={selectedPackage === "Standard"}
-              onChange={handlePackageChange}
-            />
-            Standard
-          </label>
-        </div>
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="package"
-              value="Advanced"
-              checked={selectedPackage === "Advanced"}
-              onChange={handlePackageChange}
-            />
-            Advanced
-          </label>
-        </div>
+        {JSON.parse(gig.standard_features).length > 0 && (
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="package"
+                value="Standard"
+                checked={selectedPackage === "Standard"}
+                onChange={(e) => handlePackageChange(e)}
+              />
+              Standard
+            </label>
+          </div>
+        )}
+        {JSON.parse(gig.advanced_features).length > 0 && (
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                name="package"
+                value="Advanced"
+                checked={selectedPackage === "Advanced"}
+                onChange={(e) => handlePackageChange(e)}
+              />
+              Advanced
+            </label>
+          </div>
+        )}
       </div>
 
       <textarea
@@ -126,13 +132,19 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
 
       <div className={styles.payable}>
         &#8377;{payable}
-        <button className={styles.orderContinue} onClick={createOrder}>
+        <button
+          className={styles.orderContinue}
+          onClick={(e) => createOrder(e)}
+        >
           Continue
         </button>
       </div>
 
       <button
-        onClick={() => setOpenOrder(false)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpenOrder(false);
+        }}
         disabled={submitting}
         className={styles.closeButton}
       >

@@ -2,6 +2,7 @@ import Featured from "../../components/featured/featured";
 import styles from "./Home.module.css";
 import Categories from "../../components/slider/slide";
 import Projects from "../../components/projectSlider/projectSlider.jsx";
+
 export default function Home() {
   return (
     <div className={styles.home}>

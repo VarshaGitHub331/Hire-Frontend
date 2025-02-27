@@ -1,10 +1,12 @@
 import styles from "./featured.module.css";
-import { getCategories } from "../../apis/Categories";
 import { useQuery } from "@tanstack/react-query";
+import { getPopularCategories } from "../../apis/Skills.js";
+import { useNavigate } from "react-router-dom";
 export default function Featured() {
-  const { data: categories, isLoading } = useQuery({
-    queryFn: () => getCategories(),
-    queryKey: ["categories"],
+  const navigate = useNavigate();
+  const { data: popularCategories, isLoading } = useQuery({
+    queryFn: () => getPopularCategories(),
+    queryKey: ["popularCategories"],
   });
   return (
     <div className={styles.featured}>
@@ -35,10 +37,17 @@ export default function Featured() {
           </div>
           <div className={styles.popular}>
             <span>Popular</span>
-            <button>Web Design</button>
-            <button>Wordpress</button>
-            <button>Logo Design</button>
-            <button>AI Services</button>
+            {popularCategories?.map((popularCategory) => (
+              <button
+                onClick={(e) => {
+                  navigate(
+                    `/viewAllGigs?category=${popularCategory?.Category?.category_name}`
+                  );
+                }}
+              >
+                {popularCategory?.Category?.category_name}
+              </button>
+            ))}
           </div>
         </div>
       </div>

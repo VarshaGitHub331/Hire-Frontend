@@ -6,6 +6,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getCategories } from "../../apis/Categories";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 export default function MyGigs() {
   const navigate = useNavigate();
@@ -14,10 +15,10 @@ export default function MyGigs() {
     queryFn: getCategories,
     queryKey: ["categories"],
   });
-
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
   const user_id = userState.user_id;
   const [showCat, setShowCat] = useState(false);
-  const [filteredCategory, setFilteredCategory] = useState([]);
   const [filterBudget, setFilterBudget] = useState();
   const [showFilter, setShowFilter] = useState(true);
   const [sortOrder, setSortOrder] = useState("");
@@ -26,6 +27,10 @@ export default function MyGigs() {
   const [showRating, setShowRating] = useState(false);
   const location = useLocation();
   const [projectDetails, setProjectDetails] = useState(location.state || null);
+  const [filteredCategory, setFilteredCategory] = useState(
+    category ? [category] : []
+  );
+
   const {
     data,
     fetchNextPage,

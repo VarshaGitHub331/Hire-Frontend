@@ -1,11 +1,15 @@
 import React from "react";
 import Slider from "react-slick";
-import { cards } from "../../Data";
 import CatCard from "../catCards/CatCard";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { useQuery } from "@tanstack/react-query";
+import { getTopRatedGigs } from "../../apis/Gigs";
 export default function Categories() {
+  const { data: popularGigs, isLoading } = useQuery({
+    queryFn: () => getTopRatedGigs(),
+    queryKey: ["topGigs"],
+  });
   const settings = {
     dots: true,
     infinite: true,
@@ -26,7 +30,7 @@ export default function Categories() {
   return (
     <div style={{ marginTop: "2vh" }}>
       <Slider {...settings}>
-        {cards.map((item, index) => (
+        {popularGigs?.map((item, index) => (
           <div key={index} style={{ display: "flex", marginTop: "2vh" }}>
             <CatCard item={item} />
           </div>

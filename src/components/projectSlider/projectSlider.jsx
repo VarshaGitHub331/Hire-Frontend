@@ -1,12 +1,16 @@
 import React from "react";
 import Slider from "react-slick";
-import { projects } from "../../Data";
+import { getTopRatedGigs } from "../../apis/Gigs.js";
 import ProjectCard from "../projectCards/projectCards.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { useQuery } from "@tanstack/react-query";
 export default function Projects() {
-  console.log("Projects array: ", projects); // Check if projects array is defined and has data
+  const { data: topProjects, isLoading } = useQuery({
+    queryFn: () => getTopRatedGigs(),
+    queryKey: ["topGigs"],
+  });
+  console.log("Projects array: ", topProjects); // Check if projects array is defined and has data
 
   const settings = {
     dots: true,
@@ -27,8 +31,8 @@ export default function Projects() {
 
   return (
     <Slider {...settings}>
-      {projects.length > 0 ? (
-        projects.map((ele, index) => (
+      {topProjects?.length > 0 ? (
+        topProjects?.map((ele, index) => (
           <div key={index} style={{ display: "flex" }}>
             <ProjectCard item={ele} />
           </div>

@@ -229,7 +229,7 @@ const ProfilePage = () => {
             </i>
           </li>
           <li>
-            <strong>Cost:</strong>
+            <strong>Budget:</strong>
             {editingField === "cost" ? (
               <input
                 type="text"

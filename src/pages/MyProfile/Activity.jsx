@@ -5,16 +5,17 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import Ratings from "../../components/Charts/Ratings";
 // Function to format "YYYY-MM" into "Jan 2025", "Feb 2025", etc.
 const formatMonth = (dateString) => {
-  const [year, month] = dateString.split("-");
+  const [year, month] = dateString?.split("-");
   const date = new Date(`${year}-${month}-01`);
   return date.toLocaleString("en-US", { month: "short", year: "numeric" });
 };
 
 const fetchRatingsGrowth = async (user_id) => {
   const response = await axios.get(
-    `http://localhost:3001/freelancer/getFreelancerRatingsGrowth?user_id=${user_id}`
+    `${process.env.REACT_APP_SERVER_URL}/freelancer/getFreelancerRatingsGrowth?user_id=${user_id}`
   );
-  return response.data.monthlyRatings.map((item) => ({
+  console.log(response.data);
+  return response.data?.monthlyRatings.map((item) => ({
     ...item,
     month: formatMonth(item.month), // Convert "2025-01" → "Jan 2025"
   }));

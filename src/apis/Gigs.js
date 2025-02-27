@@ -73,4 +73,10 @@ async function generateAIDescription({
   );
   return result.data.description;
 }
-export { fetchGigs, fetchAllGigs, generateAIDescription };
+async function getTopRatedGigs() {
+  const result = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/gigs/fetchTopRatedGigs`
+  );
+  return result.data;
+}
+export { fetchGigs, fetchAllGigs, generateAIDescription, getTopRatedGigs };

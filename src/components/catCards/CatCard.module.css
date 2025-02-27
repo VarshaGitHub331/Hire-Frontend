@@ -8,9 +8,9 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: auto;
   margin-top: 5vh;
-  z-index: -2;
   display: flex; /* Use flexbox to center the content */
   align-items: center; /* Center items vertically */
+  cursor: pointer;
   justify-content: center; /* Center items horizontally */
 }
 

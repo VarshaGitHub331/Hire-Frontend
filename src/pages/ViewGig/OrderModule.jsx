@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function OrderModel({ openOrder, setOpenOrder, gig }) {
   const navigate = useNavigate();
   const { userState } = useAuthContext();
-  const { user_id } = userState;
+  const { user_id, token } = userState;
 
   const [selectedPackage, setSelectedPackage] = useState("Basic");
   const [payable, setPayable] = useState(gig?.budget || 0);
@@ -45,6 +45,7 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

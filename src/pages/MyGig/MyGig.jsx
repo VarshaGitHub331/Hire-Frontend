@@ -58,6 +58,7 @@ export default function MyGig() {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${userState.token}`,
           },
         }
       );
@@ -121,6 +122,7 @@ export default function MyGig() {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           data: { gig_id: gig.gig_id }, // Include `data` in the same object as `headers`
         }

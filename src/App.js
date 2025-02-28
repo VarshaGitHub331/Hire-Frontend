@@ -3,8 +3,6 @@ import Navbar from "./components/navbar/Navbar.jsx";
 import Footer from "./components/footer/footer.jsx";
 import Home from "./pages/home/Home.jsx";
 import Add from "./pages/Add/AddGig.jsx";
-import Messages from "./pages/MyMessages/MyMessage.jsx";
-import Message from "./pages/Message/Message.jsx";
 import SignUp from "./pages/SignUp/SignUp.jsx";
 import Login from "./pages/login/Login.jsx";
 import CategoryModal from "./pages/SignUp/SelectCategories";
@@ -107,14 +105,6 @@ function App() {
         {
           path: "/add",
           element: <Add />,
-        },
-        {
-          path: "/messages",
-          element: <Messages />,
-        },
-        {
-          path: "/message/:id",
-          element: <Message />,
         },
         {
           path: "/signUp",

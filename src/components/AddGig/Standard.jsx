@@ -2,11 +2,13 @@ import styles from "./AddSecond.module.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useAuthContext } from "../../contexts/AuthContext";
 export default function Standard({ values, setFieldValue }) {
   const gigTitle = useSelector((store) => store.gig.gigTitle);
   console.log(values);
   const [features, setFeatures] = useState(values.standardFeatures);
   const [featureInput, setFeatureInput] = useState("");
+  const { userState } = useAuthContext();
   const useAI = async () => {
     try {
       const result = await axios.post(
@@ -15,6 +17,12 @@ export default function Standard({ values, setFieldValue }) {
           level: "standard",
           basic_features: values.features,
           title: values.title,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userState.token}`,
+          },
         }
       );
       console.log(result.data.features);

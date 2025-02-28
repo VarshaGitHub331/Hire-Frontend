@@ -12,10 +12,11 @@ const MyProposals = () => {
   const [pageSize, setPageSize] = useState(5);
   const { userState } = useAuthContext();
   const user_id = userState.user_id;
+  const token = userState.token;
   const job_id = location?.state?.job_id;
   const { data, isLoading, isError } = useQuery({
     queryKey: ["applicants", job_id, page, pageSize],
-    queryFn: () => getMyProposals(user_id, page, pageSize),
+    queryFn: () => getMyProposals(user_id, page, pageSize, token),
     keepPreviousData: true,
   });
 

@@ -20,7 +20,7 @@ const PostJob = () => {
   });
   const [skills, setSkills] = useState([]);
   const { userState } = useAuthContext();
-  const { user_id } = userState;
+  const { user_id, token } = userState;
   const [extractedSkills, setExtractedSkills] = useState(false);
   // Handle Input Change
   const handleChange = (e) => {
@@ -34,14 +34,18 @@ const PostJob = () => {
   // Handle Form Submission
   const handleFetchSkills = async (e) => {
     e.preventDefault();
-    const extractedSkills = await extractSkillsFromPosting(formData, user_id);
+    const extractedSkills = await extractSkillsFromPosting(
+      formData,
+      user_id,
+      token
+    );
     console.log(extractedSkills);
     setSkills((skills) => extractedSkills);
     setExtractedSkills(true);
   };
   const handleCreatePosting = async (e) => {
     e.preventDefault();
-    await CreatePosting(formData, user_id, skills);
+    await CreatePosting(formData, user_id, skills, token);
   };
   // Remove skill from list
   const removeSkill = (skillToRemove) => {

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styles from "./ViewJob.module.css";
 import { useLocation, Link } from "react-router-dom";
 import { editPosting, closePosting } from "../../apis/JobPosting";
-
+import { useAuthContext } from "../../contexts/AuthContext";
 const ViewJob = () => {
   const location = useLocation();
   const job = location?.state?.job || {}; // Ensure job is defined
   console.log(job);
   const [editedJob, setEditedJob] = useState({ ...job });
   const [saving, setSaving] = useState(false);
+  const { userState } = useAuthContext();
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setEditedJob({
@@ -20,13 +21,17 @@ const ViewJob = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     setSaving(true);
-    const updatedJob = await editPosting(editedJob);
+    const updatedJob = await editPosting(editedJob, userState.token);
     setEditedJob(updatedJob);
     setSaving(false);
   };
   const handleClosePosting = async (e, postingStatus) => {
     e.preventDefault();
-    const updatedJob = await closePosting(editedJob.job_id, postingStatus);
+    const updatedJob = await closePosting(
+      editedJob.job_id,
+      postingStatus,
+      userState.token
+    );
     setEditedJob(updatedJob);
   };
   return (

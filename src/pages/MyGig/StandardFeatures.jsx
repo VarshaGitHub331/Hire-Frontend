@@ -6,7 +6,7 @@ const url = process.env.REACT_APP_SERVER_URL;
 
 export default function StandardFeatures({ gig, setGig }) {
   const [features, setFeatures] = useState(JSON.parse(gig.standard_features));
-  const { user_id } = useAuthContext().userState;
+  const { user_id, token } = useAuthContext().userState;
   const [editing, setEditing] = useState(false);
 
   function handleFeatureChange(index, value) {
@@ -27,6 +27,7 @@ export default function StandardFeatures({ gig, setGig }) {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

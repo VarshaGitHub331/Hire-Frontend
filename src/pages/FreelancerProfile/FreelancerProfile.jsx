@@ -9,11 +9,12 @@ function FreelancerProfile() {
   const location = useLocation();
   const { userState } = useAuthContext();
   const user_id = location?.state?.user_id;
+  const token = userState.token;
   const {
     data: freelancerProfileSection,
     isLoading: isLoadingFreelancerProfile,
   } = useQuery({
-    queryFn: () => fetchFreelancerProfile({ user_id }), // Use location state user_id
+    queryFn: () => fetchFreelancerProfile({ user_id, token }), // Use location state user_id
     queryKey: ["freelancerProfileSection", user_id], // Include user_id in queryKey
     enabled: !!user_id, // Only run query if user_id is present
   });

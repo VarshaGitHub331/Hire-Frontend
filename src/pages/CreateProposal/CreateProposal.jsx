@@ -15,7 +15,7 @@ const BidProposal = () => {
   const [proposal, setProposal] = useState("");
   const [error, setError] = useState("");
   const [isGenerating, setIsGenerating] = useState(false); // Track AI generation state
-  const { userState } = useAuthContext();
+  const { userState, token } = useAuthContext();
   const location = useLocation();
   const job = location?.state?.job || {
     title: "Sample Job",
@@ -48,6 +48,7 @@ const BidProposal = () => {
       timeline,
       user_id: userState.user_id,
       job,
+      token,
     });
     setError(""); // Clear error on valid input
   };
@@ -58,6 +59,7 @@ const BidProposal = () => {
       const AIProposal = await getAIProposal({
         user_id: userState.user_id,
         job,
+        token,
       });
       setProposal(AIProposal.proposal);
     } catch (error) {

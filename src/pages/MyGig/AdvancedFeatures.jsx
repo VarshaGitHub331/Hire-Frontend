@@ -1,6 +1,8 @@
 import styles from "./MyGig.module.css";
 import { useState } from "react";
+import { useAuthContext } from "../../contexts/AuthContext";
 export default function AdvancedFeatures({ gig, setGig }) {
+  const { userState } = useAuthContext();
   const [features, setFeatures] = useState(JSON.parse(gig.advanced_features));
   const [editing, setEditing] = useState(false);
 
@@ -20,6 +22,7 @@ export default function AdvancedFeatures({ gig, setGig }) {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${userState.token}`,
           },
         }
       );

@@ -1,11 +1,12 @@
 import styles from "./AddSecond.module.css";
 import { useState } from "react";
 import axios from "axios";
+import { useAuthContext } from "../../contexts/AuthContext";
 export default function Advanced({ values, setFieldValue }) {
   console.log(values.standardFeatures);
   const [features, setFeatures] = useState(values.advancedFeatures);
   const [featureInput, setFeatureInput] = useState("");
-
+  const { userState } = useAuthContext();
   const handleKeyPress = (event, values, setFieldValue) => {
     if (event.key === "Enter" && featureInput.trim()) {
       event.preventDefault();
@@ -42,6 +43,12 @@ export default function Advanced({ values, setFieldValue }) {
           basic_features: values.features,
           standard_features: values.standardFeatures,
           title: values.title,
+        },
+        {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${userState.user_id}`,
+          },
         }
       );
       setFeatures((features) => result.data.features);

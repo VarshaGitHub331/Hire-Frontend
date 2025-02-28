@@ -17,6 +17,7 @@ import {
   changeGigCategories,
   changeGigSkills,
 } from "../../redux/gigSlice";
+import { useAuthContext } from "../../contexts/AuthContext";
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
 const validationSchema = yup.object({
@@ -54,6 +55,8 @@ function CreateGig() {
   const [showRecommendSkills, setShowRecommendSkills] = useState([]);
   const [gigloading, setGigLoading] = useState(false);
   const dispatch = useDispatch();
+  const { userState } = useAuthContext();
+  const { token } = userState;
   function handleNext(e, values) {
     dispatch(changeGigTitle(values.gigTitle));
     dispatch(changeGigCategories(values.gigCategory));
@@ -121,6 +124,7 @@ function CreateGig() {
         {
           headers: {
             "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
           },
         }
       );

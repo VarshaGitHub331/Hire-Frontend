@@ -14,7 +14,7 @@ const JobPostings = () => {
   const [selectedType, setSelectedType] = useState(null);
   const [selectedJob, setSelectedJob] = useState(null);
   const user_id = userState.user_id;
-
+  const token = userState.token;
   // Toggle filter sidebar
   const toggleFilters = () => {
     setShowFilters(!showFilters);
@@ -31,7 +31,7 @@ const JobPostings = () => {
   } = useInfiniteQuery({
     queryKey: ["jobs", user_id],
     queryFn: ({ pageParam = 1 }) =>
-      fetchPostingsForFreelancer(user_id, pageParam),
+      fetchPostingsForFreelancer(user_id, pageParam, token),
     getNextPageParam: (lastPage, pages) => {
       if (!lastPage || !lastPage.jobs) return undefined;
       return lastPage.jobs.length > 0 ? pages.length + 1 : undefined;

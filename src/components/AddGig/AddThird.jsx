@@ -106,6 +106,7 @@ export default function Gigdesc() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${userState.token}`,
           },
         }
       );

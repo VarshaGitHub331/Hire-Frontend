@@ -3,8 +3,10 @@ import styles from "./Reviews.module.css";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchFreelancerReviews } from "../../apis/User";
 import { FaStar } from "react-icons/fa";
-
+import { useAuthContext } from "../../contexts/AuthContext";
 const Reviews = ({ user_id }) => {
+  const { userState } = useAuthContext();
+  const { token } = userState;
   const {
     data,
     isLoading,
@@ -14,7 +16,8 @@ const Reviews = ({ user_id }) => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ["reviews", user_id],
-    queryFn: ({ pageParam = 1 }) => fetchFreelancerReviews(user_id, pageParam),
+    queryFn: ({ pageParam = 1 }) =>
+      fetchFreelancerReviews(user_id, pageParam, token),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.reviews.length > 0 ? pages.length + 1 : undefined;
     },

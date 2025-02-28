@@ -8,8 +8,11 @@ import { getApplicantsForJob } from "../../apis/Applicants";
 import styles from "./ViewApplicants.module.css";
 import ApplicantModal from "./ProposalPopUp";
 import ApplicantProfile from "./Applicant";
+import { useAuthContext } from "../../contexts/AuthContext";
 const ViewApplicants = () => {
   const navigate = useNavigate();
+  const { userState } = useAuthContext();
+  const { token } = userState;
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const location = useLocation();
@@ -18,7 +21,7 @@ const ViewApplicants = () => {
   const [profileApplicant, setProfileApplicant] = useState(null);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["applicants", job_id, page, pageSize],
-    queryFn: () => getApplicantsForJob(job_id, page, pageSize),
+    queryFn: () => getApplicantsForJob(job_id, page, pageSize, token),
     keepPreviousData: true,
   });
 

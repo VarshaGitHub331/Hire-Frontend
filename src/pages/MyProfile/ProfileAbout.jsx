@@ -15,7 +15,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 const ProfileSkills = () => {
   const { profileData, refetch } = useOutletContext();
   const { userState } = useAuthContext();
-
+  const { token } = userState;
   const { data: allSkills = [], isLoading: isLoadingSkills } = useQuery({
     queryFn: getAllSkills,
     queryKey: ["skills"],
@@ -49,6 +49,7 @@ const ProfileSkills = () => {
       updateFreelancerSkills({
         user_id: userState.user_id,
         freelancerSkills: updatedSkills,
+        token: userState.token,
       }),
   });
 
@@ -57,6 +58,7 @@ const ProfileSkills = () => {
       updateFreelancerCategories({
         user_id: userState.user_id,
         freelancerCategories: updatedCategories,
+        token: userState.token,
       }),
   });
 
@@ -119,7 +121,12 @@ const ProfileSkills = () => {
       await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/freelancer/updateProfile`,
         { profile: editBio, user_id: userState.user_id },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       refetch();
       setEditingBio(false);

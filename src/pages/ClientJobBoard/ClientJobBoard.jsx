@@ -19,7 +19,8 @@ const JobBoard = () => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ["jobs", user_id],
-    queryFn: ({ pageParam = 1 }) => fetchPostings(user_id, pageParam),
+    queryFn: ({ pageParam = 1 }) =>
+      fetchPostings(user_id, pageParam, userState.token),
     getNextPageParam: (lastPage, pages) => {
       // Check if there are more gigs to fetch by ensuring the last page is not empty
       return lastPage.jobResults.length > 0 ? pages.length + 1 : undefined;

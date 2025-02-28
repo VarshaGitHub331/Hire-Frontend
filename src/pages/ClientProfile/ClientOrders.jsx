@@ -10,9 +10,15 @@ const formatMonth = (dateString) => {
   return date.toLocaleString("en-US", { month: "short", year: "numeric" });
 };
 
-const fetchOrdersGrowth = async (user_id) => {
+const fetchOrdersGrowth = async (user_id, token) => {
   const response = await axios.get(
-    `http://localhost:3001/client/getClientOrdersGrowth?user_id=${user_id}`
+    `${process.env.REACT_APP_SERVER_URL}/client/getClientOrdersGrowth?user_id=${user_id}`,
+    {
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
   console.log(response);
   return response.data.monthlyOrders.map((item) => ({
@@ -26,7 +32,7 @@ const ClientOrders = () => {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["clientOrdersGrowth", userState?.user_id],
-    queryFn: () => fetchOrdersGrowth(userState?.user_id),
+    queryFn: () => fetchOrdersGrowth(userState?.user_id, userState.token),
     enabled: !!userState?.user_id,
     staleTime: 1000 * 60 * 5,
   });

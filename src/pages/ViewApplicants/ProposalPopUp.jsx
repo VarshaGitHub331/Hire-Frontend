@@ -5,7 +5,9 @@ import { X } from "lucide-react"; // Importing a close (X) icon
 import { acceptProposal, rejectProposal } from "../../apis/Applicants";
 import { useMutation } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
+import { useAuthContext } from "../../contexts/AuthContext";
 const ApplicantModal = ({ applicant, onClose }) => {
+  const { userState } = useAuthContext();
   const sanitizedHTML = DOMPurify.sanitize(applicant.Bids[0].bid_details);
   const queryClient = new QueryClient();
   // Accept Proposal Mutation
@@ -25,7 +27,11 @@ const ApplicantModal = ({ applicant, onClose }) => {
   // Reject Proposal Mutation
   const { mutate: rejectMutation } = useMutation({
     mutationFn: () =>
-      rejectProposal(applicant.Bids[0].bidId, applicant.applicant_id),
+      rejectProposal(
+        applicant.Bids[0].bidId,
+        applicant.applicant_id,
+        userState.token
+      ),
     onSuccess: () => {
       console.log("Rejected Proposal");
       queryClient.invalidateQueries(["applicants"]);

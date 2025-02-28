@@ -11,7 +11,7 @@ export default function MyGigs() {
   const { userState } = useAuthContext();
   const [categorySearch, setCategorySearch] = useState("");
   const [budgetLimit, setBudgetLimit] = useState(0);
-
+  const { token } = userState;
   const user_id = userState.user_id;
   const {
     data,
@@ -22,7 +22,7 @@ export default function MyGigs() {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ["gigs", user_id],
-    queryFn: ({ pageParam = 1 }) => fetchGigs(user_id, pageParam),
+    queryFn: ({ pageParam = 1 }) => fetchGigs(user_id, pageParam, token),
     getNextPageParam: (lastPage, pages) => {
       // Check if there are more gigs to fetch by ensuring the last page is not empty
       return lastPage.gigs.length > 0 ? pages.length + 1 : undefined;

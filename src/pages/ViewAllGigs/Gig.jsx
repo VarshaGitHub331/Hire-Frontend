@@ -11,6 +11,7 @@ import { FaStar } from "react-icons/fa";
 export default function MyGigs() {
   const navigate = useNavigate();
   const { userState } = useAuthContext();
+  const { token } = userState;
   const { data: categories, loading } = useQuery({
     queryFn: getCategories,
     queryKey: ["categories"],
@@ -40,7 +41,8 @@ export default function MyGigs() {
     isError,
   } = useInfiniteQuery({
     queryKey: ["gigs", projectDetails],
-    queryFn: ({ pageParam = 1 }) => fetchAllGigs(pageParam, projectDetails),
+    queryFn: ({ pageParam = 1 }) =>
+      fetchAllGigs(pageParam, projectDetails, token),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.gigs.length > 0 ? pages.length + 1 : undefined;
     },

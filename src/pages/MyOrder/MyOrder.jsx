@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const OrderTable = () => {
   const queryClient = useQueryClient();
-  const { user_id, role } = useAuthContext().userState;
+  const { user_id, role, token } = useAuthContext().userState;
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(6);
   const [pop, setPop] = useState(false);
@@ -71,7 +71,8 @@ const OrderTable = () => {
     },
   ];
   const { mutate: orderUpdate } = useMutation({
-    mutationFn: ({ orderId, status }) => ChangeOrderStatus(orderId, status),
+    mutationFn: ({ orderId, status }) =>
+      ChangeOrderStatus(orderId, status, token),
     onSuccess: () => {
       console.log("Success");
       queryClient.invalidateQueries(["orders", user_id]);
@@ -99,7 +100,7 @@ const OrderTable = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryFn: () => getClientOrders(role, user_id),
+    queryFn: () => getClientOrders(role, user_id, token),
     queryKey: ["orders", user_id],
   });
 

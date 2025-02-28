@@ -1,8 +1,10 @@
 import styles from "./MainDashboard.module.css";
 import moment from "moment";
 import { useOutletContext } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
 export default function MainDashboard() {
   const { profileData } = useOutletContext();
+  const { userState } = useAuthContext();
   console.log(profileData);
   return (
     <>

@@ -28,7 +28,7 @@ const ProfilePage = () => {
     refetch,
   } = useQuery({
     queryKey: ["userProfile", user_id],
-    queryFn: () => getUserProfile({ user_id, role }),
+    queryFn: () => getUserProfile({ user_id, role, token }),
     enabled: !!user_id,
   });
 
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
   const updateEmailMutation = useMutation({
     mutationFn: () =>
-      updateClientProfile({ user_id, key: "email", value: editEmail }),
+      updateClientProfile({ user_id, key: "email", value: editEmail ,token}),
     onSuccess: () => {
       queryClient.invalidateQueries(["userProfile"]);
       setEditingField(null);

@@ -49,7 +49,7 @@ const ProfilePage = () => {
   }, [profileData]);
 
   const updateEmailMutation = useMutation({
-    mutationFn: () => editEmailProfile({ user_id, value: editEmail }),
+    mutationFn: () => editEmailProfile({ user_id, value: editEmail, token }),
     onSuccess: () => {
       queryClient.invalidateQueries(["userProfile"]);
       setEditingField(null);
@@ -58,7 +58,7 @@ const ProfilePage = () => {
 
   const updateFreelancerMutation = useMutation({
     mutationFn: ({ key, value }) =>
-      updateFreelancerProfile({ user_id, key, value }),
+      updateFreelancerProfile({ user_id, key, value, token }),
     onSuccess: () => {
       refetch();
       setEditingField(null);

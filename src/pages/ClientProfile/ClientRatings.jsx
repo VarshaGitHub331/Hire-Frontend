@@ -10,9 +10,9 @@ const formatMonth = (dateString) => {
   return date.toLocaleString("en-US", { month: "short", year: "numeric" });
 };
 
-const fetchRatingsGrowth = async (user_id) => {
+const fetchRatingsGrowth = async (user_id, token) => {
   const response = await axios.get(
-    `http://localhost:3001/client/getClientRatingsGrowth?user_id=${user_id}`
+    `${process.env.REACT_APP_SERVER_URL}/client/getClientRatingsGrowth?user_id=${user_id}`
   );
   return response.data.monthlyRatings.map((item) => ({
     ...item,
@@ -25,7 +25,7 @@ const ClientRatings = () => {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["clientRatingsGrowth", userState?.user_id],
-    queryFn: () => fetchRatingsGrowth(userState?.user_id),
+    queryFn: () => fetchRatingsGrowth(userState?.user_id, userState.token),
     enabled: !!userState?.user_id,
     staleTime: 1000 * 60 * 5,
   });

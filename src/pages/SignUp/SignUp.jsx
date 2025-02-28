@@ -51,7 +51,12 @@ export default function SignUp() {
       const res = await axios.post(
         `${server}/user/createAccount`,
         { email, first_name: firstName, last_name: lastName, password, role },
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log("The result is");
       console.log(res);

@@ -3,8 +3,10 @@ import styles from "./GigsSection.module.css";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchGigs } from "../../apis/Gigs";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
 const GigsSection = ({ user_id }) => {
   const navigate = useNavigate();
+  const token = userState.token;
   const {
     data,
     isLoading,
@@ -14,7 +16,7 @@ const GigsSection = ({ user_id }) => {
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ["gigs", user_id],
-    queryFn: ({ pageParam = 1 }) => fetchGigs(user_id, pageParam),
+    queryFn: ({ pageParam = 1 }) => fetchGigs(user_id, pageParam, token),
     getNextPageParam: (lastPage, pages) => {
       // Check if there are more gigs to fetch by ensuring the last page is not empty
       return lastPage.gigs.length > 0 ? pages.length + 1 : undefined;

@@ -17,7 +17,7 @@ export default function Basic({ values, setFieldValue }) {
         // Update the Formik field 'features' based on the new length
         setFieldValue("features", [...values.features, featureInput.trim()]);
       } else {
-        alert("You can add up to 3 features only.");
+        console.error(e);
       }
     }
   };

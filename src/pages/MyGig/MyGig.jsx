@@ -129,7 +129,7 @@ export default function MyGig() {
       toast.success("Your Gig Has Been Deleted!");
       navigate("/myGigs");
     } catch (e) {
-      alert(e.response?.data?.error || "An error occurred");
+      console.error(e);
     }
   };
 

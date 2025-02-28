@@ -22,7 +22,7 @@ export default function Standard({ values, setFieldValue }) {
       setFeatures((features) => result.data.features);
       setFieldValue("standardFeatures", result.data.features);
     } catch (e) {
-      alert(e);
+      console.error(e);
     }
   };
   const handleKeyPress = (event, values, setFieldValue) => {
@@ -41,7 +41,7 @@ export default function Standard({ values, setFieldValue }) {
           featureInput.trim(),
         ]);
       } else {
-        alert("You can add up to 3 features only.");
+        console.error(e);
       }
     }
   };

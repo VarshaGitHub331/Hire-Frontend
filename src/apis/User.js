@@ -1,5 +1,6 @@
+import { AutoFixHigh } from "@mui/icons-material";
 import axios from "axios";
-async function getUserProfile({ user_id, role }) {
+async function getUserProfile({ user_id, role, token }) {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/user/fetchProfile`,
@@ -7,6 +8,11 @@ async function getUserProfile({ user_id, role }) {
         params: {
           user_id,
           role,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -19,7 +25,7 @@ async function getUserProfile({ user_id, role }) {
 async function updateUserProfile() {
   console.log("updateind profile");
 }
-async function editEmailProfile({ value, user_id }) {
+async function editEmailProfile({ value, user_id, token }) {
   const response = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/user/updateUserProfile`,
     {
@@ -29,12 +35,13 @@ async function editEmailProfile({ value, user_id }) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );
   return response.data;
 }
-async function updateFreelancerProfile({ user_id, key, value }) {
+async function updateFreelancerProfile({ user_id, key, value, token }) {
   console.log(key, value);
   const response = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/freelancer/updateProfile`,
@@ -45,6 +52,7 @@ async function updateFreelancerProfile({ user_id, key, value }) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -67,19 +75,24 @@ async function updateClientProfile({ user_id, key, value, token }) {
   );
   return response.data;
 }
-async function fetchFreelancerProfile({ user_id }) {
+async function fetchFreelancerProfile({ user_id, token }) {
   const response = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/freelancer/fetchFreelancerProfile`,
     {
       params: {
         user_id,
       },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   console.log(response.data);
   return response.data.UserProfile;
 }
-async function fetchFreelancerReviews(user_id, pageParam) {
+async function fetchFreelancerReviews(user_id, pageParam, token) {
   const response = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/freelancer/fetchFreelancerReviews`,
     {
@@ -87,6 +100,11 @@ async function fetchFreelancerReviews(user_id, pageParam) {
         user_id,
         page: pageParam, // Add page as a query parameter
         limit: 3, // Set limit directly
+      },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     }
   );

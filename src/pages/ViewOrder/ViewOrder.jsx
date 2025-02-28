@@ -58,7 +58,7 @@ export default function ViewOrder() {
       setEditingId(""); // Refresh tasks after adding a new one
     },
     onError: () => {
-      alert("Error adding task. Please try again.");
+      console.error(e);
     },
   });
 
@@ -67,8 +67,8 @@ export default function ViewOrder() {
     onSuccess: () => {
       queryClient.invalidateQueries(["tasks"]); // Refresh tasks after adding a new one
     },
-    onError: () => {
-      alert("Error removing task. Please try again.");
+    onError: (e) => {
+      console.error(e);
     },
   });
 
@@ -79,8 +79,8 @@ export default function ViewOrder() {
       setEditingId("");
       setEditingDesc("");
     },
-    onError: () => {
-      alert("Could not edit task");
+    onError: (e) => {
+      console.error(e);
     },
   });
   const { mutate: completeOrder } = useMutation({
@@ -89,8 +89,7 @@ export default function ViewOrder() {
       navigate("/orders");
     },
     onError: (e) => {
-      console.log(e);
-      alert("Could not complete order");
+      console.error(e);
     },
   });
   const { mutate: aiTimeline } = useMutation({
@@ -104,8 +103,8 @@ export default function ViewOrder() {
     onSuccess: () => {
       queryClient.invalidateQueries(["tasks"]);
     },
-    onError: () => {
-      alert("Error generating AI timeline");
+    onError: (e) => {
+      console.error(e);
     },
   });
   if (isLoading) {

@@ -22,7 +22,6 @@ export default function Login() {
 
       password,
     });
-    alert(server);
 
     try {
       const res = await axios.post(
@@ -51,15 +50,12 @@ export default function Login() {
       localStorage.setItem("user_id", currentUser.user_id);
       localStorage.setItem("token", currentUser.token);
       navigate("/");
-    } catch (e) {
-      alert(e);
-    }
+    } catch (e) {}
   };
 
   const handleGoogleLogin = (credentialResponse) => {
     // Decode the JWT token to extract user information
     // Handle the user information after successful login
-    alert("bro");
   };
 
   const handleGoogleError = (error) => {

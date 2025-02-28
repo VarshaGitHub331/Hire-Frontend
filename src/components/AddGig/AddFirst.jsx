@@ -131,7 +131,7 @@ function CreateGig() {
       setFieldValue("gigCategory", data.most_similar_category);
       setGigLoading(false);
     } catch (e) {
-      alert(e);
+      console.error(e);
     }
   }
   return (

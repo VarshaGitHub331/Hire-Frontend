@@ -22,7 +22,7 @@ export default function Advanced({ values, setFieldValue }) {
           featureInput.trim(),
         ]);
       } else {
-        alert("You can add up to 3 features only.");
+        console.error(e);
       }
     }
   };
@@ -48,7 +48,7 @@ export default function Advanced({ values, setFieldValue }) {
       setFieldValue("advancedFeatures", result.data.features);
       console.log(result.data);
     } catch (e) {
-      alert(e);
+      console.error(e);
     }
   };
   return (

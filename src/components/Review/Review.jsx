@@ -4,7 +4,7 @@ import { useState } from "react";
 import { addReview } from "../../apis/Order.js";
 import { useAuthContext } from "../../contexts/AuthContext.jsx";
 import { useMutation } from "@tanstack/react-query";
-
+import { toast, Toaster } from "react-hot-toast";
 function FeedbackModal({ openReview, setOpenReview, order }) {
   const [selectedFeeling, setSelectedFeeling] = useState(null);
   const [comment, setComment] = useState("");
@@ -29,17 +29,16 @@ function FeedbackModal({ openReview, setOpenReview, order }) {
     }) =>
       addReview({ reviewer_id, reviewee_id, order_id, rating, comment, role }),
     onSuccess: () => {
-      alert("Review created successfully!");
+      toast.success("Review created Successfully");
       setOpenReview(false); // Close modal after successful submission
     },
     onError: () => {
-      alert("Error creating review. Please try again.");
+      toast.error("Some issue in creating your review");
     },
   });
 
   const handleSubmit = () => {
     if (!selectedFeeling) {
-      alert("Please select a feeling before submitting.");
       return;
     }
     postReview({

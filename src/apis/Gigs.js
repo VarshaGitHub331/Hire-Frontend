@@ -1,7 +1,7 @@
 import axios from "axios";
 const SERVER = process.env.REACT_APP_SERVER_URL;
 
-async function fetchGigs(user_id, pageParam) {
+async function fetchGigs(user_id, pageParam, token) {
   try {
     const result = await axios.get(
       `${SERVER}/gigs/getGigs`, // Use the correct URL path
@@ -13,6 +13,7 @@ async function fetchGigs(user_id, pageParam) {
         },
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -21,10 +22,10 @@ async function fetchGigs(user_id, pageParam) {
       gigs: result.data, // Array of gigs
     };
   } catch (e) {
-    alert(e); // Handle error
+    console.error(e);
   }
 }
-async function fetchAllGigs(pageParam, projectDetails) {
+async function fetchAllGigs(pageParam, projectDetails, token) {
   try {
     const result = await axios.post(
       `${SERVER}/gigs/tailoredGigs`,
@@ -38,6 +39,7 @@ async function fetchAllGigs(pageParam, projectDetails) {
         },
         headers: {
           "Content-Type": "application/json", // Ensure JSON payload
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -61,6 +63,7 @@ async function generateAIDescription({
   features,
   standardFeatures,
   advancedFeatures,
+  token,
 }) {
   const result = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/gigs/generateAIDescription`,
@@ -69,6 +72,11 @@ async function generateAIDescription({
       features,
       standardFeatures,
       advancedFeatures,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   return result.data.description;

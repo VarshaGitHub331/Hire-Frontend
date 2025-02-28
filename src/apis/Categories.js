@@ -7,7 +7,7 @@ async function getCategories() {
     console.log("All categories are ", res);
     return res.data.categories;
   } catch (e) {
-    alert(e);
+    console.error(e);
   }
 }
 export { getCategories };

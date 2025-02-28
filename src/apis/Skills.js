@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
-async function getSkills(categories) {
+async function getSkills(categories, token) {
   console.log(categories);
   try {
     const result = await axios.get(
@@ -13,6 +13,7 @@ async function getSkills(categories) {
         },
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -20,7 +21,7 @@ async function getSkills(categories) {
     return result.data;
   } catch (e) {}
 }
-async function getAllSkills() {
+async function getAllSkills(token) {
   try {
     const result = await axios.get(
       `${BASE_URL}/data/fetchAllSkills`,
@@ -28,6 +29,7 @@ async function getAllSkills() {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -35,7 +37,7 @@ async function getAllSkills() {
     return result.data.skills;
   } catch (e) {}
 }
-async function getRecommendedCategories(extractText) {
+async function getRecommendedCategories(extractText, token) {
   try {
     const result = await axios.post(
       `${BASE_URL}/freelancer/recommendCategories`,
@@ -45,6 +47,7 @@ async function getRecommendedCategories(extractText) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );

@@ -1,6 +1,13 @@
 import axios from "axios";
 
-const submitBid = async ({ bidAmount, timeline, proposal, user_id, job }) => {
+const submitBid = async ({
+  bidAmount,
+  timeline,
+  proposal,
+  user_id,
+  job,
+  token,
+}) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/applicants/becomeApplicant`,
@@ -12,7 +19,10 @@ const submitBid = async ({ bidAmount, timeline, proposal, user_id, job }) => {
         job,
       },
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Beared ${token}`,
+        },
       }
     );
 
@@ -25,7 +35,7 @@ const submitBid = async ({ bidAmount, timeline, proposal, user_id, job }) => {
     throw new Error(error.response?.data?.message || "Failed to submit bid");
   }
 };
-const getAIProposal = async ({ user_id, job }) => {
+const getAIProposal = async ({ user_id, job, token }) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/applicants/generateAIProposal`,
@@ -34,7 +44,10 @@ const getAIProposal = async ({ user_id, job }) => {
         job,
       },
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 

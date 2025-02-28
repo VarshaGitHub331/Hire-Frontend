@@ -45,7 +45,7 @@ export default function SignUp() {
       last_name: lastName,
       password,
     });
-    alert(server);
+    console.error(e);
     const role = searchParams.get("role");
     try {
       const res = await axios.post(
@@ -77,14 +77,13 @@ export default function SignUp() {
       if (role == "client") navigate("/clientIntro");
       dispatch(increaseStep());
     } catch (e) {
-      alert(e);
+      console.error(e);
     }
   };
 
   const handleGoogleLogin = (credentialResponse) => {
     // Decode the JWT token to extract user information
     // Handle the user information after successful login
-    alert("bro");
   };
 
   const handleGoogleError = (error) => {
@@ -112,7 +111,7 @@ export default function SignUp() {
       });
       dispatch(increaseStep());
     } catch (e) {
-      alert(e);
+      console.error(e);
     }
   };
   const dispatch = useDispatch();

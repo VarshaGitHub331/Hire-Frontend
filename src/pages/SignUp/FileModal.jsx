@@ -46,9 +46,7 @@ export default function FileModal() {
       toast.success("Your Resume has been uploaded!", {
         duration: 3000,
       });
-    } catch (e) {
-      alert(e);
-    }
+    } catch (e) {}
   };
   return (
     <Modal

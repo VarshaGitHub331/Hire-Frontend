@@ -1,5 +1,5 @@
 import axios from "axios";
-async function getApplicantsForJob(job_id, page, pageSize) {
+async function getApplicantsForJob(job_id, page, pageSize, token) {
   const applicantResults = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/applicants/getApplicants`,
     {
@@ -8,12 +8,18 @@ async function getApplicantsForJob(job_id, page, pageSize) {
         page,
         pageSize,
       },
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   console.log(applicantResults.data);
   return applicantResults.data;
 }
-async function acceptProposal(bid_id, applicant_id) {
+async function acceptProposal(bid_id, applicant_id, token) {
   try {
     console.log("Accepting proposal with bid ID:", bid_id);
 
@@ -23,6 +29,7 @@ async function acceptProposal(bid_id, applicant_id) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -33,7 +40,7 @@ async function acceptProposal(bid_id, applicant_id) {
     throw error; // Re-throw for handling in UI
   }
 }
-async function rejectProposal(bid_id, applicant_id) {
+async function rejectProposal(bid_id, applicant_id, token) {
   try {
     console.log("Rejecting proposal with bid ID:", bid_id);
 
@@ -43,6 +50,7 @@ async function rejectProposal(bid_id, applicant_id) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       } // Empty body
     );
@@ -53,7 +61,7 @@ async function rejectProposal(bid_id, applicant_id) {
     throw error; // Re-throw for handling in UI
   }
 }
-async function getMyProposals(user_id, page, pageSize) {
+async function getMyProposals(user_id, page, pageSize, token) {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/applicants/myProposals`,
@@ -62,6 +70,12 @@ async function getMyProposals(user_id, page, pageSize) {
           user_id,
           page,
           pageSize,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );

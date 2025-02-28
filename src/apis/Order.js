@@ -1,5 +1,5 @@
 import axios from "axios";
-async function getClientOrders(role, user_id, page, limit) {
+async function getClientOrders(role, user_id, page, limit, token) {
   if (role == "client") {
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/order/fetchClientOrders`,
@@ -9,6 +9,7 @@ async function getClientOrders(role, user_id, page, limit) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -22,6 +23,7 @@ async function getClientOrders(role, user_id, page, limit) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -29,7 +31,7 @@ async function getClientOrders(role, user_id, page, limit) {
     return result.data;
   }
 }
-async function ChangeOrderStatus(order_id, status) {
+async function ChangeOrderStatus(order_id, status, token) {
   console.log("Status is ", status);
   try {
     const result = await axios.put(
@@ -41,6 +43,7 @@ async function ChangeOrderStatus(order_id, status) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -49,27 +52,37 @@ async function ChangeOrderStatus(order_id, status) {
     console.log(e);
   }
 }
-async function getOrder({ order_id }) {
+async function getOrder({ order_id, token }) {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/order/getOrder/${order_id}`
+      `${process.env.REACT_APP_SERVER_URL}/order/getOrder/${order_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return response.data;
   } catch (e) {
     console.log(e);
   }
 }
-async function getTasks({ order_id }) {
+async function getTasks({ order_id, token }) {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/order/getTasks/${order_id}`
+      `${process.env.REACT_APP_SERVER_URL}/order/getTasks/${order_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return response.data;
   } catch (e) {
     console.log(e);
   }
 }
-async function createTask({ order_id, description }) {
+async function createTask({ order_id, description, token }) {
   const result = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/order/addTask`,
     {
@@ -79,12 +92,13 @@ async function createTask({ order_id, description }) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );
   return result.data;
 }
-async function completeTask({ id }) {
+async function completeTask({ id, token }) {
   const result = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/order/completeTask`,
     {
@@ -93,12 +107,13 @@ async function completeTask({ id }) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );
   return result.data;
 }
-async function editTask({ id, description }) {
+async function editTask({ id, description, token }) {
   const result = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/order/updateTask`,
     {
@@ -108,6 +123,7 @@ async function editTask({ id, description }) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -121,6 +137,7 @@ async function addReview({
   rating,
   comment,
   role,
+  token,
 }) {
   const result = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/reviews/createReview`,
@@ -135,6 +152,7 @@ async function addReview({
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -145,6 +163,7 @@ async function fetchAITimeline({
   packageFeatures,
   gigTitle,
   order_id,
+  token,
 }) {
   const result = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/order/generateAITimeline`,
@@ -157,6 +176,7 @@ async function fetchAITimeline({
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }
   );

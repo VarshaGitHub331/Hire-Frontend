@@ -44,13 +44,13 @@ export default function ViewGig() {
           &gt;&gt; {gig.category_name}
         </div>
       </div>
-      <div
-        className={styles.viewGigContainer}
-        onClick={(e) => {
-          setShowDescriptionPopup(true);
-        }}
-      >
-        <div className={styles.ViewGig}>
+      <div className={styles.viewGigContainer}>
+        <div
+          className={styles.ViewGig}
+          onClick={(e) => {
+            setShowDescriptionPopup(true);
+          }}
+        >
           <div className={styles.gigCard}>
             <div className={styles.gigImage}>
               <img src={gig.picture[0]} alt="gigImage" />
@@ -126,12 +126,12 @@ export default function ViewGig() {
               {gig?.advanced_budget != 0 && <Advanced gig={gig} />}
             </div>
           </div>
-          <OrderModel
-            openOrder={openOrder}
-            setOpenOrder={setOpenOrder}
-            gig={gig}
-          />
         </div>
+        <OrderModel
+          openOrder={openOrder}
+          setOpenOrder={setOpenOrder}
+          gig={gig}
+        />
         {showDescriptionPopup == true && (
           <div className={styles.popupOverlay}>
             <div className={styles.popupContent}>

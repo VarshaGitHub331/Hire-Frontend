@@ -4,7 +4,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios"; // Import jwt-decode to decode the JWT token
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 export default function Login() {
@@ -13,7 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const server = process.env.REACT_APP_SERVER_URL;
   const { UserLogin, UserLogout, userState } = useAuthContext();
-
+  const [signingIn, setSigningIn] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle the form submission logic here
@@ -24,6 +24,7 @@ export default function Login() {
     });
 
     try {
+      setSigningIn(true);
       const res = await axios.post(
         `${server}/user/login`,
         { email, password },
@@ -40,6 +41,7 @@ export default function Login() {
         role: decoded_data.role,
         token: token,
       };
+      setSigningIn(false);
       UserLogin(currentUser);
       console.log(userState);
       setEmail("");
@@ -50,7 +52,10 @@ export default function Login() {
       localStorage.setItem("user_id", currentUser.user_id);
       localStorage.setItem("token", currentUser.token);
       navigate("/");
-    } catch (e) {}
+    } catch (e) {
+      toast.error("We failed to sign you in");
+      setSigningIn(false);
+    }
   };
 
   const handleGoogleLogin = (credentialResponse) => {
@@ -84,7 +89,7 @@ export default function Login() {
           />
 
           <button type="submit" className={styles.button}>
-            Join Hire.
+            {!signingIn ? "Join Hire." : "Signing In.."}
           </button>
         </form>
         <div className={styles.or}>or</div>{" "}

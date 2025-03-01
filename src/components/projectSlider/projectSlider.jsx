@@ -31,15 +31,12 @@ export default function Projects() {
 
   return (
     <Slider {...settings}>
-      {topProjects?.length > 0 ? (
+      {topProjects?.length &&
         topProjects?.map((ele, index) => (
           <div key={index} style={{ display: "flex" }}>
             <ProjectCard item={ele} />
           </div>
-        ))
-      ) : (
-        <div>No projects available</div> // Handle the case where no projects are available
-      )}
+        ))}
     </Slider>
   );
 }

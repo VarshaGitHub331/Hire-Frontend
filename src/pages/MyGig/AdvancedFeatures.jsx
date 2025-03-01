@@ -78,8 +78,9 @@ export default function AdvancedFeatures({ gig, setGig }) {
         <div
           className={styles.editTag}
           style={{ marginLeft: "50%" }}
-          onClick={() => {
+          onClick={(e) => {
             {
+              e.stopPropagation();
               editing == true && handleSave();
             }
             setEditing((prev) => !prev);

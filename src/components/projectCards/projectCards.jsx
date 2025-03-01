@@ -22,7 +22,7 @@ export default function ProjectCard({ item }) {
         </div>
         <div className={styles.foot}>
           <img
-            src={item?.pp || "/path/to/default_profile_image.jpg"} // Fallback profile image
+            src={item?.profile_pic || "/path/to/default_profile_image.jpg"} // Fallback profile image
             alt="profile"
             className={styles.profile}
           />

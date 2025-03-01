@@ -5,17 +5,17 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { FaLastfmSquare } from "react-icons/fa";
 
 export default function OrderModel({ openOrder, setOpenOrder, gig }) {
   const navigate = useNavigate();
   const { userState } = useAuthContext();
   const { user_id, token } = userState;
-
   const [selectedPackage, setSelectedPackage] = useState("Basic");
   const [payable, setPayable] = useState(gig?.budget || 0);
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
+  const [ordering, setOrdering] = useState(false);
   function handlePackageChange(e) {
     e.stopPropagation();
     const { value } = e.target;
@@ -30,7 +30,9 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
 
   async function createOrder(e) {
     e.stopPropagation();
+
     try {
+      setOrdering(true);
       setSubmitting(true);
       const result = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/order/createOrderForGig`,
@@ -49,11 +51,14 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
           },
         }
       );
+      setOrdering(false);
       console.log("Order created successfully:", result.data);
       toast.success("Your order has been placed!");
       setSubmitting(false);
       navigate("/orders");
     } catch (e) {
+      setOrdering(false);
+      toast.error("Error placing order");
       console.error("Error creating order:", e.response?.data || e.message);
     }
   }
@@ -143,7 +148,7 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
           className={styles.orderContinue}
           onClick={(e) => createOrder(e)}
         >
-          Continue
+          {ordering == false ? "Continue" : "Ordering"}
         </button>
       </div>
 

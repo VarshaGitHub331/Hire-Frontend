@@ -125,6 +125,7 @@
 .loadMore button {
   border: none;
   margin: none;
+  display: inline;
   background-color: white;
   font-weight: 500;
   color: #0f6c41;
@@ -133,6 +134,8 @@
   font-size: 0.8rem;
   font-weight: 500;
   text-align: left;
+  display: flex;
+  gap: 2vw;
 }
 .jobTitle {
   text-align: left;

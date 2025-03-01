@@ -68,6 +68,7 @@ const ProfileSkills = () => {
     );
     setSkills(updatedSkills);
     updateSkillsMutation.mutate(updatedSkills);
+    refetch();
   };
 
   const removeCategory = (categoryName) => {
@@ -76,6 +77,7 @@ const ProfileSkills = () => {
     );
     setCategories(updatedCategories);
     updateCategoriesMutation.mutate(updatedCategories);
+    refetch();
   };
 
   const addSkill = (skillName) => {
@@ -88,6 +90,7 @@ const ProfileSkills = () => {
       setSkills(updatedSkills);
       setNewSkill("");
       updateSkillsMutation.mutate(updatedSkills);
+      refetch();
     }
   };
 
@@ -105,6 +108,7 @@ const ProfileSkills = () => {
       setCategories(updatedCategories);
       setNewCategory("");
       updateCategoriesMutation.mutate(updatedCategories);
+      refetch();
     }
   };
 

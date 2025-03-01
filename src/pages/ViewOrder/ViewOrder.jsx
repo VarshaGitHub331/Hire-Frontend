@@ -26,7 +26,7 @@ import ReviewModal from "../../components/Review/Review.jsx";
 
 export default function ViewOrder() {
   const { userState } = useAuthContext();
-  const { role } = userState;
+  const { role, token } = userState;
   const { id } = useParams();
   const [addTask, setAddTask] = useState(false);
   const [taskDescription, setTaskDescription] = useState("");
@@ -40,19 +40,19 @@ export default function ViewOrder() {
     isLoading,
     isError,
   } = useQuery({
-    queryFn: () => getOrder({ order_id: id }),
+    queryFn: () => getOrder({ order_id: id, token }),
     queryKey: ["order"],
   });
 
   const { data: tasks, isLoadingTasks } = useQuery({
-    queryFn: () => getTasks({ order_id: id }),
+    queryFn: () => getTasks({ order_id: id, token }),
     queryKey: ["tasks"],
   });
 
   // Use the addTask mutation correctly
   const { mutate: addNewTask } = useMutation({
     mutationFn: ({ order_id, description }) =>
-      createTask({ order_id, description }),
+      createTask({ order_id, description, token }),
     onSuccess: () => {
       queryClient.invalidateQueries(["tasks"]);
       setEditingId(""); // Refresh tasks after adding a new one
@@ -63,7 +63,7 @@ export default function ViewOrder() {
   });
 
   const { mutate: removeTask } = useMutation({
-    mutationFn: ({ id }) => completeTask({ id }),
+    mutationFn: ({ id }) => completeTask({ id, token }),
     onSuccess: () => {
       queryClient.invalidateQueries(["tasks"]); // Refresh tasks after adding a new one
     },
@@ -73,7 +73,7 @@ export default function ViewOrder() {
   });
 
   const { mutate: updateTask } = useMutation({
-    mutationFn: ({ id, description }) => editTask({ id, description }),
+    mutationFn: ({ id, description }) => editTask({ id, description, token }),
     onSuccess: () => {
       queryClient.invalidateQueries(["tasks"]);
       setEditingId("");
@@ -84,7 +84,8 @@ export default function ViewOrder() {
     },
   });
   const { mutate: completeOrder } = useMutation({
-    mutationFn: ({ order_id }) => ChangeOrderStatus(order_id, "complete"),
+    mutationFn: ({ order_id }) =>
+      ChangeOrderStatus(order_id, "complete", token),
     onSuccess: () => {
       navigate("/orders");
     },
@@ -99,6 +100,7 @@ export default function ViewOrder() {
         features,
         packageFeatures,
         order_id: order.order_id,
+        token,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries(["tasks"]);

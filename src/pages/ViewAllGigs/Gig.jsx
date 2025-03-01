@@ -250,7 +250,10 @@ export default function MyGigs() {
                 <img src={gig.picture[0]} alt="gigImage" />
               </div>
               <div className={styles.creator}>
-                <div>{gig.freelancer_name}</div>
+                <div style={{ display: "flex", gap: "1vw" }}>
+                  <img src={gig.profilePic} alt="pic" />
+                  <div>{gig.freelancer_name}</div>
+                </div>
                 <StarRating rating={parseInt(gig.freelancer_rating)} />
               </div>
               <div className={styles.gigTitle}>{gig.title}</div>

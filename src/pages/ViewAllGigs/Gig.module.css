@@ -144,6 +144,12 @@
   padding-left: 2.5%;
   padding-right: 2.5%;
 }
+.creator img {
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+}
 .break {
   width: 95%;
   margin: auto;

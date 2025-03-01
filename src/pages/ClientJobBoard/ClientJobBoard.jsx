@@ -84,19 +84,19 @@ const JobBoard = () => {
                 <p className={styles.budget}>
                   {"\u20B9"} {parseInt(job.min_budget)} - {"\u20B9"}{" "}
                   {parseInt(job.max_budget)}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/viewApplicants", {
+                        state: {
+                          job_id: job.job_id,
+                        },
+                      });
+                    }}
+                  >
+                    VIEW APPLICANTS
+                  </button>
                 </p>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate("/viewApplicants", {
-                      state: {
-                        job_id: job.job_id,
-                      },
-                    });
-                  }}
-                >
-                  VIEW APPLICANTS
-                </button>
               </div>
             ))}
           </main>

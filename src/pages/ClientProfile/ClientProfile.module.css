@@ -69,6 +69,7 @@
 
 .tabs a {
   text-decoration: none;
+  cursor: pointer;
   color: #333;
   font-weight: bold;
   padding: 0.5rem 0;

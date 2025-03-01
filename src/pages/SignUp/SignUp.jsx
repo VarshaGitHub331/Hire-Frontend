@@ -18,6 +18,7 @@ import {
 } from "../../redux/modalSlice";
 import { openProfileModal } from "../../redux/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -32,7 +33,8 @@ export default function SignUp() {
   const navigate = useNavigate();
   const resumeUrl = useSelector((store) => store.signUpDetails.resumeUrl);
   const profile = useSelector((store) => store.signUpDetails.profile);
-
+  const [signingUp, setSigningUp] = useState(false);
+  const [profilingAI, setProfilingAI] = useState(false);
   function toggleBudgetLinkedin() {
     setBudgetLinkedin(!budgetLinkedin);
   }
@@ -48,6 +50,7 @@ export default function SignUp() {
     console.error(e);
     const role = searchParams.get("role");
     try {
+      setSigningUp(true);
       const res = await axios.post(
         `${server}/user/createAccount`,
         { email, first_name: firstName, last_name: lastName, password, role },
@@ -57,6 +60,7 @@ export default function SignUp() {
           },
         }
       );
+      setSigningUp(false);
       console.log("The result is");
       console.log(res);
       const token = res.data;
@@ -81,6 +85,8 @@ export default function SignUp() {
       if (role == "client") navigate("/clientIntro");
       dispatch(increaseStep());
     } catch (e) {
+      toast.error("Some issue signing up");
+      setSigningUp(false);
       console.error(e);
     }
   };
@@ -120,6 +126,7 @@ export default function SignUp() {
   };
   const profileWithAI = async (e) => {
     try {
+      setProfilingAI(true);
       const finishProfiling = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/freelancer/profileUserWithAI`,
         {
@@ -134,8 +141,10 @@ export default function SignUp() {
       );
       console.log(finishProfiling);
       navigate("/myFreelancerProfile");
+      setProfilingAI(false);
     } catch (e) {
       console.error(e);
+      setProfilingAI(false);
     }
   };
   const dispatch = useDispatch();
@@ -174,8 +183,12 @@ export default function SignUp() {
               required
             />
 
-            <button type="submit" className={styles.button}>
-              Join Hire.
+            <button
+              type="submit"
+              className={styles.button}
+              disabled={signingUp}
+            >
+              {!signingUp ? "Join Hire." : "Signing Up"}
             </button>
           </form>
           <div className={styles.or}>or</div>{" "}
@@ -253,7 +266,7 @@ export default function SignUp() {
                 profileWithAI(e);
               }}
             >
-              Use AI
+              {!profilingAI ? "Use AI" : "Profiling You.."}
             </div>
           </div>
 

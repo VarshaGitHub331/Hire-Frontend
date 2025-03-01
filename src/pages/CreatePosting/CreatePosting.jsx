@@ -7,7 +7,8 @@ import {
   CreatePosting,
   fetchPostings,
 } from "../../apis/JobPosting";
-
+import toast from "react-hot-toast";
+import { TroubleshootTwoTone } from "@mui/icons-material";
 const PostJob = () => {
   const [formData, setFormData] = useState({
     jobLocation: "",
@@ -22,6 +23,8 @@ const PostJob = () => {
   const { userState } = useAuthContext();
   const { user_id, token } = userState;
   const [extractedSkills, setExtractedSkills] = useState(false);
+  const [postingJob, setPostingJob] = useState(false);
+  const [extractingSkills, setExtractingSkills] = useState(false);
   // Handle Input Change
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -33,6 +36,7 @@ const PostJob = () => {
 
   // Handle Form Submission
   const handleFetchSkills = async (e) => {
+    setExtractingSkills(TroubleshootTwoTone);
     e.preventDefault();
     const extractedSkills = await extractSkillsFromPosting(
       formData,
@@ -42,10 +46,14 @@ const PostJob = () => {
     console.log(extractedSkills);
     setSkills((skills) => extractedSkills);
     setExtractedSkills(true);
+    setExtractingSkills(false);
   };
   const handleCreatePosting = async (e) => {
+    setPostingJob(true);
     e.preventDefault();
     await CreatePosting(formData, user_id, skills, token);
+    setPostingJob(false);
+    toast.success("Created A Posting");
   };
   // Remove skill from list
   const removeSkill = (skillToRemove) => {
@@ -194,7 +202,7 @@ const PostJob = () => {
                       handleFetchSkills(e);
                     }}
                   >
-                    Extract Skills
+                    {!extractingSkills ? "Extract Skills" : "Extracting Skills"}
                   </button>
                   <button
                     type="submit"
@@ -204,7 +212,7 @@ const PostJob = () => {
                       handleCreatePosting(e);
                     }}
                   >
-                    Save
+                    {postingJob === false ? "Save" : "Saving"}
                   </button>
                 </>
               </div>

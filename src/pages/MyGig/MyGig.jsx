@@ -143,13 +143,13 @@ export default function MyGig() {
           &gt;&gt; {gig.category_name}
         </div>
       </div>
-      <div
-        className={styles.gigContainer}
-        onClick={(e) => {
-          if (!editing) setShowDescriptionPopup(true);
-        }}
-      >
-        <div className={styles.gigCard}>
+      <div className={styles.gigContainer}>
+        <div
+          className={styles.gigCard}
+          onClick={(e) => {
+            if (!editing) setShowDescriptionPopup(true);
+          }}
+        >
           <div className={styles.gigImage}>
             <img src={gig.picture[0]} alt="gigImage" />
           </div>

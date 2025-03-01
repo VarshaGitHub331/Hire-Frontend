@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
   const updateEmailMutation = useMutation({
     mutationFn: () =>
-      updateClientProfile({ user_id, key: "email", value: editEmail ,token}),
+      updateClientProfile({ user_id, key: "email", value: editEmail, token }),
     onSuccess: () => {
       queryClient.invalidateQueries(["userProfile"]);
       setEditingField(null);
@@ -222,6 +222,7 @@ const ProfilePage = () => {
       </div>
       <div className={styles.mainContent}>
         <nav className={styles.tabs}>
+          <a onClick={() => navigate("/myClientProfile")}>About</a>
           <a onClick={() => navigate("ratings")}>Ratings</a>
           <a onClick={() => navigate("orders")}>Orders</a>
         </nav>

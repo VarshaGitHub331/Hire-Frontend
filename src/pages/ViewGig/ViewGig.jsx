@@ -66,7 +66,7 @@ export default function ViewGig() {
 
             <div className={styles.gigCategories}>
               Skills:
-              {gig.skills_names.split(",").map((skill, index) => (
+              {gig.skills_names?.split(",").map((skill, index) => (
                 <div key={index} className={styles.catTag}>
                   {skill}
                 </div>

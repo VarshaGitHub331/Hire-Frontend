@@ -25,7 +25,7 @@ export default function MyGigs() {
     queryFn: ({ pageParam = 1 }) => fetchGigs(user_id, pageParam, token),
     getNextPageParam: (lastPage, pages) => {
       // Check if there are more gigs to fetch by ensuring the last page is not empty
-      return lastPage.gigs.length > 0 ? pages.length + 1 : undefined;
+      return lastPage.gigs?.length > 0 ? pages.length + 1 : undefined;
     },
   });
   function handleCardClick(gig) {
@@ -37,7 +37,7 @@ export default function MyGigs() {
 
   if (isError) return <div>Error loading gigs!</div>;
   const filteredData = data?.pages.flatMap((page) =>
-    page.gigs.filter((gig) => {
+    page.gigs?.filter((gig) => {
       return (
         (!categorySearch ||
           gig.category_name

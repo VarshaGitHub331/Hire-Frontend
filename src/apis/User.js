@@ -2,6 +2,7 @@ import { AutoFixHigh } from "@mui/icons-material";
 import axios from "axios";
 async function getUserProfile({ user_id, role, token }) {
   try {
+    console.log(token);
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/user/fetchProfile`,
       {
@@ -9,9 +10,8 @@ async function getUserProfile({ user_id, role, token }) {
           user_id,
           role,
         },
-      },
-      {
         headers: {
+          "Content-Type": "Application/json",
           Authorization: `Bearer ${token}`,
         },
       }
@@ -22,6 +22,7 @@ async function getUserProfile({ user_id, role, token }) {
     console.log(e);
   }
 }
+
 async function updateUserProfile() {
   console.log("updateind profile");
 }
@@ -101,8 +102,6 @@ async function fetchFreelancerReviews(user_id, pageParam, token) {
         page: pageParam, // Add page as a query parameter
         limit: 3, // Set limit directly
       },
-    },
-    {
       headers: {
         Authorization: `Bearer ${token}`,
       },

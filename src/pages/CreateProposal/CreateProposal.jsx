@@ -15,7 +15,8 @@ const BidProposal = () => {
   const [proposal, setProposal] = useState("");
   const [error, setError] = useState("");
   const [isGenerating, setIsGenerating] = useState(false); // Track AI generation state
-  const { userState, token } = useAuthContext();
+  const { userState } = useAuthContext();
+  const { token } = userState;
   const location = useLocation();
   const job = location?.state?.job || {
     title: "Sample Job",

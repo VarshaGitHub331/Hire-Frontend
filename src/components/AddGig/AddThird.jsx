@@ -57,6 +57,7 @@ export default function Gigdesc() {
         features,
         standardFeatures: gigStoreStandardFeatures,
         advancedFeatures: gigStoreAdvancedFeatures,
+        token: userState.token,
       });
       return data;
     },

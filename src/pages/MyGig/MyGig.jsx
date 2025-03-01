@@ -217,7 +217,7 @@ export default function MyGig() {
           <div className={styles.gigCategories}>
             Skills:
             {editing
-              ? skillNames.map((skill, index) => (
+              ? skillNames?.map((skill, index) => (
                   <input
                     key={index}
                     type="text"
@@ -227,7 +227,7 @@ export default function MyGig() {
                     onChange={(e) => handleSkillChange(index, e.target.value)}
                   />
                 ))
-              : gig.skills_names.split(",").map((skill, index) => (
+              : gig.skills_names?.split(",").map((skill, index) => (
                   <div key={index} className={styles.catTag}>
                     {skill}
                   </div>

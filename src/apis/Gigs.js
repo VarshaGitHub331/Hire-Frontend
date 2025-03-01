@@ -39,7 +39,6 @@ async function fetchAllGigs(pageParam, projectDetails, token) {
         },
         headers: {
           "Content-Type": "application/json", // Ensure JSON payload
-          Authorization: `Bearer ${token}`,
         },
       }
     );

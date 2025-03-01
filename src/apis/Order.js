@@ -1,5 +1,5 @@
 import axios from "axios";
-async function getClientOrders(role, user_id, page, limit, token) {
+async function getClientOrders(role, user_id, token) {
   if (role == "client") {
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/order/fetchClientOrders`,

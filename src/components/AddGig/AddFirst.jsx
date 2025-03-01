@@ -87,13 +87,13 @@ function CreateGig() {
 
   const { data: recommendCategories, isLoadingCats } = useQuery({
     queryKey: ["recommendCategories", gigTitle], // The key should be an array
-    queryFn: () => getRecommendedCategories(gigTitle), // Fetch function
+    queryFn: () => getRecommendedCategories(gigTitle, token), // Fetch function
 
     enabled: gigTitle.length > 0, // Ensures the query only runs if gigTitle is not empty
   });
   const { data: recommendedSkills, isLoadingSkills } = useQuery({
     queryKey: ["recommendedSkills", selectedCategory],
-    queryFn: () => getSkills(selectedCategory),
+    queryFn: () => getSkills(selectedCategory, token),
 
     enabled: !!selectedCategory,
   });
@@ -124,7 +124,7 @@ function CreateGig() {
         {
           headers: {
             "Content-Type": "application/json",
-            "Authorization":`Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
         }
       );

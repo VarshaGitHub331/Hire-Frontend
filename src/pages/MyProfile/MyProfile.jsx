@@ -31,7 +31,7 @@ const ProfilePage = () => {
     refetch,
   } = useQuery({
     queryKey: ["userProfile", user_id],
-    queryFn: () => getUserProfile({ user_id, role }),
+    queryFn: () => getUserProfile({ user_id, role, token }),
     enabled: !!user_id,
   });
 

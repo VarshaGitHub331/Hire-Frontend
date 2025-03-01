@@ -54,7 +54,6 @@ export default function SignUp() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -115,6 +114,26 @@ export default function SignUp() {
         duration: 3000,
       });
       dispatch(increaseStep());
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const profileWithAI = async (e) => {
+    try {
+      const finishProfiling = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/freelancer/profileUserWithAI`,
+        {
+          user_id: userState.user_id,
+        },
+        {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${userState.token}`,
+          },
+        }
+      );
+      console.log(finishProfiling);
+      navigate("/myFreelancerProfile");
     } catch (e) {
       console.error(e);
     }
@@ -231,7 +250,7 @@ export default function SignUp() {
             <div
               className={styles.chooseGreen}
               onClick={(e) => {
-                dispatch(openCategoryModal());
+                profileWithAI(e);
               }}
             >
               Use AI

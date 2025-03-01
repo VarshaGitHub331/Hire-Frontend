@@ -102,7 +102,10 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
                 name="package"
                 value="Standard"
                 checked={selectedPackage === "Standard"}
-                onChange={(e) => handlePackageChange(e)}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  handlePackageChange(e);
+                }}
               />
               Standard
             </label>
@@ -116,7 +119,10 @@ export default function OrderModel({ openOrder, setOpenOrder, gig }) {
                 name="package"
                 value="Advanced"
                 checked={selectedPackage === "Advanced"}
-                onChange={(e) => handlePackageChange(e)}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  handlePackageChange(e);
+                }}
               />
               Advanced
             </label>

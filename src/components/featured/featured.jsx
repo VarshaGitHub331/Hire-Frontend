@@ -36,7 +36,6 @@ export default function Featured() {
             <button>Search</button>
           </div>
           <div className={styles.popular}>
-            <span>Popular</span>
             {popularCategories?.map((popularCategory) => (
               <button
                 onClick={(e) => {

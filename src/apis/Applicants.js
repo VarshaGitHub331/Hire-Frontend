@@ -8,8 +8,6 @@ async function getApplicantsForJob(job_id, page, pageSize, token) {
         page,
         pageSize,
       },
-    },
-    {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -71,8 +69,6 @@ async function getMyProposals(user_id, page, pageSize, token) {
           page,
           pageSize,
         },
-      },
-      {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

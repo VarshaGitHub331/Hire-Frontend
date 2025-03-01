@@ -47,7 +47,7 @@ export default function Advanced({ values, setFieldValue }) {
         {
           headers: {
             "Content-Type": "Application/json",
-            Authorization: `Bearer ${userState.user_id}`,
+            Authorization: `Bearer ${userState.token}`,
           },
         }
       );

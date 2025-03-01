@@ -12,7 +12,12 @@ const formatMonth = (dateString) => {
 
 const fetchRatingsGrowth = async (user_id, token) => {
   const response = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/client/getClientRatingsGrowth?user_id=${user_id}`
+    `${process.env.REACT_APP_SERVER_URL}/client/getClientRatingsGrowth?user_id=${user_id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
   return response.data.monthlyRatings.map((item) => ({
     ...item,

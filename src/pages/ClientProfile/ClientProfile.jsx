@@ -10,7 +10,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 const queryClient = new QueryClient();
 
 const ProfilePage = () => {
-  const { userState } = useAuthContext();
+  const { userState, UpdatePic } = useAuthContext();
   const { user_id, role, token } = userState;
   const navigate = useNavigate();
   const [editEmail, setEditEmail] = useState("");
@@ -88,6 +88,7 @@ const ProfilePage = () => {
         }
       );
       if (response.status === 200) {
+        UpdatePic(response.data);
         refetch();
       }
     } catch (e) {

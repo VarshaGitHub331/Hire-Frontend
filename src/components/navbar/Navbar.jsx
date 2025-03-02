@@ -178,7 +178,11 @@ function Navbar() {
             )}
             {userState.name && (
               <div className={styles.user}>
-                <img src="/assets/Logo.webp" alt="" className={styles.Img} />
+                <img
+                  src={userState?.profilePic}
+                  alt=""
+                  className={styles.Img}
+                />
                 <span
                   ref={dropdownRef}
                   onClick={() => setOpenOp((prevState) => !prevState)}

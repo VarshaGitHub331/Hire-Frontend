@@ -12,7 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const server = process.env.REACT_APP_SERVER_URL;
-  const { UserLogin, UserLogout, userState } = useAuthContext();
+  const { UserLogin, UserLogout, userState, UpdatePic } = useAuthContext();
   const [signingIn, setSigningIn] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +39,7 @@ export default function Login() {
         user_name: decoded_data.user_name,
         user_id: decoded_data.user_id,
         role: decoded_data.role,
+        profilePic: decoded_data.profilePic,
         token: token,
       };
       setSigningIn(false);

@@ -12,7 +12,7 @@ import { FaCamera, FaPen, FaCheck } from "react-icons/fa";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 const ProfilePage = () => {
-  const { userState } = useAuthContext();
+  const { userState, UpdatePic } = useAuthContext();
   const { user_id, role, token } = userState;
   const queryClient = new QueryClient();
   const navigate = useNavigate();
@@ -88,6 +88,7 @@ const ProfilePage = () => {
           },
         }
       );
+
       if (response.status === 200) {
         refetch(); // Refresh profile data
         setEditingField(null);
@@ -120,6 +121,7 @@ const ProfilePage = () => {
           },
         }
       );
+      UpdatePic(response.data);
       if (response.status === 200) {
         refetch();
       }

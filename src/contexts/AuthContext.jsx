@@ -9,6 +9,7 @@ const initialUser = {
   role: localStorage.getItem("role") || null,
   user_id: localStorage.getItem("user_id") || null,
   token: localStorage.getItem("authToken") || null,
+  profilePic: localStorage.getItem("profilePic") || null,
 };
 
 function userReducer(state, action) {
@@ -21,13 +22,25 @@ function userReducer(state, action) {
         role: payload.role,
         token: payload.token,
         user_id: payload.user_id,
+        profilePic: payload.profilePic,
       };
     case "LOGOUT":
       localStorage.removeItem("name");
       localStorage.removeItem("role");
       localStorage.removeItem("user_id");
       localStorage.removeItem("token");
-      return { ...state, name: null, role: null, token: null, user_id: null };
+      localStorage.removeItem("profilePic");
+      return {
+        ...state,
+        name: null,
+        role: null,
+        token: null,
+        user_id: null,
+        profilePic: null,
+      };
+    case "updatePic":
+      localStorage.setItem("profilePic", payload);
+      return { ...state, profilePic: payload };
     default:
       console.log("Unknown User Action");
   }
@@ -40,6 +53,7 @@ function AuthProvider({ children }) {
     localStorage.setItem("role", user.role);
     localStorage.setItem("user_id", user.user_id);
     localStorage.setItem("authToken", user.token);
+    localStorage.setItem("profilePic", user.profilePic);
   }
   function UserLogout() {
     dispatch({ type: "LOGOUT" });
@@ -48,14 +62,20 @@ function AuthProvider({ children }) {
       console.log("purged");
     });
   }
+  function UpdatePic(profilePic) {
+    dispatch({ type: "updatePic", payload: profilePic });
+  }
   return (
-    <UserContext.Provider value={{ UserLogin, UserLogout, userState }}>
+    <UserContext.Provider
+      value={{ UserLogin, UserLogout, userState, UpdatePic }}
+    >
       {children}
     </UserContext.Provider>
   );
 }
 function useAuthContext() {
-  const { UserLogin, UserLogout, userState } = useContext(UserContext);
-  return { UserLogin, UserLogout, userState };
+  const { UserLogin, UserLogout, userState, UpdatePic } =
+    useContext(UserContext);
+  return { UserLogin, UserLogout, userState, UpdatePic };
 }
 export { AuthProvider, useAuthContext };

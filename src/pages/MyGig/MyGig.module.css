@@ -277,13 +277,21 @@
   .MyGig {
     display: grid;
     grid-template-columns: 1fr; /* Single column layout */
-    grid-gap: 2rem;
+    grid-gap: auto;
   }
 
-  .gigCard,
   .packFeatures {
     width: 95%; /* Full width for small screens */
-    margin-top: 5%;
+    height: auto;
+  }
+  .gigCard {
+    width: 95%;
+    height: auto; /* Let it expand */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between; /* Distribute elements evenly */
+    overflow: hidden; /* Prevents overflow */
   }
 
   .gigImage {
@@ -304,6 +312,9 @@
   .deleteTag {
     font-size: 0.7em;
     padding: 3px;
+  }
+  .catTag {
+    padding: 5px;
   }
 
   .features {

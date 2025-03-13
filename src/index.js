@@ -8,11 +8,12 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
+import { AuthProvider, useAuthContext } from "./contexts/AuthContext.jsx";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-  <React.StrictMode>
+  <AuthProvider>
     <Provider store={store} persistor={persistor}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
@@ -20,7 +21,7 @@ root.render(
         </QueryClientProvider>
       </PersistGate>
     </Provider>
-  </React.StrictMode>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

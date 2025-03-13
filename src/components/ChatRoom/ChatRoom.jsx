@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 import styles from "./ChatRoom.module.css";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-
+import { socket } from "../../App.js";
 // Initialize the socket instance outside the component
-const socket = io("http://localhost:3001");
 
 const ChatRoom = ({
   buyerId,

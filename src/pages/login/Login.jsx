@@ -6,7 +6,7 @@ import axios from "axios"; // Import jwt-decode to decode the JWT token
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../../contexts/AuthContext";
-
+import { socket } from "../../App.js";
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -52,6 +52,7 @@ export default function Login() {
       localStorage.setItem("role", currentUser.role);
       localStorage.setItem("user_id", currentUser.user_id);
       localStorage.setItem("token", currentUser.token);
+      socket.emit("register", currentUser.user_id);
       navigate("/");
     } catch (e) {
       toast.error("We failed to sign you in");

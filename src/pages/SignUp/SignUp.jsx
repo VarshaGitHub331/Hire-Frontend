@@ -19,6 +19,7 @@ import {
 import { openProfileModal } from "../../redux/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
+import { socket } from "../../App.js";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -82,6 +83,7 @@ export default function SignUp() {
       localStorage.setItem("role", currentUser.role);
       localStorage.setItem("user_id", currentUser.user_id);
       localStorage.setItem("token", currentUser.token);
+      socket.emit("register", currentUser.user_id);
       if (role == "client") navigate("/clientIntro");
       dispatch(increaseStep());
     } catch (e) {

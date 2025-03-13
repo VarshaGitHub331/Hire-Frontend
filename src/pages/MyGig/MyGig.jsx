@@ -235,26 +235,27 @@ export default function MyGig() {
           </div>
           {showSuggestedSkills && (
             <div className={styles.suggestedCategories}>
-              {suggestedSkills?.map((sk) => (
-                <div
-                  className={styles.catTag}
-                  style={{
-                    backgroundColor: "#2dd889",
-                    height: "0.5rem",
-                    margin: "0.2rem",
-                    fontSize: "0.6rem",
-                    width: "auto",
-                  }}
-                  onClick={(e) => {
-                    handleSkillSelect(sk.skill_name);
-                    setShowSuggestedSkills(
-                      (suggestedSkills) => !suggestedSkills
-                    );
-                  }}
-                >
-                  {sk.skill_name}
-                </div>
-              ))}
+              {editing &&
+                suggestedSkills?.map((sk) => (
+                  <div
+                    className={styles.catTag}
+                    style={{
+                      backgroundColor: "#2dd889",
+                      height: "0.5rem",
+                      margin: "0.2rem",
+                      fontSize: "0.6rem",
+                      width: "auto",
+                    }}
+                    onClick={(e) => {
+                      handleSkillSelect(sk.skill_name);
+                      setShowSuggestedSkills(
+                        (suggestedSkills) => !suggestedSkills
+                      );
+                    }}
+                  >
+                    {sk.skill_name}
+                  </div>
+                ))}
             </div>
           )}
           <div className={styles.features}>

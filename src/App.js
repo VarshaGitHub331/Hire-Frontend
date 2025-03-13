@@ -38,7 +38,32 @@ import BidProposal from "./pages/CreateProposal/CreateProposal.jsx";
 import ViewApplicants from "./pages/ViewApplicants/ViewApplicants.jsx";
 import MyProposals from "./pages/MyProposals/MyProposals.jsx";
 import FreelancerProfile from "./pages/FreelancerProfile/FreelancerProfile.jsx";
+import { io } from "socket.io-client";
+import { useEffect, useRef } from "react";
+const socket = io("http://localhost:3001", {
+  reconnection: true,
+  reconnectionAttempts: 10,
+  reconnectionDelay: 20000, // Try reconnecting every 2s
+});
 function App() {
+  const { userState } = useAuthContext();
+
+  useEffect(() => {
+    if (!userState?.user_id) return;
+    console.log("Here for subscribing");
+    const handleNotification = (data) => {
+      console.log("📩 Notification received:", data);
+      toast.success(data);
+    };
+
+    socket.emit("register", userState.user_id); // Subscribe user
+    socket.on("notification", handleNotification); // Listen for notifications
+
+    return () => {
+      socket.off("notification", handleNotification); // Unsubscribe on unmount
+    };
+  }, [userState.user_id]); // Runs only when user_id changes
+
   const Layout = () => {
     return (
       <div className={styles.App}>
@@ -239,12 +264,11 @@ function App() {
   return (
     <>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>
-        <AuthProvider>
-          <RouterProvider router={router} />
-        </AuthProvider>
+        <RouterProvider router={router} />
       </GoogleOAuthProvider>
     </>
   );
 }
 
 export default App;
+export { socket };

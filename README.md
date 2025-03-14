@@ -47,7 +47,7 @@ This repository contains the **React.js frontend** for an AI-powered freelance m
 ## 🔧 Setup & Installation
 ```sh
    git clone https://github.com/VarshaGitHub331/Hire-Frontend
-   cd freelance-marketplace-frontend
+   cd hire-frontend
   npm install
   npm start
 

@@ -40,6 +40,8 @@ import MyProposals from "./pages/MyProposals/MyProposals.jsx";
 import FreelancerProfile from "./pages/FreelancerProfile/FreelancerProfile.jsx";
 import { io } from "socket.io-client";
 import { useEffect, useRef } from "react";
+import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute.jsx";
+import PublicRoute from "./pages/ProtectedRoute/PublicRoute.jsx";
 const socket = io("http://localhost:3001", {
   reconnection: true,
   reconnectionAttempts: 10,
@@ -119,148 +121,147 @@ function App() {
           path: "/",
           element: <Home />,
         },
-        {
-          path: "/gig/:id",
-          element: <MyGig />,
-        },
-        {
-          path: "/orders",
-          element: <Order />,
-        },
-        {
-          path: "/add",
-          element: <Add />,
-        },
+
         {
           path: "/signUp",
           element: <SignUp />,
           children: [
-            {
-              path: "selectCategory",
-              element: <CategoryModal />,
-            },
-            {
-              path: "selectSkill",
-              element: <SkillModal />,
-            },
-            {
-              path: "selectBudget",
-              element: <BudgetLinkedinModal />,
-            },
+            { path: "selectCategory", element: <CategoryModal /> },
+            { path: "selectSkill", element: <SkillModal /> },
+            { path: "selectBudget", element: <BudgetLinkedinModal /> },
           ],
         },
         {
           path: "/login",
           element: <Login />,
         },
+
+        // Protected Routes Start Here
         {
-          path: "/myGigs",
-          element: <MyGigs />,
-        },
-        {
-          path: "/clientIntro",
-          element: <ClientIntro />,
-        },
-        {
-          path: "/viewGigs",
-          element: <ViewGigs />,
-        },
-        {
-          path: "/viewAllGigs",
-          element: <ViewAllGigs />,
-        },
-        {
-          path: "/viewGig/:id",
-          element: <ViewGig />,
-        },
-        {
-          path: "/chat",
-          element: <Chat />,
-        },
-        {
-          path: "/order/:id",
-          element: <ViewOrder />,
-        },
-        {
-          path: "/myFreelancerProfile",
-          element: <ProfilePage />,
+          element: <ProtectedRoute />, // Wrap all protected routes
           children: [
             {
-              path: "",
-              element: <MainDashboard />,
+              path: "/gig/:id",
+              element: <MyGig />,
             },
             {
-              path: "about",
-              element: <ProfileAbout />,
+              path: "/orders",
+              element: <Order />,
             },
             {
-              path: "ratings",
-              element: <RatingsActivity />,
+              path: "/add",
+              element: <Add />,
             },
             {
-              path: "orders",
-              element: <OrdersActivity />,
+              path: "/myGigs",
+              element: <MyGigs />,
+            },
+            {
+              path: "/clientIntro",
+              element: <ClientIntro />,
+            },
+            {
+              path: "/viewGigs",
+              element: <ViewGigs />,
+            },
+            {
+              path: "/viewAllGigs",
+              element: <ViewAllGigs />,
+            },
+            {
+              path: "/viewGig/:id",
+              element: <ViewGig />,
+            },
+            {
+              path: "/chat",
+              element: <Chat />,
+            },
+            {
+              path: "/order/:id",
+              element: <ViewOrder />,
+            },
+            {
+              path: "/myFreelancerProfile",
+              element: <ProfilePage />,
+              children: [
+                {
+                  path: "",
+                  element: <MainDashboard />,
+                },
+                {
+                  path: "about",
+                  element: <ProfileAbout />,
+                },
+                {
+                  path: "ratings",
+                  element: <RatingsActivity />,
+                },
+                {
+                  path: "orders",
+                  element: <OrdersActivity />,
+                },
+              ],
+            },
+            {
+              path: "/myClientProfile",
+              element: <MyClientProfile />,
+              children: [
+                {
+                  path: "",
+                  element: <MainDashboard />,
+                },
+                {
+                  path: "about",
+                  element: <ProfileAbout />,
+                },
+                {
+                  path: "ratings",
+                  element: <ClientRatings />,
+                },
+                {
+                  path: "orders",
+                  element: <ClientOrders />,
+                },
+              ],
+            },
+            {
+              path: "/createJobPosting",
+              element: <CreatePosting />,
+            },
+            {
+              path: "/clientJobs",
+              element: <JobBoard />,
+            },
+            {
+              path: "/clientJobs/:id",
+              element: <ViewJob />,
+            },
+            {
+              path: "/freelancerJobs",
+              element: <JobListing />,
+            },
+            {
+              path: "/createProposal",
+              element: <BidProposal />,
+            },
+            {
+              path: "/viewApplicants",
+              element: <ViewApplicants />,
+            },
+            {
+              path: "/myProposals",
+              element: <MyProposals />,
+            },
+            {
+              path: "/freelancerProfile",
+              element: <FreelancerProfile />,
             },
           ],
-        },
-        {
-          path: "/myClientProfile",
-          element: <MyClientProfile />,
-          children: [
-            {
-              path: "",
-              element: <MainDashboard />,
-            },
-            {
-              path: "about",
-              element: <ProfileAbout />,
-            },
-            {
-              path: "ratings",
-              element: <ClientRatings />,
-            },
-            {
-              path: "orders",
-              element: <ClientOrders />,
-            },
-          ],
-        },
-        {
-          path: "/createJobPosting",
-          element: <CreatePosting />,
-        },
-        {
-          path: "/clientJobs",
-          element: <JobBoard />,
-        },
-        {
-          path: "/clientJobs/:id",
-          element: <ViewJob />,
-        },
-        {
-          path: "/freelancerJobs",
-          element: <JobListing />,
-        },
-        {
-          path: "/createProposal",
-          element: <BidProposal />,
-        },
-        {
-          path: "/viewApplicants",
-          element: <ViewApplicants />,
-        },
-        {
-          path: "/myProposals",
-          element: <MyProposals />,
-        },
-        {
-          path: "/freelancerProfile",
-          element: <FreelancerProfile />,
         },
       ],
     },
-    {},
   ]);
+
   return (
     <>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_ID}>

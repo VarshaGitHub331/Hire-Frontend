@@ -88,10 +88,7 @@
 .jobs {
   width: 75%;
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  ); /* Responsive grid */
+  grid-template-columns: repeat(3, minmax(250px, 1fr)); /* Responsive grid */
   gap: 30px;
 }
 
@@ -176,4 +173,9 @@
 }
 hr {
   width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .jobs {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 }

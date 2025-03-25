@@ -59,3 +59,8 @@
     width: 70vw;
   }
 }
+@media screen and (max-width: 480px) {
+  .progressContainer {
+    width: 75vw;
+  }
+}

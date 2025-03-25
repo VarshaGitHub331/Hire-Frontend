@@ -35,7 +35,9 @@ function FreelancerProfile() {
                 {freelancerProfileSection.isTopRated == true && (
                   <span className={styles.topRated}>Top Rated</span>
                 )}
-                <span>★ {freelancerProfileSection.Freelancer_Rating}</span>
+                {freelancerProfileSection?.Freelancer_Rating && (
+                  <span>★ {freelancerProfileSection.Freelancer_Rating}</span>
+                )}
               </div>
             </div>
           </div>
@@ -46,16 +48,25 @@ function FreelancerProfile() {
             </div>
           )}
           <div className={styles.skills}>
-            <h5>Skills</h5>
-            <div className={styles.skillsList}>
-              {freelancerProfileSection?.User?.Freelancer_Skills?.map(
-                (freelancerSkill) => (
-                  <span key={freelancerSkill?.id} className={styles.skillTag}>
-                    {freelancerSkill?.Skill?.skill_name}
-                  </span>
-                )
-              )}
-            </div>
+            {freelancerProfileSection?.User?.Freelancer_Skills?.length > 0 ? (
+              <>
+                <h5>Skills</h5>
+                <div className={styles.skillsList}>
+                  {freelancerProfileSection?.User?.Freelancer_Skills?.map(
+                    (freelancerSkill) => (
+                      <span
+                        key={freelancerSkill?.id}
+                        className={styles.skillTag}
+                      >
+                        {freelancerSkill?.Skill?.skill_name}
+                      </span>
+                    )
+                  )}
+                </div>
+              </>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       )}

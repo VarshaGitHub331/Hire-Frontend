@@ -13,7 +13,11 @@ const ApplicantModal = ({ applicant, onClose }) => {
   // Accept Proposal Mutation
   const { mutate: acceptMutation } = useMutation({
     mutationFn: () =>
-      acceptProposal(applicant.Bids[0].bidId, applicant.applicant_id),
+      acceptProposal(
+        applicant.Bids[0].bidId,
+        applicant.applicant_id,
+        userState.token
+      ),
     onSuccess: () => {
       console.log("Accepted Proposal");
       queryClient.invalidateQueries(["applicants"]);

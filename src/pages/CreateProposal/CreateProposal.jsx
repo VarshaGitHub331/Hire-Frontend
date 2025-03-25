@@ -8,7 +8,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import { submitBid, getAIProposal } from "../../apis/Bid";
 import { FaMagic } from "react-icons/fa";
-
+import { toast } from "react-hot-toast";
 const BidProposal = () => {
   const [bidAmount, setBidAmount] = useState(5000);
   const [timeline, setTimeline] = useState(1);
@@ -17,6 +17,7 @@ const BidProposal = () => {
   const [isGenerating, setIsGenerating] = useState(false); // Track AI generation state
   const { userState } = useAuthContext();
   const { token } = userState;
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const location = useLocation();
   const job = location?.state?.job || {
     title: "Sample Job",
@@ -27,13 +28,16 @@ const BidProposal = () => {
 
   const mutation = useMutation({
     mutationFn: (bidContent) => {
+      setIsSubmitting(true);
       submitBid(bidContent);
     },
     onSuccess: () => {
-      console.log("Proposal submitted");
+      toast.success("Proposal submitted");
+      setIsSubmitting(false);
     },
     onError: () => {
-      console.log("Error in submitting");
+      toast.error("Error in submitting");
+      setIsSubmitting(false);
     },
   });
 
@@ -145,7 +149,7 @@ const BidProposal = () => {
                 )}
               </button>
               <button type="submit" className={styles.submitButton}>
-                Submit Proposal
+                {isSubmitting ? "Submitting..." : "Submit Proposal"}
               </button>
             </div>
           </form>

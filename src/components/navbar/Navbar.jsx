@@ -178,11 +178,13 @@ function Navbar() {
             )}
             {userState.name && (
               <div className={styles.user}>
-                <img
-                  src={userState?.profilePic}
-                  alt=""
-                  className={styles.Img}
-                />
+                {userState?.profilePic && (
+                  <img
+                    src={userState?.profilePic}
+                    alt=""
+                    className={styles.Img}
+                  />
+                )}
                 <span
                   ref={dropdownRef}
                   onClick={() => setOpenOp((prevState) => !prevState)}

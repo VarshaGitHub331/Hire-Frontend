@@ -83,8 +83,6 @@ async function fetchFreelancerProfile({ user_id, token }) {
       params: {
         user_id,
       },
-    },
-    {
       headers: {
         Authorization: `Bearer ${token}`,
       },

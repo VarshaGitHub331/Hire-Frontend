@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 const GigsSection = ({ user_id }) => {
   const navigate = useNavigate();
-  const token = userState.token;
+  const { userState } = useAuthContext();
+  const { token } = userState;
   const {
     data,
     isLoading,
@@ -32,30 +33,42 @@ const GigsSection = ({ user_id }) => {
   const gigsData = data?.pages.flatMap((page) => page.gigs.map((gig) => gig));
   return (
     <section className={styles.gigsSection}>
-      <h4 className={styles.heading}>My Gigs</h4>
-      <div className={styles.gigsContainer}>
-        {gigsData?.map((gig, index) => (
-          <div
-            key={index}
-            className={styles.gigCard}
+      {
+        // Loading state
+        isLoading && <div>Loading...</div>
+      }
+      {gigsData?.length > 0 ? (
+        <>
+          <h4 className={styles.heading}>My Gigs</h4>
+
+          <div className={styles.gigsContainer}>
+            {gigsData?.map((gig, index) => (
+              <div
+                key={index}
+                className={styles.gigCard}
+                onClick={(e) => {
+                  handleCardClick(gig);
+                }}
+              >
+                <img src={gig.picture} alt="Gig" className={styles.gigImage} />
+                <p className={styles.gigTitle}>{gig.title}</p>
+                <p className={styles.gigPrice}>From &#8377; {gig.budget}</p>
+              </div>
+            ))}
+          </div>
+
+          <button
+            className={styles.viewAllButton}
             onClick={(e) => {
-              handleCardClick(gig);
+              fetchNextPage();
             }}
           >
-            <img src={gig.picture} alt="Gig" className={styles.gigImage} />
-            <p className={styles.gigTitle}>{gig.title}</p>
-            <p className={styles.gigPrice}>From &#8377; {gig.budget}</p>
-          </div>
-        ))}
-      </div>
-      <button
-        className={styles.viewAllButton}
-        onClick={(e) => {
-          fetchNextPage();
-        }}
-      >
-        View More
-      </button>
+            View More
+          </button>
+        </>
+      ) : (
+        <div></div>
+      )}
     </section>
   );
 };
